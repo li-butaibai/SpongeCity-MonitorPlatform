@@ -10,6 +10,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>SpongeCity-Core</artifactId>
-
+    <dependencies>
+        <dependency>
+            <groupId>SpongeCity.MonitorPlatform</groupId>
+            <artifactId>SpongeCity-DBAccess</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+    </dependencies>
 
 </project>
