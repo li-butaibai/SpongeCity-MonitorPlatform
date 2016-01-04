@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://www.springframework.org/schema/security"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security.xsd">
+
+       <!--<http entry-point-ref="authEntryPoint">-->
+       <!--<intercept-url pattern="/login*" access="permitAll"/>-->
+       <!--<intercept-url pattern="/css/**" access="permitAll"/>-->
+       <!--<intercept-url pattern="/scripts/**" access="permitAll"/>-->
+       <!--<intercept-url pattern="/img/**" access="permitAll"/>-->
+       <!--<intercept-url pattern="/font/**" access="permitAll"/>-->
+       <!--<intercept-url pattern="/**" access="hasRole('ROLE_ADMIN')"/>-->
+       <!--<custom-filter ref="authenticationFiler" position="FORM_LOGIN_FILTER"/>-->
+       <!--</http>-->
+       <!--<beans:bean id="authEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">-->
+       <!--<beans:constructor-arg name="loginFormUrl" value="/login"/>-->
+       <!--</beans:bean>-->
+       <!--<beans:bean id="authenticationFiler" class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">-->
+       <!--<beans:property name="authenticationManager" ref="authenticationManager"/>-->
+       <!--</beans:bean>-->
+
+       <http auto-config="true">
+              <intercept-url pattern="/account/login" access="permitAll"/>
+              <intercept-url pattern="/css/**" access="permitAll"/>
+              <intercept-url pattern="/scripts/**" access="permitAll"/>
+              <intercept-url pattern="/img/**" access="permitAll"/>
+              <intercept-url pattern="/font/**" access="permitAll"/>
+              <intercept-url pattern="/**" access="hasRole('ROLE_ADMIN')"/>
+
+              <form-login login-page="/account/login" default-target-url="/"/>
+       </http>
+       <authentication-manager alias="authenticationManager">
+              <authentication-provider>
+                     <user-service>
+                            <user name="admin" password="admin" authorities="ROLE_ADMIN"></user>
+                     </user-service>
+              </authentication-provider>
+       </authentication-manager>
+</beans:beans>

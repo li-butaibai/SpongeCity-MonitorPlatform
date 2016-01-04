@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>SpongeCity.MonitorPlatform</groupId>
+    <artifactId>SpongeCity.MonitorPlatform</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.1</version>
+    <modules>
+        <module>SpongeCity-MonitorPortal</module>
+    </modules>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <SpongeCity.version>1.0.1</SpongeCity.version>
+        <junit.version>3.8.1</junit.version>
+        <log4j.version>1.2.15</log4j.version>
+        <spring.version>4.2.2.RELEASE</spring.version>
+        <spring.security.version>4.0.3.RELEASE</spring.security.version>
+        <jackson.version>2.1.5</jackson.version>
+    </properties>
+</project>
