@@ -1,6 +1,6 @@
 package SpongeCity.MonitorPlatform.Core.PlatformData;
 
-import SpongeCity.MonitorPlatform.DBAccess.Model.DeviceLogModel;
+import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceLogModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +9,8 @@ import java.util.List;
  * Created by sabermai on 2016/1/4.
  */
 public class LogData {
-    public List<DeviceLogModel> getDeviceLogList(int deviceId){
-        List<DeviceLogModel> deviceLogList = new ArrayList<DeviceLogModel>();
+    public List<DB_DeviceLogModel> getDeviceLogList(int deviceId){
+        List<DB_DeviceLogModel> deviceLogList = new ArrayList<DB_DeviceLogModel>();
 
         return deviceLogList;
     }

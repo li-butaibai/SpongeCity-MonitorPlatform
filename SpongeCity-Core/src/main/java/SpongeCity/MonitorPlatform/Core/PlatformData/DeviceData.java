@@ -1,7 +1,7 @@
 package SpongeCity.MonitorPlatform.Core.PlatformData;
 
-import SpongeCity.MonitorPlatform.DBAccess.Model.DeviceModel;
-import SpongeCity.MonitorPlatform.DBAccess.Model.DeviceTypeModel;
+import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceModel;
+import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceTypeModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,20 +10,20 @@ import java.util.List;
  * Created by sabermai on 2016/1/4.
  */
 public class DeviceData {
-    public List<DeviceTypeModel> getAllDeviceType() {
-        List<DeviceTypeModel> deviceTypeList = new ArrayList<DeviceTypeModel>();
+    public List<DB_DeviceTypeModel> getAllDeviceType() {
+        List<DB_DeviceTypeModel> deviceTypeList = new ArrayList<DB_DeviceTypeModel>();
 
         return deviceTypeList;
     }
 
-    public List<DeviceModel> getAllDevice(){
-        List<DeviceModel> deviceList = new ArrayList<DeviceModel>();
+    public List<DB_DeviceModel> getAllDevice(){
+        List<DB_DeviceModel> deviceList = new ArrayList<DB_DeviceModel>();
 
         return deviceList;
     }
 
-    public DeviceModel getDeviceInfo(int deviceId){
-        DeviceModel device = new DeviceModel();
+    public DB_DeviceModel getDeviceInfo(int deviceId){
+        DB_DeviceModel device = new DB_DeviceModel();
 
         return device;
     }

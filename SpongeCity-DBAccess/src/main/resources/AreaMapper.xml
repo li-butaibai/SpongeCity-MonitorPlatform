@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SpongeCity.MonitorPlatform.DBAccess.Interface.IAreaOperation">
+    <resultMap id="areaMap" type="DB_AreaModel">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="size" column="size"/>
+        <result property="position" column="position"/>
+        <result property="parentarea_id" column="parentarea_id"/>
+    </resultMap>
+    <select id="getAllArea" resultMap="areaMap">
+        select * from areas
+    </select>
+    <select id="getAreaById" parameterType="int" resultType="DB_AreaModel">
+        SELECT * FROM areas WHERE id = #{areaId}
+    </select>
+</mapper>

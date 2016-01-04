@@ -1,6 +1,6 @@
 package SpongeCity.MonitorPlatform.Core.PlatformData;
 
-import SpongeCity.MonitorPlatform.DBAccess.Model.AreaModel;
+import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AreaModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,14 +9,14 @@ import java.util.List;
  * Created by sabermai on 2016/1/4.
  */
 public class AreaData {
-    public List<AreaModel> getAllArea() {
-        List<AreaModel> areaList = new ArrayList<AreaModel>();
+    public List<DB_AreaModel> getAllArea() {
+        List<DB_AreaModel> areaList = new ArrayList<DB_AreaModel>();
 
         return areaList;
     }
 
-    public AreaModel getAreaInfo(int areaId) {
-        AreaModel area = new AreaModel();
+    public DB_AreaModel getAreaInfo(int areaId) {
+        DB_AreaModel area = new DB_AreaModel();
 
         return area;
     }

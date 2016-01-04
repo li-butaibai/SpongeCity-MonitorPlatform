@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SpongeCity.MonitorPlatform.DBAccess.Interface.IDeviceTypeOperation">
+    <resultMap id="deviceTypeMap" type="DB_DeviceTypeModel">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="comments" column="comments"/>
+    </resultMap>
+    <select id="getAllDeviceType" resultMap="deviceTypeMap">
+        select * from devicetypes
+    </select>
+</mapper>
