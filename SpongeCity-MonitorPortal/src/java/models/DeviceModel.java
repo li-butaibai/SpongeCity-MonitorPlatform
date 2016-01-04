@@ -9,13 +9,14 @@ public class DeviceModel {
     private int id;
     private String device_id;
     private DeviceState state;
-    private DeviceTypeModel devicetype;
+    private DeviceTypeModel deviceType;
     private AreaModel area;
     private String model;
     private String comments;
     private Date firstUpTime;
     private Date updateTime;
     private int alertCount;
+    private Coordinate coordinate;
 
     public int getId() {
         return id;
@@ -41,12 +42,12 @@ public class DeviceModel {
         this.state = state;
     }
 
-    public DeviceTypeModel getDevicetype() {
-        return devicetype;
+    public DeviceTypeModel getDeviceType() {
+        return deviceType;
     }
 
-    public void setDevicetype(DeviceTypeModel devicetype) {
-        this.devicetype = devicetype;
+    public void setDeviceType(DeviceTypeModel deviceType) {
+        this.deviceType = deviceType;
     }
 
     public AreaModel getArea() {
@@ -95,5 +96,13 @@ public class DeviceModel {
 
     public void setAlertCount(int alertCount) {
         this.alertCount = alertCount;
+    }
+
+    public Coordinate getCoordinate() {
+        return coordinate;
+    }
+
+    public void setCoordinate(Coordinate coordinate) {
+        this.coordinate = coordinate;
     }
 }

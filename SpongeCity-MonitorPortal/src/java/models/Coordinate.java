@@ -4,19 +4,19 @@ package models;
  * Created by EriclLee on 15/12/30.
  */
 public class Coordinate {
-    private int x;
-    private int y;
+    private float longitude;
+    private float latitude;
 
-    public Coordinate(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public Coordinate(int longitude, int latitude) {
+        this.longitude = longitude;
+        this.latitude = latitude;
     }
 
-    public int getX() {
-        return x;
+    public float getLongitude() {
+        return longitude;
     }
 
-    public int getY() {
-        return y;
+    public float getLatitude() {
+        return latitude;
     }
 }
