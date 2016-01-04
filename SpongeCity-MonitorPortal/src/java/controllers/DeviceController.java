@@ -9,9 +9,15 @@ import org.springframework.web.servlet.ModelAndView;
  * Created by EriclLee on 15/12/29.
  */
 @Controller
-@RequestMapping(value = "/devices")
+@RequestMapping(value = "/devices/")
 public class DeviceController {
     @RequestMapping(value = "/index",method = RequestMethod.GET)
     public ModelAndView index()
     {return null;}
+
+    @RequestMapping(value="/detail",method = RequestMethod.GET)
+    public ModelAndView detail()
+    {
+        return null;
+    }
 }
