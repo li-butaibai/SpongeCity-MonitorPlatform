@@ -9,6 +9,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="SpongeCity-DBAccess" />
     <orderEntry type="library" name="Maven: org.mybatis:mybatis:3.3.0" level="project" />
   </component>
 </module>
