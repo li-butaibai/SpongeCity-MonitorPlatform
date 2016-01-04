@@ -22,10 +22,5 @@ public class HomeController {
         return modelAndView;
     }
 
-    public Map<String,Object> devices(@RequestParam int areaId, int[] deviceTypeIds)
-    {
-        Map<String, Object> result = new HashMap<String, Object>();
 
-        return result;
-    }
 }
