@@ -16,12 +16,12 @@
         <result property="updatetime" column="updatetime"/>
         <result property="state" column="state"/>
         <result property="datastatus" column="datastatus"/>
-        <association property="devicetype" javaType="DB_DeviceTypeModel">
+        <association property="devicetype" column="devicetype_id" javaType="DB_DeviceTypeModel">
             <id property="id" column="id"/>
             <result property="name" column="name"/>
             <result property="comments" column="comments"/>
         </association>
-        <association property="area" javaType="DB_AreaModel">
+        <association property="area" column="area_id" javaType="DB_AreaModel">
             <id property="id" column="id"/>
             <result property="name" column="name"/>
             <result property="size" column="size"/>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SpongeCity.MonitorPlatform.DBAccess.Interface.IDeviceLogOperation">
+    <resultMap id="deviceLogMap" type="DB_DeviceLogModel">
+        <id property="id" column="id"/>
+        <result property="logtime" column="logtime"/>
+        <result property="deviceid" column="deviceid"/>
+        <result property="logtitle" column="logtitle"/>
+        <result property="comments" column="comments"/>
+        <!--<association property="device" javaType="DB_DeviceModel">
+            <id property="id" column="id"/>
+            <result property="deviceid" column="deviceid"/>
+            <result property="model" column="model"/>
+            <result property="comments" column="comments"/>
+            <result property="longitude" column="longitude"/>
+            <result property="latitude" column="latitude"/>
+            <result property="firstuptime" column="firstuptime"/>
+            <result property="updatetime" column="updatetime"/>
+            <result property="state" column="state"/>
+            <result property="datastatus" column="datastatus"/>
+        </association>-->
+    </resultMap>
+    <select id="getDeviceLogByDeviceId" parameterType="int" resultMap="deviceLogMap">
+        select * from devicelog where deviceid = #{deviceId}
+    </select>
+</mapper>
