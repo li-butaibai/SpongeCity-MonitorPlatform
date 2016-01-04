@@ -9,8 +9,12 @@ public class DeviceModel {
     private int id;
     private String device_id;
     private DeviceState state;
-    private DeviceTypeModel deviceType;
-    private AreaModel area;
+    //private DeviceTypeModel deviceType;
+    private String deviceTypeName;
+    private String areaName;
+    private String blockName;
+    private String measureName;
+    //private AreaModel area;
     private String model;
     private String comments;
     private Date firstUpTime;
@@ -42,21 +46,53 @@ public class DeviceModel {
         this.state = state;
     }
 
-    public DeviceTypeModel getDeviceType() {
-        return deviceType;
+    public String getDeviceTypeName() {
+        return deviceTypeName;
     }
 
-    public void setDeviceType(DeviceTypeModel deviceType) {
-        this.deviceType = deviceType;
+    public void setDeviceTypeName(String deviceTypeName) {
+        this.deviceTypeName = deviceTypeName;
     }
 
-    public AreaModel getArea() {
-        return area;
+    public String getAreaName() {
+        return areaName;
     }
 
-    public void setArea(AreaModel area) {
-        this.area = area;
+    public void setAreaName(String areaName) {
+        this.areaName = areaName;
     }
+
+    public String getBlockName() {
+        return blockName;
+    }
+
+    public void setBlockName(String blockName) {
+        this.blockName = blockName;
+    }
+
+    public String getMeasureName() {
+        return measureName;
+    }
+
+    public void setMeasureName(String measureName) {
+        this.measureName = measureName;
+    }
+
+    //    public DeviceTypeModel getDeviceType() {
+//        return deviceType;
+//    }
+//
+//    public void setDeviceType(DeviceTypeModel deviceType) {
+//        this.deviceType = deviceType;
+//    }
+//
+//    public AreaModel getArea() {
+//        return area;
+//    }
+//
+//    public void setArea(AreaModel area) {
+//        this.area = area;
+//    }
 
     public String getModel() {
         return model;
