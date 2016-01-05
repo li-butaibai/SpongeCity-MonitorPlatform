@@ -8,11 +8,13 @@ import java.util.Date;
 public class DB_DeviceModel {
     private int id;
     private String deviceid;
+    private int devicetype_id;
     private DB_DeviceTypeModel devicetype;
     private String model;
     private String comments;
     private String longitude;
     private String latitude;
+    private int area_id;
     private DB_AreaModel area;
     private Date firstuptime;
     private Date updatetime;
@@ -113,5 +115,21 @@ public class DB_DeviceModel {
 
     public void setDatastatus(int datastatus) {
         this.datastatus = datastatus;
+    }
+
+    public int getDevicetype_id() {
+        return devicetype_id;
+    }
+
+    public void setDevicetype_id(int devicetype_id) {
+        this.devicetype_id = devicetype_id;
+    }
+
+    public int getArea_id() {
+        return area_id;
+    }
+
+    public void setArea_id(int area_id) {
+        this.area_id = area_id;
     }
 }
