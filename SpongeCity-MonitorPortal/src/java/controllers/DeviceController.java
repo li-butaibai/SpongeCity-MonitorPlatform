@@ -38,13 +38,17 @@ public class DeviceController {
         modelAndView.addObject("devices", deviceModels);
         modelAndView.addObject("sortKey",sortKey);
         modelAndView.addObject("sortDes",sortDes);
-        return null;
+        return modelAndView;
     }
 
     @RequestMapping(value="/detail",method = RequestMethod.GET)
     public ModelAndView detail()
     {
-        return null;
+        ModelAndView modelAndView = new ModelAndView("/devices/index");
+        DeviceModel deviceModel = new DeviceModel();
+        //TODO: get device;
+        modelAndView.addObject("device", deviceModel);
+        return modelAndView;
     }
 
     public Map<String,Object> devices(@RequestParam int areaId, int[] deviceTypeIds)
