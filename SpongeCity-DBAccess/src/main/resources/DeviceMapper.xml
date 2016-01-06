@@ -16,14 +16,14 @@
         <result property="updatetime" column="updatetime"/>
         <result property="state" column="state"/>
         <result property="datastatus" column="datastatus"/>
-        <association property="devicetype" column="devicetype_id" javaType="DB_DeviceTypeModel">
-            <id property="id" column="id"/>
-            <result property="name" column="name"/>
-            <result property="comments" column="comments"/>
+        <association property="devicetype" javaType="DB_DeviceTypeModel">
+            <id property="id" column="typeid"/>
+            <result property="name" column="typename"/>
+            <result property="comments" column="typecomments"/>
         </association>
-        <association property="area" column="area_id" javaType="DB_AreaModel">
-            <id property="id" column="id"/>
-            <result property="name" column="name"/>
+        <association property="area" javaType="DB_AreaModel">
+            <id property="id" column="areaid"/>
+            <result property="name" column="areaname"/>
             <result property="size" column="size"/>
             <result property="position" column="position"/>
             <result property="parentarea_id" column="parentarea_id"/>
@@ -31,14 +31,14 @@
     </resultMap>
     <select id="getAllDevice" resultMap="deviceMap">
         SELECT devices.id,devices.deviceid,devices.model,devices.comments,devices.longitude,devices.latitude,devices.firstuptime,devices.updatetime,
-        devices.state,devices.datastatus,devicetypes.id,devicetypes.name,devicetypes.comments,areas.id,areas.name,areas.size,areas.position,
-        areas.parentarea_id FROM devices
+        devices.state,devices.datastatus,devicetypes.id as typeid,devicetypes.name as typename,devicetypes.comments as typecomments,
+        areas.id as areaid,areas.name as areaname,areas.size,areas.position,areas.parentarea_id FROM devices
          join devicetypes on devices.devicetype_id = devicetypes.id join areas on devices.area_id = areas.id
     </select>
-    <select id="getDeviceById" parameterType="int" resultType="DB_DeviceModel">
+    <select id="getDeviceById" parameterType="int" resultMap="deviceMap">
         SELECT devices.id,devices.deviceid,devices.model,devices.comments,devices.longitude,devices.latitude,devices.firstuptime,devices.updatetime,
-        devices.state,devices.datastatus,devicetypes.id,devicetypes.name,devicetypes.comments,areas.id,areas.name,areas.size,areas.position,
-        areas.parentarea_id FROM devices
+        devices.state,devices.datastatus,devicetypes.id as typeid,devicetypes.name as typename,devicetypes.comments as typecomments,
+        areas.id as areaid,areas.name as areaname,areas.size,areas.position,areas.parentarea_id FROM devices
          join devicetypes on devices.devicetype_id = devicetypes.id join areas on devices.area_id = areas.id WHERE devices.id = #{deviceId}
     </select>
 </mapper>

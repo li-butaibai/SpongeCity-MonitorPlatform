@@ -8,7 +8,7 @@
     <resultMap id="deviceLogMap" type="DB_DeviceLogModel">
         <id property="id" column="id"/>
         <result property="logtime" column="logtime"/>
-        <result property="deviceid" column="deviceid"/>
+        <result property="device_id" column="device_id"/>
         <result property="logtitle" column="logtitle"/>
         <result property="comments" column="comments"/>
         <!--<association property="device" javaType="DB_DeviceModel">

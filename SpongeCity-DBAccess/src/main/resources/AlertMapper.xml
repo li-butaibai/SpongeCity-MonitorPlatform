@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SpongeCity.MonitorPlatform.DBAccess.Interface.IAlertOperation">
+    <resultMap id="alertMap" type="DB_AlertModel">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="comments" column="comments"/>
+        <result property="createtime" column="createtime"/>
+        <result property="endtime" column="endtime"/>
+        <result property="state" column="state"/>
+        <result property="level" column="level"/>
+        <association property="device" javaType="DB_DeviceModel">
+            <id property="id" column="PK_deviceid"/>
+            <result property="deviceid" column="deviceid"/>
+            <result property="devicetype_id" column="devicetype_id"/>
+            <result property="model" column="model"/>
+            <result property="comments" column="devicecomments"/>
+            <result property="longitude" column="longitude"/>
+            <result property="latitude" column="latitude"/>
+            <result property="area_id" column="area_id"/>
+            <result property="firstuptime" column="firstuptime"/>
+            <result property="updatetime" column="updatetime"/>
+            <result property="state" column="devicestate"/>
+            <result property="datastatus" column="devicedatestatus"/>
+        </association>
+    </resultMap>
+    <select id="getAlertList" parameterType="Map" resultMap="alertMap">
+        select top ${pageSize} a.id,a.title,a.device_id,a.comments,a.createtime,a.endtime,a.state,a.level,
+d.id as PK_deviceid,d.deviceid,d.devicetype_id,d.model,d.comments as devicecomments,d.longitude,d.latitude,d.area_id,
+d.firstuptime,d.updatetime,d.state as devicestate,d.datastatus as devicedatestatus from
+(select row_number()over(order by alert.createtime desc)rownumber,* from alert)a
+join devices d on a.device_id = d.id
+where rownumber>${itemIndex}
+    </select>
+    <select id="getAlertListByDeviceId" resultMap="alertMap">
+        select top ${pageSize} a.id,a.title,a.device_id,a.comments,a.createtime,a.endtime,a.state,a.level,
+d.id as PK_deviceid,d.deviceid,d.devicetype_id,d.model,d.comments as devicecomments,d.longitude,d.latitude,d.area_id,
+d.firstuptime,d.updatetime,d.state as devicestate,d.datastatus as devicedatestatus from
+(select row_number()over(order by alert.createtime desc)rownumber,* from alert)a
+join devices d on a.device_id = d.id
+where rownumber>${itemIndex} and a.device_id = #{deviceId}
+    </select>
+</mapper>

@@ -22,6 +22,7 @@
         <typeAlias type="SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceTypeModel" alias="DB_DeviceTypeModel"/>
         <typeAlias type="SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceModel" alias="DB_DeviceModel"/>
         <typeAlias type="SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceLogModel" alias="DB_DeviceLogModel"/>
+        <typeAlias type="SpongeCity.MonitorPlatform.DBAccess.Model.DB_AlertModel" alias="DB_AlertModel"/>
     </typeAliases>
     <!-- Continue going here -->
     <environments default="MonitorPlatform">
@@ -41,5 +42,6 @@
         <mapper resource="DeviceTypeMapper.xml"/>
         <mapper resource="DeviceMapper.xml"/>
         <mapper resource="DeviceLogMapper.xml"/>
+        <mapper resource="AlertMapper.xml"/>
     </mappers>
 </configuration>
