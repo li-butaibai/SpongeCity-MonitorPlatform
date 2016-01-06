@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by sabermai on 2016/1/4.
  */
-public class AlertData {
+public class AlertDataOperation {
     public List<DB_AlertModel> getAlertList(int pageIndex, int pageSize){
         List<DB_AlertModel> alertList = new ArrayList<DB_AlertModel>();
 
