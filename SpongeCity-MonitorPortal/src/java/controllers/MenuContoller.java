@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping(value="/menu")
 public class MenuContoller {
     @RequestMapping(value="/areamenu",method = RequestMethod.GET)
-    public ModelAndView GetAreaMenu(@RequestParam int parentId)
+    public ModelAndView GetAreaMenu()
     {
         ModelAndView modelAndView = new ModelAndView("/menu/leftmenu");
         List<AreaModel> areaModelList= new ArrayList<AreaModel>();
