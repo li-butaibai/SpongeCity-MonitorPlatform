@@ -4,7 +4,6 @@ import SpongeCity.MonitorPlatform.DBAccess.DataAccess.DeviceData;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceModel;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceTypeModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +18,7 @@ public class DeviceDataOperation {
     }
 
     public List<DB_DeviceModel> getAllDevice() {
-        List<DB_DeviceModel> deviceList = dd.getAllDevice();
+        List<DB_DeviceModel> deviceList = dd.getAllDevices();
         return deviceList;
     }
 

@@ -11,4 +11,6 @@ public interface IDeviceOperation {
     List<DB_DeviceModel> getAllDevice();
 
     DB_DeviceModel getDeviceById(int deviceId);
+
+    List<DB_DeviceModel> getDeviceListByAreaId(int areaId);
 }

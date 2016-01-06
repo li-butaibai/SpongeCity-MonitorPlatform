@@ -11,4 +11,6 @@ public interface IAreaOperation {
     List<DB_AreaModel> getAllArea();
 
     DB_AreaModel getAreaById(int areaId);
+
+    List<DB_AreaModel> getAreaChildren(int areaId);
 }
