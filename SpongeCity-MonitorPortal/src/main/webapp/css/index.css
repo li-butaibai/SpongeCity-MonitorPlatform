@@ -1,0 +1,27 @@
+@charset "utf-8";
+/* CSS Document */
+
+.con{ width:1200px; margin:0 auto; background:#ccc;}
+.conleft{ width:20%; background:#fff; float:left; height:100px}
+.conright{ width:80%; background:#fff; float:left; height:100px}
+
+.l_con1{ height:100px; background:#29282e; }
+.l_con1 h1{ line-height:100px; color:#fff; text-align:center; font-size:20px; font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; font-weight:bold}
+.l_con2{ height:707px; background:#32323a; }
+.r_con1{ height:100px; }
+.r_con1 img{ margin-top:25px; margin-left:80px}
+.r_con2{ background:url(../img/r_con2bg.jpg) no-repeat center center; height:107px}
+.r_con3{ background:#eee; height:600px}
+
+.table_wrap{width:90%; margin:20px auto; text-align:center; background:#fff; border-radius:5px}
+.pagination > li > a, .pagination > li > span { color: #454648;}
+.pagination > .active > a { background-color: #1fb5ac;border-color: #1fb5ac;}
+.pagination > .active > a:hover{ background-color: #1fb5ac;border-color: #1fb5ac;}
+
+.r_nav{ float:right; margin-right:50px;}
+.r_nav li{ width:100px; height:107px; float:left; line-height:150px; background:#95dfde; text-align:center; color:#fff; font-weight:bold; font-size:16px; opacity:0.8; cursor:pointer}
+.r_nav li.active{}
+.r_nav .nav_btn1{ background:url(../img/btn1.png) no-repeat center 30px #deed9c}
+.r_nav .nav_btn2{ background:url(../img/btn2.png) no-repeat center 30px #95dfde}
+.r_nav .nav_btn3{ background:url(../img/btn3.png) no-repeat center 30px #95dfde}
+.r_nav .nav_btn4{ background:url(../img/btn4.png) no-repeat center 30px #95dfde}
