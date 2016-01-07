@@ -10,7 +10,7 @@ public class AreaModel {
     private String name;
     private int size;
     private AreaModel parentArea;
-    private AreaModel[] subArea;
+    private List<AreaModel> subArea;
     private List<Coordinate> coordinates;
 
     public int getId() {
@@ -45,11 +45,11 @@ public class AreaModel {
         this.parentArea = parentArea;
     }
 
-    public AreaModel[] getSubArea() {
+    public List<AreaModel> getSubArea() {
         return subArea;
     }
 
-    public void setSubArea(AreaModel[] subArea) {
+    public void setSubArea(List<AreaModel> subArea) {
         this.subArea = subArea;
     }
 
