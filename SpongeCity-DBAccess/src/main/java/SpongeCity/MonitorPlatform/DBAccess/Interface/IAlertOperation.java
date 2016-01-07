@@ -11,5 +11,10 @@ import java.util.Map;
 public interface IAlertOperation {
     List<DB_AlertModel> getAlertList(Map params);
 
-    List<DB_AlertModel> getAlertListByDeviceId(Map params);
+    //List<DB_AlertModel> getAlertListByDeviceId(Map params);
+    List<DB_AlertModel> getAlertListByDeviceId(int deviceId);
+
+    List<DB_AlertModel> getAllAlertByAreaId(Map params);
+
+    DB_AlertModel getAlertInfo(int alertId);
 }

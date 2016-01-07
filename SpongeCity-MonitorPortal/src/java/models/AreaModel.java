@@ -8,9 +8,9 @@ import java.util.List;
 public class AreaModel {
     private int id;
     private String name;
-    private int size;
+    private float size;
     private AreaModel parentArea;
-    private AreaModel[] subArea;
+    private List<AreaModel> subArea;
     private List<Coordinate> coordinates;
 
     public int getId() {
@@ -29,11 +29,11 @@ public class AreaModel {
         this.name = name;
     }
 
-    public int getSize() {
+    public float getSize() {
         return size;
     }
 
-    public void setSize(int size) {
+    public void setSize(float size) {
         this.size = size;
     }
 
@@ -45,11 +45,11 @@ public class AreaModel {
         this.parentArea = parentArea;
     }
 
-    public AreaModel[] getSubArea() {
+    public List<AreaModel> getSubArea() {
         return subArea;
     }
 
-    public void setSubArea(AreaModel[] subArea) {
+    public void setSubArea(List<AreaModel> subArea) {
         this.subArea = subArea;
     }
 

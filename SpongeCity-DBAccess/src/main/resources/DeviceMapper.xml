@@ -7,7 +7,7 @@
 <mapper namespace="SpongeCity.MonitorPlatform.DBAccess.Interface.IDeviceOperation">
     <resultMap id="deviceMap" type="DB_DeviceModel">
         <id property="id" column="id"/>
-        <result property="deviceid" column="deviceid"/>
+        <result property="deviceid" column="device_id"/>
         <result property="model" column="model"/>
         <result property="comments" column="comments"/>
         <result property="longitude" column="longitude"/>
@@ -30,15 +30,21 @@
         </association>
     </resultMap>
     <select id="getAllDevice" resultMap="deviceMap">
-        SELECT devices.id,devices.deviceid,devices.model,devices.comments,devices.longitude,devices.latitude,devices.firstuptime,devices.updatetime,
+        SELECT devices.id,devices.device_id,devices.model,devices.comments,devices.longitude,devices.latitude,devices.firstuptime,devices.updatetime,
         devices.state,devices.datastatus,devicetypes.id as typeid,devicetypes.name as typename,devicetypes.comments as typecomments,
         areas.id as areaid,areas.name as areaname,areas.size,areas.position,areas.parentarea_id FROM devices
          join devicetypes on devices.devicetype_id = devicetypes.id join areas on devices.area_id = areas.id
     </select>
     <select id="getDeviceById" parameterType="int" resultMap="deviceMap">
-        SELECT devices.id,devices.deviceid,devices.model,devices.comments,devices.longitude,devices.latitude,devices.firstuptime,devices.updatetime,
+        SELECT devices.id,devices.device_id,devices.model,devices.comments,devices.longitude,devices.latitude,devices.firstuptime,devices.updatetime,
         devices.state,devices.datastatus,devicetypes.id as typeid,devicetypes.name as typename,devicetypes.comments as typecomments,
         areas.id as areaid,areas.name as areaname,areas.size,areas.position,areas.parentarea_id FROM devices
          join devicetypes on devices.devicetype_id = devicetypes.id join areas on devices.area_id = areas.id WHERE devices.id = #{deviceId}
+    </select>
+    <select id="getDeviceListByAreaId" parameterType="int" resultMap="deviceMap">
+        SELECT devices.id,devices.device_id,devices.model,devices.comments,devices.longitude,devices.latitude,devices.firstuptime,devices.updatetime,
+        devices.state,devices.datastatus,devicetypes.id as typeid,devicetypes.name as typename,devicetypes.comments as typecomments,
+        areas.id as areaid,areas.name as areaname,areas.size,areas.position,areas.parentarea_id FROM devices
+        join devicetypes on devices.devicetype_id = devicetypes.id join areas on devices.area_id = areas.id WHERE devices.area_id = #{areaId}
     </select>
 </mapper>

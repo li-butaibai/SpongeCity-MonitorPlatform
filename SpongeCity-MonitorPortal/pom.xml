@@ -74,6 +74,16 @@
             <artifactId>jackson-annotations</artifactId>
             <version>${jackson.version}</version>
         </dependency>
+        <dependency>
+            <groupId>SpongeCity.MonitorPlatform</groupId>
+            <artifactId>SpongeCity-DBAccess</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>SpongeCity.MonitorPlatform</groupId>
+            <artifactId>SpongeCity-Core</artifactId>
+            <version>1.0.1</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>MonitorPortal</finalName>
