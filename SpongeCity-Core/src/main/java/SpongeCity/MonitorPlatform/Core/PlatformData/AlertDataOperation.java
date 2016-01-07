@@ -5,7 +5,6 @@ import SpongeCity.MonitorPlatform.DBAccess.DataAccess.AreaData;
 import SpongeCity.MonitorPlatform.DBAccess.DataAccess.DeviceData;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AlertModel;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AreaModel;
-import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +43,7 @@ public class AlertDataOperation {
             AreaData areaData = new AreaData();
             areas = areaData.getAreaAllChildren(areaId);
             areas.add(areaData.getAreaById(areaId));
-            alertList = ad.getAllAlertByAreaId(areas, pageIndex, pageSize);
+            alertList = ad.getAllAlertByAreaList(areas, pageIndex, pageSize);
         }catch (Exception ex){
             //log
         }

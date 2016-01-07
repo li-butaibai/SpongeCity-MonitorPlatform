@@ -57,7 +57,7 @@ public class AlertData {
         }
     }
 
-    public List<DB_AlertModel> getAllAlertByAreaId(List<DB_AreaModel> areas, int pageIndex, int pageSize) {
+    public List<DB_AlertModel> getAllAlertByAreaList(List<DB_AreaModel> areas, int pageIndex, int pageSize) {
         try {
             Map<String, Object> params = new HashMap<String, Object>();
             String strAreaIds = "";
