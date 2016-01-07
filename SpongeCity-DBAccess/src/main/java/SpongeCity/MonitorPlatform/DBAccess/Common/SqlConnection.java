@@ -1,6 +1,7 @@
 package SpongeCity.MonitorPlatform.DBAccess.Common;
 
 import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
@@ -22,8 +23,12 @@ public class SqlConnection {
         }
     }
 
-    public static SqlSessionFactory getSession() {
+    public static SqlSessionFactory getSqlSessionFactory() {
         return sqlSessionFactory;
+    }
+
+    public static SqlSession getSession(){
+        return sqlSessionFactory.openSession();
     }
 
 }

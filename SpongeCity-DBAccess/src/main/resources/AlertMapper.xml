@@ -36,15 +36,22 @@ d.firstuptime,d.updatetime,d.state as devicestate,d.datastatus as devicedatestat
 join devices d on a.device_id = d.id
 where rownumber>${itemIndex}
     </select>
-    <select id="getAlertListByDeviceId" resultMap="alertMap">
+    <!--<select id="getAlertListByDeviceId" resultMap="alertMap">
         select top ${pageSize} a.id,a.title,a.comments,a.createtime,a.endtime,a.state,a.level,
 d.id as PK_deviceid,d.device_id,d.devicetype_id,d.model,d.comments as devicecomments,d.longitude,d.latitude,d.area_id,
 d.firstuptime,d.updatetime,d.state as devicestate,d.datastatus as devicedatestatus from
 (select row_number()over(order by alert.createtime desc)rownumber,* from alert)a
 join devices d on a.device_id = d.id
 where rownumber>${itemIndex} and a.device_id = ${deviceId}
+    </select>-->
+    <select id="getAlertListByDeviceId" parameterType="int" resultMap="alertMap">
+        select a.id,a.title,a.comments,a.createtime,a.endtime,a.state,a.level,
+        d.id as PK_deviceid,d.device_id,d.devicetype_id,d.model,d.comments as devicecomments,d.longitude,d.latitude,d.area_id,
+        d.firstuptime,d.updatetime,d.state as devicestate,d.datastatus as devicedatestatus from alert a
+        join devices d on a.device_id = d.id
+        where d.device_id = #{deviceId}
     </select>
-    <select id="getAlertInfo" resultMap="alertMap">
+    <select id="getAlertInfo" parameterType="int" resultMap="alertMap">
         select a.id,a.title,a.comments,a.createtime,a.endtime,a.state,a.level,
 d.id as PK_deviceid,d.device_id,d.devicetype_id,d.model,d.comments as devicecomments,d.longitude,d.latitude,d.area_id,
 d.firstuptime,d.updatetime,d.state as devicestate,d.datastatus as devicedatestatus from alert a

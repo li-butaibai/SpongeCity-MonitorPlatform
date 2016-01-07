@@ -12,13 +12,22 @@ import java.util.List;
 public class AreaDataOperation {
     private AreaData ad = new AreaData();
     public List<DB_AreaModel> getAllArea() {
-        List<DB_AreaModel> areaList = ad.getAllArea();
+        List<DB_AreaModel> areaList = new ArrayList<DB_AreaModel>();
+        try {
+            areaList = ad.getAllArea();
+        }catch (Exception ex){
+            //log
+        }
         return areaList;
     }
 
     public DB_AreaModel getAreaInfo(int areaId) {
         DB_AreaModel area = new DB_AreaModel();
-        area = ad.getAreaById(areaId);
+        try {
+            area = ad.getAreaById(areaId);
+        }catch (Exception ex){
+            //log
+        }
         return area;
     }
 }

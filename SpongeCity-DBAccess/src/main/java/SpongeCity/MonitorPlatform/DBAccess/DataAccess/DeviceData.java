@@ -8,6 +8,7 @@ import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceModel;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceTypeModel;
 import org.apache.ibatis.session.SqlSession;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +16,8 @@ import java.util.List;
  * Created by sabermai on 2016/1/4.
  */
 public class DeviceData {
-    private static SqlSession session = SqlConnection.getSession().openSession();
-
     public List<DB_DeviceTypeModel> getAllDeviceType() {
+        SqlSession session = SqlConnection.getSession();
         try {
             IDeviceTypeOperation deviceTypeOperation = session.getMapper(IDeviceTypeOperation.class);
             List<DB_DeviceTypeModel> types = deviceTypeOperation.getAllDeviceType();
@@ -28,6 +28,7 @@ public class DeviceData {
     }
 
     public List<DB_DeviceModel> getAllDevices() {
+        SqlSession session = SqlConnection.getSession();
         try {
             IDeviceOperation deviceOperation = session.getMapper(IDeviceOperation.class);
             List<DB_DeviceModel> devices = deviceOperation.getAllDevice();
@@ -38,6 +39,7 @@ public class DeviceData {
     }
 
     public DB_DeviceModel getDeviceById(int deviceId) {
+        SqlSession session = SqlConnection.getSession();
         try {
             IDeviceOperation deviceOperation = session.getMapper(IDeviceOperation.class);
             DB_DeviceModel device = deviceOperation.getDeviceById(deviceId);
@@ -48,7 +50,8 @@ public class DeviceData {
     }
 
     //get device list in current area and all sub area
-    public List<DB_DeviceModel> getAllDeviceByAreaId(int areaId) {
+    public List<DB_DeviceModel> getAllDeviceByAreaId(int areaId) throws SQLException {
+        SqlSession session = SqlConnection.getSession();
         try {
             List<DB_DeviceModel> devices = new ArrayList<DB_DeviceModel>();
             AreaData ad = new AreaData();
@@ -66,6 +69,7 @@ public class DeviceData {
 
     //get device list in current area
     public List<DB_DeviceModel> getDevicesByCurrentAreaId(int areaId) {
+        SqlSession session = SqlConnection.getSession();
         try {
             List<DB_DeviceModel> devices = new ArrayList<DB_DeviceModel>();
             IDeviceOperation deviceOperation = session.getMapper(IDeviceOperation.class);

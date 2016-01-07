@@ -1,9 +1,10 @@
 package SpongeCity.MonitorPlatform.Core.PlatformData;
 
 import SpongeCity.MonitorPlatform.DBAccess.DataAccess.AlertData;
+import SpongeCity.MonitorPlatform.DBAccess.DataAccess.AreaData;
 import SpongeCity.MonitorPlatform.DBAccess.DataAccess.DeviceData;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AlertModel;
-import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceModel;
+import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AreaModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,31 +14,48 @@ import java.util.List;
  */
 public class AlertDataOperation {
     private AlertData ad = new AlertData();
-    private DeviceData dd = new DeviceData();
 
     public List<DB_AlertModel> getAlertList(int pageIndex, int pageSize) {
         List<DB_AlertModel> alertList = new ArrayList<DB_AlertModel>();
-        alertList = ad.getAlertList(pageIndex, pageSize);
+        try {
+            alertList = ad.getAlertList(pageIndex, pageSize);
+        }catch (Exception ex){
+            //log
+        }
         return alertList;
     }
 
-    public List<DB_AlertModel> getAlertListByDeviceId(int deviceId, int pageIndex, int pageSize) {
+    public List<DB_AlertModel> getAlertListByDeviceId(int deviceId) {
         List<DB_AlertModel> alertList = new ArrayList<DB_AlertModel>();
-        alertList = ad.getAlertListByDeviceId(deviceId, pageIndex, pageSize);
+        try {
+            alertList = ad.getAlertListByDeviceId(deviceId);
+        }catch (Exception ex){
+            //log
+        }
         return alertList;
     }
 
     public List<DB_AlertModel> getAreaAlertList(int areaId, int pageIndex, int pageSize) {
         List<DB_AlertModel> alertList = new ArrayList<DB_AlertModel>();
-        List<DB_DeviceModel> devices = new ArrayList<DB_DeviceModel>();
-        devices = dd.getAllDeviceByAreaId(areaId);
-
+        try {
+            List<DB_AreaModel> areas = new ArrayList<DB_AreaModel>();
+            AreaData areaData = new AreaData();
+            areas = areaData.getAreaAllChildren(areaId);
+            areas.add(areaData.getAreaById(areaId));
+            alertList = ad.getAllAlertByAreaList(areas, pageIndex, pageSize);
+        }catch (Exception ex){
+            //log
+        }
         return alertList;
     }
 
     public DB_AlertModel getAlertInfo(int alertId) {
         DB_AlertModel alert = new DB_AlertModel();
-        alert = ad.getAlertInfoByAlertId(alertId);
+        try {
+            alert = ad.getAlertInfoByAlertId(alertId);
+        }catch (Exception ex){
+            //log
+        }
         return alert;
     }
 }

@@ -5,7 +5,9 @@ import SpongeCity.MonitorPlatform.DBAccess.Interface.IAreaOperation;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AlertModel;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AreaModel;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,9 +15,8 @@ import java.util.List;
  * Created by sabermai on 2016/1/4.
  */
 public class AreaData {
-    private static SqlSession session = SqlConnection.getSession().openSession();
-
     public List<DB_AreaModel> getAllArea() {
+        SqlSession session = SqlConnection.getSession();
         try {
             IAreaOperation areaOperation = session.getMapper(IAreaOperation.class);
             List<DB_AreaModel> areas = areaOperation.getAllArea();
@@ -26,6 +27,7 @@ public class AreaData {
     }
 
     public DB_AreaModel getAreaById(int areaId) {
+        SqlSession session = SqlConnection.getSession();
         try {
             IAreaOperation areaOperation = session.getMapper(IAreaOperation.class);
             DB_AreaModel area = areaOperation.getAreaById(areaId);
@@ -35,7 +37,8 @@ public class AreaData {
         }
     }
 
-    public List<DB_AreaModel> getAreaAllChildren(int areaId) {
+    public List<DB_AreaModel> getAreaAllChildren(int areaId) throws SQLException {
+        SqlSession session = SqlConnection.getSession();
         try {
             IAreaOperation areaOperation = session.getMapper(IAreaOperation.class);
             List<DB_AreaModel> areas = new ArrayList<DB_AreaModel>();
@@ -48,7 +51,6 @@ public class AreaData {
     }
 
     private List<DB_AreaModel> getChildren(List<DB_AreaModel> areaList, int areaId) {
-        IAreaOperation areaOperation = session.getMapper(IAreaOperation.class);
         List<DB_AreaModel> areas = new ArrayList<DB_AreaModel>();
         List<DB_AreaModel> result = new ArrayList<DB_AreaModel>();
         areas = getAreaDirectChildren(areaList, areaId);
