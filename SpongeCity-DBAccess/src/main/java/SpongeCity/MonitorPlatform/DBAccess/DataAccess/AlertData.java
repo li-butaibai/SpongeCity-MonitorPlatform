@@ -5,6 +5,7 @@ import SpongeCity.MonitorPlatform.DBAccess.Interface.IAlertOperation;
 import SpongeCity.MonitorPlatform.DBAccess.Interface.IDeviceOperation;
 import SpongeCity.MonitorPlatform.DBAccess.Interface.IDeviceTypeOperation;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AlertModel;
+import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AreaModel;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceModel;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceTypeModel;
 import org.apache.ibatis.session.SqlSession;
@@ -32,14 +33,14 @@ public class AlertData {
         }
     }
 
-    public List<DB_AlertModel> getAlertListByDeviceId(int deviceId, int pageIndex, int pageSize) {
+    public List<DB_AlertModel> getAlertListByDeviceId(int deviceId) {
         try {
-            Map<String, Integer> params = new HashMap<String, Integer>();
+            /*Map<String, Integer> params = new HashMap<String, Integer>();
             params.put("deviceId", deviceId);
             params.put("pageSize", pageSize);
-            params.put("itemIndex", (pageIndex - 1) * pageSize);
+            params.put("itemIndex", (pageIndex - 1) * pageSize);*/
             IAlertOperation alertOperation = session.getMapper(IAlertOperation.class);
-            List<DB_AlertModel> alerts = alertOperation.getAlertListByDeviceId(params);
+            List<DB_AlertModel> alerts = alertOperation.getAlertListByDeviceId(deviceId);
             return alerts;
         } finally {
             session.close();
@@ -56,18 +57,18 @@ public class AlertData {
         }
     }
 
-    public List<DB_AlertModel> getAllAlertByAreaId(List<String> areaIds, int pageIndex, int pageSize) {
+    public List<DB_AlertModel> getAllAlertByAreaId(List<DB_AreaModel> areas, int pageIndex, int pageSize) {
         try {
             Map<String, Object> params = new HashMap<String, Object>();
             String strAreaIds = "";
-            for (String areaId : areaIds) {
-                strAreaIds += areaId + ",";
+            for (DB_AreaModel area : areas) {
+                strAreaIds += area.getId() + ",";
             }
             params.put("areaIds", strAreaIds.substring(0, strAreaIds.lastIndexOf(",") - 1));
             params.put("pageSize", pageSize);
             params.put("itemIndex", (pageIndex - 1) * pageSize);
             IAlertOperation alertOperation = session.getMapper(IAlertOperation.class);
-            List<DB_AlertModel> alerts = alertOperation.getAlertListByDeviceId(params);
+            List<DB_AlertModel> alerts = alertOperation.getAllAlertByAreaId(params);
             return alerts;
         } finally {
             session.close();
