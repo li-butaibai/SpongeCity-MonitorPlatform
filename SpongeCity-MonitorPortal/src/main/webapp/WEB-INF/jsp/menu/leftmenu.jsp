@@ -16,48 +16,16 @@
 </div>
 <script>
   var data = [
+    <c:forEach items="${areamenus}" var="es">
     {
-      label: '1#区域',
+      label: '${es.name}',
       children: [
-        { label: '区块1' },
-        { label: '区块2' }
+              <c:forEach items="${es.subArea}" var="sa">
+                { label: '${sa.name}' },
+              </c:forEach>
       ]
     },
-    {
-      label: '2#区域',
-      children: [
-        { label: '区块1' },
-        { label: '区块2' }
-      ]
-    },
-    {
-      label: '3#区域',
-      children: [
-        { label: '区块1' },
-        { label: '区块2' }
-      ]
-    },
-    {
-      label: '4#区域',
-      children: [
-        { label: '区块1' },
-        { label: '区块2' }
-      ]
-    },
-    {
-      label: '5#区域',
-      children: [
-        { label: '区块1' },
-        { label: '区块2' }
-      ]
-    },
-    {
-      label: '6#区域',
-      children: [
-        { label: '区块1' },
-        { label: '区块2' }
-      ]
-    }
+    </c:forEach>
   ];
   $(function() {
     $('#tree1').tree({
