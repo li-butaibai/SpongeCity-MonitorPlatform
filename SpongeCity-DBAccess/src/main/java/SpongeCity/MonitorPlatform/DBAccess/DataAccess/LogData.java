@@ -11,9 +11,8 @@ import java.util.List;
  * Created by saber on 2016/1/4.
  */
 public class LogData {
-    private static SqlSession session = SqlConnection.getSession().openSession();
-
     public List<DB_DeviceLogModel> getDeviceLogByDeviceId(int deviceId) {
+        SqlSession session = SqlConnection.getSession();
         try {
             IDeviceLogOperation logOperation = session.getMapper(IDeviceLogOperation.class);
             List<DB_DeviceLogModel> logs = logOperation.getDeviceLogByDeviceId(deviceId);

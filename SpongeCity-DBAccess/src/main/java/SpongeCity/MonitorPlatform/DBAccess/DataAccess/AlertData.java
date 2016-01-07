@@ -18,9 +18,8 @@ import java.util.Map;
  * Created by sabermai on 2016/1/5.
  */
 public class AlertData {
-    private static SqlSession session = SqlConnection.getSession().openSession();
-
     public List<DB_AlertModel> getAlertList(int pageIndex, int pageSize) {
+        SqlSession session = SqlConnection.getSession();
         try {
             Map<String, Integer> params = new HashMap<String, Integer>();
             params.put("pageSize", pageSize);
@@ -34,6 +33,7 @@ public class AlertData {
     }
 
     public List<DB_AlertModel> getAlertListByDeviceId(int deviceId) {
+        SqlSession session = SqlConnection.getSession();
         try {
             /*Map<String, Integer> params = new HashMap<String, Integer>();
             params.put("deviceId", deviceId);
@@ -48,6 +48,7 @@ public class AlertData {
     }
 
     public DB_AlertModel getAlertInfoByAlertId(int alertId) {
+        SqlSession session = SqlConnection.getSession();
         try {
             IAlertOperation alertOperation = session.getMapper(IAlertOperation.class);
             DB_AlertModel alert = alertOperation.getAlertInfo(alertId);
@@ -58,6 +59,7 @@ public class AlertData {
     }
 
     public List<DB_AlertModel> getAllAlertByAreaList(List<DB_AreaModel> areas, int pageIndex, int pageSize) {
+        SqlSession session = SqlConnection.getSession();
         try {
             Map<String, Object> params = new HashMap<String, Object>();
             String strAreaIds = "";

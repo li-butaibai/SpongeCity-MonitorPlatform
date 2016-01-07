@@ -14,7 +14,6 @@ import java.util.List;
  */
 public class AlertDataOperation {
     private AlertData ad = new AlertData();
-    private DeviceData dd = new DeviceData();
 
     public List<DB_AlertModel> getAlertList(int pageIndex, int pageSize) {
         List<DB_AlertModel> alertList = new ArrayList<DB_AlertModel>();
