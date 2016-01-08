@@ -12,6 +12,7 @@ public class AreaModel {
     private AreaModel parentArea;
     private List<AreaModel> subArea;
     private List<Coordinate> coordinates;
+    private Coordinate centerPoint;
 
     public int getId() {
         return id;
@@ -58,7 +59,17 @@ public class AreaModel {
     }
 
     public void setCoordinates(List<Coordinate> coordinates) {
-        this.coordinates = coordinates;
+
+        if(coordinates.size()>1) {
+            this.coordinates = coordinates.subList(1, coordinates.size());
+            this.centerPoint = coordinates.get(0);
+        }
+        else this.coordinates =  null;
+    }
+
+    public Coordinate getCenterPoint() {
+
+        return centerPoint;
     }
 }
 

@@ -12,59 +12,26 @@
 <div class="table_wrap">
   <table class="table table-bordered" style="border-radius:5px">
     <tr style=" background:#f9f9f9">
-      <td style="border-radius:5px">时间</td>
-      <td>告警</td>
+      <td style="border-radius:5px">设备</td>
+      <td>设备类型</td>
+      <td>设备状态</td>
       <td>区域</td>
       <td>地块</td>
       <td>单项措施</td>
-      <td>设备</td>
       <td>描述</td>
     </tr>
-    <tr>
-      <td>1</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
+    <c:forEach items="${devices.data}" var="de">
+      <tr>
+        <td>${de.device_id}</td>
+        <td>${de.deviceType.name}</td>
+        <td>${de.state}</td>
+        <td>${de.areaName}</td>
+        <td>${de.blockName}</td>
+        <td>${de.measureName}</td>
+        <td>${de.comments}</td>
+      </tr>
+    </c:forEach>
+
   </table>
   <nav>
     <ul class="pagination">

@@ -7,10 +7,7 @@ import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AlertModel;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AreaModel;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceModel;
 import Util.SortList;
-import models.AreaModel;
-import models.Coordinate;
-import models.DeviceModel;
-import models.DeviceTypeModel;
+import models.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,11 +27,15 @@ import java.util.Map;
 @RequestMapping(value = "/devices")
 public class DeviceController {
     @RequestMapping(value = "/index",method = RequestMethod.GET)
-    public ModelAndView index(String sortKey, String sortDes)
+    public ModelAndView index(int pageIndex, int areaId, String sortKey, String sortDes)
     {
         ModelAndView modelAndView = new ModelAndView("/devices/index");
+        PageDivisionModel<DeviceModel> deviceModelPageDivisionModel = new PageDivisionModel<DeviceModel>();
         List<DeviceModel> deviceModels = new ArrayList<DeviceModel>();
         //TODO: get device list;
+        List<DeviceModel> allDevices = devices(areaId, null);
+        deviceModelPageDivisionModel.setRecordCount(allDevices.size());
+        deviceModelPageDivisionModel.setCurrentPageIndex(pageIndex);
         if(sortKey== null || sortKey=="")
         {
             sortKey="getDeviceTypeName";
@@ -44,8 +45,16 @@ public class DeviceController {
             sortDes="desc";
         }
         SortList<DeviceModel> sortList = new SortList<DeviceModel>();
-        sortList.Sort(deviceModels, sortKey, sortDes);
-        modelAndView.addObject("devices", deviceModels);
+        sortList.Sort(allDevices, sortKey, sortDes);
+        Integer pageSize = deviceModelPageDivisionModel.getPageSize();
+        Integer toIndex=pageIndex* pageSize+pageSize;
+        if(allDevices.size() - pageIndex* pageSize < pageSize)
+        {
+            toIndex=allDevices.size();
+        }
+        deviceModels = allDevices.subList(pageIndex * pageSize, toIndex);
+        deviceModelPageDivisionModel.setData(deviceModels);
+        modelAndView.addObject("devices", deviceModelPageDivisionModel);
         modelAndView.addObject("sortKey",sortKey);
         modelAndView.addObject("sortDes",sortDes);
         return modelAndView;
