@@ -65,7 +65,6 @@ public class DeviceController {
     @ResponseBody
     public List<DeviceModel> devices(@RequestParam int areaId, int[] deviceTypeIds)
     {
-        //Map<String, Object> result = new HashMap<String, Object>();
         List<DeviceModel> deviceModels = new ArrayList<DeviceModel>();
         AreaDataOperation areaDataOperation = new AreaDataOperation();
         List<DB_AreaModel> db_areaModels = areaDataOperation.getAllArea();
@@ -86,7 +85,9 @@ public class DeviceController {
                     List<DB_AlertModel> alerts = alertDataOperation.getAlertListByDeviceId(deviceModel.getId());
                     deviceModel.setAlertCount(alerts.size());
                     deviceModel.setDevice_id(db_deviceModel.getDeviceid());
-
+                    deviceModel.setAreaName(getDeviceArea(db_deviceModel, db_areaModels));
+                    deviceModel.setBlockName(getDeviceBlock(db_deviceModel, db_areaModels));
+                    deviceModel.setMeasureName(getDeviceMeasureName(db_deviceModel, db_areaModels));
                     deviceModel.setCoordinate(new Coordinate(db_deviceModel.getLatitude(), db_deviceModel.getLongitude()));
                     DeviceTypeModel dtModel = new DeviceTypeModel(db_deviceModel.getDevicetype().getId(),
                             db_deviceModel.getDevicetype().getName(),db_deviceModel.getDevicetype().getName());
@@ -95,7 +96,6 @@ public class DeviceController {
                 }
             }
         }
-        //result.put("devices", deviceModels);
         return deviceModels;
     }
 
@@ -128,5 +128,64 @@ public class DeviceController {
             result = deviceModels;
         }
         return result;
+    }
+
+    private String getDeviceArea(DB_DeviceModel deviceModel, List<DB_AreaModel> db_areaModels)
+    {
+        DB_AreaModel areaModel = deviceModel.getArea();
+        while(areaModel.getParentarea_id() != 0)
+        {
+            for(DB_AreaModel db_areaModel : db_areaModels)
+            {
+                if(db_areaModel.getId() == areaModel.getParentarea_id())
+                {
+                    areaModel = db_areaModel;
+                }
+            }
+        }
+        return areaModel.getName();
+    }
+    private String getDeviceBlock(DB_DeviceModel deviceModel, List<DB_AreaModel> db_areaModels)
+    {
+        DB_AreaModel areaModel = deviceModel.getArea();
+        if(areaModel.getParentarea_id() == 0)
+        {
+            return null;
+        }
+        for(DB_AreaModel db_areaModel : db_areaModels)
+        {
+            if(db_areaModel.getId() == areaModel.getParentarea_id())
+            {
+                if(db_areaModel.getParentarea_id() == 0){
+                    break;
+                }
+                else {
+                    areaModel = db_areaModel;
+                }
+            }
+        }
+        return areaModel.getName();
+    }
+    private String getDeviceMeasureName(DB_DeviceModel deviceModel, List<DB_AreaModel> db_areaModels)
+    {
+        DB_AreaModel areaModel = deviceModel.getArea();
+        if(areaModel.getParentarea_id() == 0)
+        {
+            return null;
+        }
+        for(DB_AreaModel db_areaModel : db_areaModels)
+        {
+            if(db_areaModel.getId() == areaModel.getParentarea_id())
+            {
+                areaModel = db_areaModel;
+            }
+        }
+        if(areaModel.getParentarea_id() == 0)
+        {
+            return null;
+        }
+        else {
+            return deviceModel.getArea().getName();
+        }
     }
 }
