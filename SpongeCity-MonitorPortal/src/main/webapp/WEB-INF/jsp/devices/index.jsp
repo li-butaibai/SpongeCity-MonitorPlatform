@@ -35,17 +35,35 @@
   </table>
   <nav>
     <ul class="pagination">
-      <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-      <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-      <li><a href="#">2</a></li>
-      <li><a href="#">3</a></li>
-      <li><a href="#">4</a></li>
-      <li><a href="#">5</a></li>
-      <li>
-        <a href="#" aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-        </a>
-      </li>
+      <c:if test="${devices.currentPageIndex==0}">
+        <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+      </c:if>
+      <c:if test="${devices.currentPageIndex>0}">
+        <li ><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+      </c:if>
+      <c:forEach var="i" begin="0" end="${devices.pageCount-1}">
+        <c:if test="${devices.currentPageIndex==i}">
+          <li class="active"><a href="#">${i+1} <span class="sr-only">(current)</span></a></li>
+        </c:if>
+        <c:if test="${devices.currentPageIndex!=i}">
+          <li><a href="#">${i+1}</a></li>
+        </c:if>
+
+      </c:forEach>
+      <c:if test="${devices.currentPageIndex==devices.pageCount-1}">
+        <li class="disabled">
+          <a href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </c:if>
+      <c:if test="${devices.currentPageIndex<devices.pageCount-1}">
+        <li>
+          <a href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </c:if>
     </ul>
   </nav>
 </div>
