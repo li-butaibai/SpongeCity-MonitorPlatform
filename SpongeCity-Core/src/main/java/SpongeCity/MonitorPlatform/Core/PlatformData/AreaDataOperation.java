@@ -10,7 +10,7 @@ import java.util.List;
  * Created by sabermai on 2016/1/4.
  */
 public class AreaDataOperation {
-    private AreaData ad = new AreaData();
+    private AreaDA ad = new AreaDA();
     public List<DB_AreaModel> getAllArea() {
         List<DB_AreaModel> areaList = new ArrayList<DB_AreaModel>();
         try {

@@ -2,12 +2,8 @@ package SpongeCity.MonitorPlatform.DBAccess.DataAccess;
 
 import SpongeCity.MonitorPlatform.DBAccess.Common.SqlConnection;
 import SpongeCity.MonitorPlatform.DBAccess.Interface.IAlertOperation;
-import SpongeCity.MonitorPlatform.DBAccess.Interface.IDeviceOperation;
-import SpongeCity.MonitorPlatform.DBAccess.Interface.IDeviceTypeOperation;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AlertModel;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AreaModel;
-import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceModel;
-import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceTypeModel;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.HashMap;
@@ -17,7 +13,7 @@ import java.util.Map;
 /**
  * Created by sabermai on 2016/1/5.
  */
-public class AlertData {
+public class AlertDA {
     public List<DB_AlertModel> getAlertList(int pageIndex, int pageSize) {
         SqlSession session = SqlConnection.getSession();
         try {
