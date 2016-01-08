@@ -20,6 +20,7 @@
 
   <script src="js/jquery-1.11.3.js"></script>
   <script src="js/tree.jquery.js"></script>
+  <script src="http://api.map.baidu.com/api?v=2.0&ak=Fp5YoAmGiStTkpbGVKI8dQkA"></script>
 </head>
 
 <body>
@@ -53,12 +54,13 @@
     window.onhashchange = function(){
       var hash = location.hash;
       console.log(hash);
-
+      $(".r_con3").load('/home/areamap?areaId=1');
     };
     $(document).on("click","#tree1 li:eq(0)",function(){
       location.hash = "part5";
-      location.hash = "part7";
       console.log(location.hash);
     })
+
+
   })
 </script>
