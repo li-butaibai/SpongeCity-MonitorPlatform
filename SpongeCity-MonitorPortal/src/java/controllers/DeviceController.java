@@ -96,11 +96,13 @@ public class DeviceController {
                     deviceModel.setDevice_id(db_deviceModel.getDeviceid());
                     deviceModel.setAreaName(getDeviceArea(db_deviceModel, db_areaModels));
                     deviceModel.setBlockName(getDeviceBlock(db_deviceModel, db_areaModels));
+                    deviceModel.setState(DeviceState.fromString(db_deviceModel.getState()));
                     deviceModel.setMeasureName(getDeviceMeasureName(db_deviceModel, db_areaModels));
                     deviceModel.setCoordinate(new Coordinate(db_deviceModel.getLatitude(), db_deviceModel.getLongitude()));
                     DeviceTypeModel dtModel = new DeviceTypeModel(db_deviceModel.getDevicetype().getId(),
                             db_deviceModel.getDevicetype().getName(),db_deviceModel.getDevicetype().getName());
                     deviceModel.setDeviceType(dtModel);
+                    deviceModel.setComments(db_deviceModel.getComments());
                     deviceModels.add(deviceModel);
                 }
             }
