@@ -15,9 +15,20 @@
   </c:forEach>
 
   map.centerAndZoom(point, 18);
-
-  var marker = new BMap.Marker(new BMap.Point(116.404, 39.915)); // 创建点
-  map.addOverlay(marker);
+  map.addControl(new BMap.MapTypeControl());
+  map.enableScrollWheelZoom(true);
+  ///
+  $.getJSON("/devices/devices?areaId="+location.hash.replace("#",""), function (data) {
+    for(var i = 0; i < data.length-1; i++ ){
+      map.addOverlay(new BMap.Marker(new BMap.Point(parseFloat(data[i].coordinate.latitude),parseFloat(data[i].coordinate.longitude))));
+    }
+    //console.log(data.length);
+      //var marker = new BMap.Marker(new BMap.Point(116.317449, 39.98615)); // 创建点
+      //map.addOverlay(marker);
+  });
+  ///
+  //var marker = new BMap.Marker(new BMap.Point(116.317449, 39.98615)); // 创建点
+  //map.addOverlay(marker);
 
   var polygon = new BMap.Polygon([
   <c:forEach items="${areaInfo.coordinates}" var="sa">
