@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by sabermai on 2016/1/4.
  */
-public class DeviceData {
+public class DeviceDA {
     public List<DB_DeviceTypeModel> getAllDeviceType() {
         SqlSession session = SqlConnection.getSession();
         try {
@@ -54,7 +54,7 @@ public class DeviceData {
         SqlSession session = SqlConnection.getSession();
         try {
             List<DB_DeviceModel> devices = new ArrayList<DB_DeviceModel>();
-            AreaData ad = new AreaData();
+            AreaDA ad = new AreaDA();
             List<DB_AreaModel> areas = ad.getAreaAllChildren(areaId);
             areas.add(ad.getAreaById(areaId));
             IDeviceOperation deviceOperation = session.getMapper(IDeviceOperation.class);

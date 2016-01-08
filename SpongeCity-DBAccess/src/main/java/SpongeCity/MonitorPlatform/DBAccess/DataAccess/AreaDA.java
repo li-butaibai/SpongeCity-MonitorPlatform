@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by sabermai on 2016/1/4.
  */
-public class AreaData {
+public class AreaDA {
     public List<DB_AreaModel> getAllArea() {
         SqlSession session = SqlConnection.getSession();
         try {

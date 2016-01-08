@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by saber on 2016/1/4.
  */
-public class LogData {
+public class LogDA {
     public List<DB_DeviceLogModel> getDeviceLogByDeviceId(int deviceId) {
         SqlSession session = SqlConnection.getSession();
         try {

@@ -1,6 +1,6 @@
 package SpongeCity.MonitorPlatform.Core.PlatformData;
 
-import SpongeCity.MonitorPlatform.DBAccess.DataAccess.LogData;
+import SpongeCity.MonitorPlatform.DBAccess.DataAccess.LogDA;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceLogModel;
 
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ public class LogDataOperation {
     public List<DB_DeviceLogModel> getDeviceLogList(int deviceId) {
         List<DB_DeviceLogModel> deviceLogList = new ArrayList<DB_DeviceLogModel>();
         try {
-            LogData ld = new LogData();
+            LogDA ld = new LogDA();
             deviceLogList = ld.getDeviceLogByDeviceId(deviceId);
         }catch (Exception ex){
             //log
