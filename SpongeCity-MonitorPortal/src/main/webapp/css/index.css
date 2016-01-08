@@ -25,3 +25,5 @@
 .r_nav .nav_btn2{ background:url(../img/btn2.png) no-repeat center 30px #95dfde}
 .r_nav .nav_btn3{ background:url(../img/btn3.png) no-repeat center 30px #95dfde}
 .r_nav .nav_btn4{ background:url(../img/btn4.png) no-repeat center 30px #95dfde}
+
+#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}

@@ -18,10 +18,10 @@
   var data = [
     <c:forEach items="${areamenus}" var="es">
     {
-      label: '${es.name}',
+      label: '<a href="#${es.id}">${es.name}</a>',
       children: [
               <c:forEach items="${es.subArea}" var="sa">
-                { label: '${sa.name}' },
+                { label:'<a href="#${sa.id}">${sa.name}</a>' },
               </c:forEach>
       ]
     },
@@ -31,7 +31,8 @@
     $('#tree1').tree({
       closedIcon: '＞',
       openedIcon: '∨',
-      data: data
+      data: data,
+      autoEscape:false
     });
   });
 </script>

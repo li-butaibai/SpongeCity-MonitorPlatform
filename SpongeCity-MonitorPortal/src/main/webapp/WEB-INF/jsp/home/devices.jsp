@@ -21,7 +21,7 @@
   <script type="text/javascript">
     $().ready(function () {
       $.ajax({
-        url:"/devices/devices?areaId=1&deviceTypeIds=1,2,3",
+        url:"/devices/devices?areaId=1",
         type:"get",
         async:true,
         dataType:"text",

@@ -20,6 +20,7 @@
 
   <script src="${pageContext.request.contextPath}/js/jquery-1.11.3.js"></script>
   <script src="${pageContext.request.contextPath}/js/tree.jquery.js"></script>
+  <script src="http://api.map.baidu.com/api?v=2.0&ak=Fp5YoAmGiStTkpbGVKI8dQkA"></script>
 </head>
 
 <body>
@@ -49,16 +50,14 @@
 <script>
   $(function(){
     $(".conleft").load('/menu/areamenu');
-    $(".r_con3").load("/devices/index?sortKey=0&sortDes=0");
+    $(".r_con3").load("/home/areamap?areaId=1");
     window.onhashchange = function(){
-      var hash = location.hash;
-      console.log(hash);
-
+      console.log(location.hash+"hhh");
+      $(".r_con3").load("/home/areamap?areaId="+location.hash.replace("#",""));
     };
-    $(document).on("click","#tree1 li:eq(0)",function(){
-      location.hash = "part5";
-      location.hash = "part7";
-      console.log(location.hash);
-    })
+//    $(document).on("click","#tree1 li:eq(0)",function(){
+//      location.hash = "part5";
+//      console.log(location.hash);
+//    })
   })
 </script>

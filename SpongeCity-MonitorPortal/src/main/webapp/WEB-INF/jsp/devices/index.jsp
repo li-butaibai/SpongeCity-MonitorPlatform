@@ -12,73 +12,58 @@
 <div class="table_wrap">
   <table class="table table-bordered" style="border-radius:5px">
     <tr style=" background:#f9f9f9">
-      <td style="border-radius:5px">时间</td>
-      <td>告警</td>
+      <td style="border-radius:5px">设备编号</td>
+      <td>设备类型</td>
+      <td>设备状态</td>
       <td>区域</td>
       <td>地块</td>
       <td>单项措施</td>
-      <td>设备</td>
       <td>描述</td>
     </tr>
-    <tr>
-      <td>1</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
+    <c:forEach items="${devices.data}" var="de">
+      <tr>
+        <td>${de.device_id}</td>
+        <td>${de.deviceType.name}</td>
+        <td>${de.state}</td>
+        <td>${de.areaName}</td>
+        <td>${de.blockName}</td>
+        <td>${de.measureName}</td>
+        <td>${de.comments}</td>
+      </tr>
+    </c:forEach>
+
   </table>
   <nav>
     <ul class="pagination">
-      <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-      <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-      <li><a href="#">2</a></li>
-      <li><a href="#">3</a></li>
-      <li><a href="#">4</a></li>
-      <li><a href="#">5</a></li>
-      <li>
-        <a href="#" aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-        </a>
-      </li>
+      <c:if test="${devices.currentPageIndex==0}">
+        <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+      </c:if>
+      <c:if test="${devices.currentPageIndex>0}">
+        <li ><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+      </c:if>
+      <c:forEach var="i" begin="0" end="${devices.pageCount-1}">
+        <c:if test="${devices.currentPageIndex==i}">
+          <li class="active"><a href="#">${i+1} <span class="sr-only">(current)</span></a></li>
+        </c:if>
+        <c:if test="${devices.currentPageIndex!=i}">
+          <li><a href="#">${i+1}</a></li>
+        </c:if>
+
+      </c:forEach>
+      <c:if test="${devices.currentPageIndex==devices.pageCount-1}">
+        <li class="disabled">
+          <a href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </c:if>
+      <c:if test="${devices.currentPageIndex<devices.pageCount-1}">
+        <li>
+          <a href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </c:if>
     </ul>
   </nav>
 </div>
