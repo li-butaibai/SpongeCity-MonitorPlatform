@@ -12,7 +12,7 @@
 <div class="table_wrap">
   <table class="table table-bordered" style="border-radius:5px">
     <tr style=" background:#f9f9f9">
-      <td style="border-radius:5px">设备</td>
+      <td style="border-radius:5px">设备编号</td>
       <td>设备类型</td>
       <td>设备状态</td>
       <td>区域</td>
