@@ -13,13 +13,13 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>海绵城市数据监控平台</title>
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/cssreset-min.css">
-  <link rel="stylesheet" href="css/index.css">
-  <link rel="stylesheet" href="css/jqtree.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/cssreset-min.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/jqtree.css">
 
-  <script src="js/jquery-1.11.3.js"></script>
-  <script src="js/tree.jquery.js"></script>
+  <script src="${pageContext.request.contextPath}/js/jquery-1.11.3.js"></script>
+  <script src="${pageContext.request.contextPath}/js/tree.jquery.js"></script>
 </head>
 
 <body>

@@ -10,10 +10,12 @@ import Util.SortList;
 import models.AreaModel;
 import models.Coordinate;
 import models.DeviceModel;
+import models.DeviceTypeModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
@@ -25,7 +27,7 @@ import java.util.Map;
  * Created by EriclLee on 15/12/29.
  */
 @Controller
-@RequestMapping(value = "/devices/")
+@RequestMapping(value = "/devices")
 public class DeviceController {
     @RequestMapping(value = "/index",method = RequestMethod.GET)
     public ModelAndView index(String sortKey, String sortDes)
@@ -60,35 +62,41 @@ public class DeviceController {
     }
 
     @RequestMapping(value="/devices",method = RequestMethod.GET)
-    public Map<String,Object> devices(@RequestParam int areaId, int[] deviceTypeIds)
+    @ResponseBody
+    public List<DeviceModel> devices(@RequestParam int areaId, int[] deviceTypeIds)
     {
-        Map<String, Object> result = new HashMap<String, Object>();
+        //Map<String, Object> result = new HashMap<String, Object>();
         List<DeviceModel> deviceModels = new ArrayList<DeviceModel>();
         AreaDataOperation areaDataOperation = new AreaDataOperation();
         List<DB_AreaModel> db_areaModels = areaDataOperation.getAllArea();
         List<Integer> allAreaIds= getAllSubAreaId(areaId, db_areaModels);
         DeviceDataOperation deviceDataOperation = new DeviceDataOperation();
         List<DB_DeviceModel> deviceModelList = deviceDataOperation.getAllDevice();
+        List<DB_DeviceModel> deviceModelListByTypes = getDevicesByGTypes(deviceModelList, deviceTypeIds);
         AlertDataOperation alertDataOperation = new AlertDataOperation();
 
         for(Integer aId :allAreaIds)
         {
-            for(DB_DeviceModel db_deviceModel : deviceModelList)
+            for(DB_DeviceModel db_deviceModel : deviceModelListByTypes)
             {
                 if(db_deviceModel.getArea().getId() == aId)
                 {
                     DeviceModel deviceModel = new DeviceModel();
                     deviceModel.setId(db_deviceModel.getId());
-                    //alertDataOperation.getAlertListByDeviceId(deviceModel.getId());
-                    //TODO get alert count
-                    deviceModel.setAlertCount(0);
+                    List<DB_AlertModel> alerts = alertDataOperation.getAlertListByDeviceId(deviceModel.getId());
+                    deviceModel.setAlertCount(alerts.size());
                     deviceModel.setDevice_id(db_deviceModel.getDeviceid());
+
                     deviceModel.setCoordinate(new Coordinate(db_deviceModel.getLatitude(), db_deviceModel.getLongitude()));
+                    DeviceTypeModel dtModel = new DeviceTypeModel(db_deviceModel.getDevicetype().getId(),
+                            db_deviceModel.getDevicetype().getName(),db_deviceModel.getDevicetype().getName());
+                    deviceModel.setDeviceType(dtModel);
                     deviceModels.add(deviceModel);
                 }
             }
         }
-        return result;
+        //result.put("devices", deviceModels);
+        return deviceModels;
     }
 
     private List<Integer> getAllSubAreaId(int aid, List<DB_AreaModel> db_areaModelList)
@@ -102,5 +110,23 @@ public class DeviceController {
             }
         }
         return allSubAreaId;
+    }
+
+    private List<DB_DeviceModel> getDevicesByGTypes(List<DB_DeviceModel> deviceModels, int[] deviceTypeIds)
+    {
+        List<DB_DeviceModel> result = new ArrayList<DB_DeviceModel>();
+        if(deviceTypeIds != null) {
+            for (int typeId : deviceTypeIds) {
+                for (DB_DeviceModel db_deviceModel : deviceModels) {
+                    if (db_deviceModel.getDevicetype().getId() == typeId) {
+                        result.add(db_deviceModel);
+                    }
+                }
+            }
+        }
+        else{
+            result = deviceModels;
+        }
+        return result;
     }
 }
