@@ -31,6 +31,11 @@ public class HomeController {
         ModelAndView modelAndView = new ModelAndView("/home/index");
         return modelAndView;
     }
+    @RequestMapping(value={"/devices"},method = RequestMethod.GET)
+    public String devices()
+    {
+        return "/home/devices";
+    }
 
     @RequestMapping(value={"/areamap"},method = RequestMethod.GET)
     public ModelAndView MapInfo(int areaId)
@@ -53,6 +58,8 @@ public class HomeController {
             deviceTypeModelList.add(typeModel);
         }
         modelAndView.addObject("deviceTypes", deviceTypeModelList);
+        DeviceController dc = new DeviceController();
+        dc.devices(areaId, null);
         return modelAndView;
     }
 
@@ -71,4 +78,5 @@ public class HomeController {
         }
         return coordinateList;
     }
+
 }

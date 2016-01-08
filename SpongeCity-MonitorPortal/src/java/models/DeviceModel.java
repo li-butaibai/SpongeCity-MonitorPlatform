@@ -9,8 +9,8 @@ public class DeviceModel {
     private int id;
     private String device_id;
     private DeviceState state;
-    //private DeviceTypeModel deviceType;
-    private String deviceTypeName;
+    private DeviceTypeModel deviceType;
+    //private String deviceTypeName;
     private String areaName;
     private String blockName;
     private String measureName;
@@ -46,12 +46,12 @@ public class DeviceModel {
         this.state = state;
     }
 
-    public String getDeviceTypeName() {
-        return deviceTypeName;
+    public DeviceTypeModel getDeviceType() {
+        return deviceType;
     }
 
-    public void setDeviceTypeName(String deviceTypeName) {
-        this.deviceTypeName = deviceTypeName;
+    public void setDeviceType(DeviceTypeModel deviceType) {
+        this.deviceType = deviceType;
     }
 
     public String getAreaName() {

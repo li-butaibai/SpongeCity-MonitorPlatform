@@ -66,7 +66,7 @@ public class AlertData {
             for (DB_AreaModel area : areas) {
                 strAreaIds += area.getId() + ",";
             }
-            params.put("areaIds", strAreaIds.substring(0, strAreaIds.lastIndexOf(",") - 1));
+            params.put("areaIds", strAreaIds.substring(0, strAreaIds.lastIndexOf(",")));
             params.put("pageSize", pageSize);
             params.put("itemIndex", (pageIndex - 1) * pageSize);
             IAlertOperation alertOperation = session.getMapper(IAlertOperation.class);
