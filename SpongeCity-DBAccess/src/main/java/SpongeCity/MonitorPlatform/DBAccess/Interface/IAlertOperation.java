@@ -14,7 +14,9 @@ public interface IAlertOperation {
     //List<DB_AlertModel> getAlertListByDeviceId(Map params);
     List<DB_AlertModel> getAlertListByDeviceId(int deviceId);
 
-    List<DB_AlertModel> getAllAlertByAreaId(Map params);
+    List<DB_AlertModel> getPageDivisionAlertByAreaId(Map params);
+
+    Integer getAllAlertCountByAreaId(String areaIds);
 
     DB_AlertModel getAlertInfo(int alertId);
 }

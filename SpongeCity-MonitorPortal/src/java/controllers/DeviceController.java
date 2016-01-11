@@ -6,6 +6,7 @@ import SpongeCity.MonitorPlatform.Core.PlatformData.DeviceDataOperation;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AlertModel;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AreaModel;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceModel;
+import Util.ModelConverter;
 import Util.SortList;
 import models.*;
 import org.springframework.stereotype.Controller;
@@ -90,7 +91,9 @@ public class DeviceController {
                 if(db_deviceModel.getArea().getId() == aId)
                 {
                     DeviceModel deviceModel = new DeviceModel();
-                    deviceModel.setId(db_deviceModel.getId());
+
+                    //region Unused. Already extract to Util.ModelConverter class
+                    /*deviceModel.setId(db_deviceModel.getId());
                     List<DB_AlertModel> alerts = alertDataOperation.getAlertListByDeviceId(deviceModel.getId());
                     deviceModel.setAlertCount(alerts.size());
                     deviceModel.setDevice_id(db_deviceModel.getDeviceid());
@@ -102,7 +105,11 @@ public class DeviceController {
                     DeviceTypeModel dtModel = new DeviceTypeModel(db_deviceModel.getDevicetype().getId(),
                             db_deviceModel.getDevicetype().getName(),db_deviceModel.getDevicetype().getName());
                     deviceModel.setDeviceType(dtModel);
-                    deviceModel.setComments(db_deviceModel.getComments());
+                    deviceModel.setComments(db_deviceModel.getComments());*/
+                    //endregion
+
+                    ModelConverter converter = new ModelConverter();
+                    deviceModel = converter.convertDBDeviceModel2PortalDeviceModel(db_deviceModel);
                     deviceModels.add(deviceModel);
                 }
             }
@@ -141,6 +148,7 @@ public class DeviceController {
         return result;
     }
 
+    //region Unused. Already extract to Util.ModelConverter class
     private String getDeviceArea(DB_DeviceModel deviceModel, List<DB_AreaModel> db_areaModels)
     {
         DB_AreaModel areaModel = deviceModel.getArea();
@@ -199,4 +207,5 @@ public class DeviceController {
             return deviceModel.getArea().getName();
         }
     }
+    //endregion
 }

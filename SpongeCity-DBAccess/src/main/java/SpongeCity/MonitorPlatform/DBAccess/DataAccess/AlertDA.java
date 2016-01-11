@@ -66,8 +66,24 @@ public class AlertDA {
             params.put("pageSize", pageSize);
             params.put("itemIndex", (pageIndex - 1) * pageSize);
             IAlertOperation alertOperation = session.getMapper(IAlertOperation.class);
-            List<DB_AlertModel> alerts = alertOperation.getAllAlertByAreaId(params);
+            List<DB_AlertModel> alerts = alertOperation.getPageDivisionAlertByAreaId(params);
             return alerts;
+        } finally {
+            session.close();
+        }
+    }
+
+    public int getAllAlertCountByAreaList(List<DB_AreaModel> areas) {
+        SqlSession session = SqlConnection.getSession();
+        try {
+            Map<String, Object> params = new HashMap<String, Object>();
+            String strAreaIds = "";
+            for (DB_AreaModel area : areas) {
+                strAreaIds += area.getId() + ",";
+            }
+            IAlertOperation alertOperation = session.getMapper(IAlertOperation.class);
+            int count = alertOperation.getAllAlertCountByAreaId(strAreaIds.substring(0, strAreaIds.lastIndexOf(",")));
+            return count;
         } finally {
             session.close();
         }
