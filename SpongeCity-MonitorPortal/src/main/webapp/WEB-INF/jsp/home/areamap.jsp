@@ -2,7 +2,13 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page isELIgnored="false" %>
 <div id="allmap"></div>
-<div>
+<div id="checkwin">
+  <p class="devicetitle">设备类型</p>
+  <p class="devicetype"><input type="checkbox">设备类型1</p>
+  <p class="devicetype"><input type="checkbox">设备类型2</p>
+  <p class="devicetype"><input type="checkbox">设备类型3</p>
+</div>
+<div style="display: none">
   <c:forEach items="${areaInfo.coordinates}" var="sa">
     <span>${sa.longitude}  ${sa.latitude}</span></br>
   </c:forEach>
@@ -18,8 +24,9 @@
   map.addControl(new BMap.MapTypeControl());
   map.enableScrollWheelZoom(true);
   ///
-  $.getJSON("/devices/devices?areaId="+location.hash.replace("#",""), function (data) {
-    for(var i = 0; i < data.length-1; i++ ){
+  $.getJSON("/devices/devices?"+location.hash.replace("#",""), function (data) {
+    console.log("data.length"+data.length);
+    for(var i = 0; i < data.length; i++ ){
       map.addOverlay(new BMap.Marker(new BMap.Point(parseFloat(data[i].coordinate.latitude),parseFloat(data[i].coordinate.longitude))));
     }
     //console.log(data.length);

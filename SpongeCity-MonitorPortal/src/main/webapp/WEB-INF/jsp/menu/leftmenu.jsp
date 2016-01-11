@@ -18,10 +18,10 @@
   var data = [
     <c:forEach items="${areamenus}" var="es">
     {
-      label: '<a href="#${es.id}">${es.name}</a>',
+      label: '<a href="#areaId=${es.id}">${es.name}</a>',
       children: [
               <c:forEach items="${es.subArea}" var="sa">
-                { label:'<a href="#${sa.id}">${sa.name}</a>' },
+                { label:'<a href="#areaId=${sa.id}">${sa.name}</a>' },
               </c:forEach>
       ]
     },
