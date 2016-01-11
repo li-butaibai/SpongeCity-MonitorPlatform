@@ -58,12 +58,16 @@ d.firstuptime,d.updatetime,d.state as devicestate,d.datastatus as devicedatestat
 join devices d on a.device_id = d.id
 where a.id = #{alertId}
     </select>
-    <select id="getAllAlertByAreaId" resultMap="alertMap">
+    <select id="getPageDivisionAlertByAreaId" resultMap="alertMap">
         select top ${pageSize} rownumber,* from
 (select row_number()over(order by a.createtime desc)rownumber,a.id,a.title,a.comments,a.createtime,a.endtime,a.state,a.level,
 d.id as PK_deviceid,d.device_id,d.devicetype_id,d.model,d.comments as devicecomments,d.longitude,d.latitude,d.area_id,
 d.firstuptime,d.updatetime,d.state as devicestate,d.datastatus as devicedatestatus from alert a
 join devices d on a.device_id = d.id where d.area_id in (${areaIds}))c
 where rownumber>${itemIndex}
+    </select>
+    <select id="getAllAlertCountByAreaId" parameterType="string" resultType="java.lang.Integer">
+        select count(1) from alert a
+        join devices d on a.device_id = d.id where d.area_id in (${_parameter})
     </select>
 </mapper>

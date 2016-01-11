@@ -17,8 +17,8 @@ public class AlertDataOperation {
     public List<DB_AlertModel> getAlertList(int pageIndex, int pageSize) {
         List<DB_AlertModel> alertList = new ArrayList<DB_AlertModel>();
         try {
-            alertList = ad.getAlertList(pageIndex, pageSize);
-        }catch (Exception ex){
+            alertList = ad.getAlertList(pageIndex + 1, pageSize);
+        } catch (Exception ex) {
             //log
         }
         return alertList;
@@ -28,7 +28,7 @@ public class AlertDataOperation {
         List<DB_AlertModel> alertList = new ArrayList<DB_AlertModel>();
         try {
             alertList = ad.getAlertListByDeviceId(deviceId);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             //log
         }
         return alertList;
@@ -41,18 +41,32 @@ public class AlertDataOperation {
             AreaDA areaData = new AreaDA();
             areas = areaData.getAreaAllChildren(areaId);
             areas.add(areaData.getAreaById(areaId));
-            alertList = ad.getAllAlertByAreaList(areas, pageIndex, pageSize);
-        }catch (Exception ex){
+            alertList = ad.getAllAlertByAreaList(areas, pageIndex + 1, pageSize);
+        } catch (Exception ex) {
             //log
         }
         return alertList;
+    }
+
+    public int getAreaAlertCount(int areaId) {
+        int count = 0;
+        try {
+            List<DB_AreaModel> areas = new ArrayList<DB_AreaModel>();
+            AreaDA areaData = new AreaDA();
+            areas = areaData.getAreaAllChildren(areaId);
+            areas.add(areaData.getAreaById(areaId));
+            count = ad.getAllAlertCountByAreaList(areas);
+        } catch (Exception ex) {
+            //log
+        }
+        return count;
     }
 
     public DB_AlertModel getAlertInfo(int alertId) {
         DB_AlertModel alert = new DB_AlertModel();
         try {
             alert = ad.getAlertInfoByAlertId(alertId);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             //log
         }
         return alert;
