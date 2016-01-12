@@ -3,10 +3,7 @@ package Util;
 import SpongeCity.MonitorPlatform.Core.PlatformData.AlertDataOperation;
 import SpongeCity.MonitorPlatform.Core.PlatformData.AreaDataOperation;
 import SpongeCity.MonitorPlatform.Core.PlatformData.DeviceDataOperation;
-import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AlertModel;
-import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AreaModel;
-import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceLogModel;
-import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceModel;
+import SpongeCity.MonitorPlatform.DBAccess.Model.*;
 import models.*;
 
 import java.util.List;
@@ -31,18 +28,18 @@ public class ModelConverter {
         deviceModel.setState(DeviceState.fromString(db_deviceModel.getState()));
         deviceModel.setMeasureName(getDeviceMeasureName(db_deviceModel, db_areaModels));
         deviceModel.setCoordinate(new Coordinate(db_deviceModel.getLatitude(), db_deviceModel.getLongitude()));
-        DeviceTypeModel dtModel = new DeviceTypeModel(db_deviceModel.getDevicetype().getId(), db_deviceModel.getDevicetype().getName(),db_deviceModel.getDevicetype().getName());
+        DeviceTypeModel dtModel = new DeviceTypeModel(db_deviceModel.getDevicetype().getId(), db_deviceModel.getDevicetype().getName(), db_deviceModel.getDevicetype().getName());
         deviceModel.setDeviceType(dtModel);
         deviceModel.setComments(db_deviceModel.getComments());
 
         return deviceModel;
     }
 
-    public AlertModel convertDBAlertModel2PortalAlertModel(DB_AlertModel db_alert, List<DB_AreaModel> dbAreas){
-        if(db_alert!=null){
+    public AlertModel convertDBAlertModel2PortalAlertModel(DB_AlertModel db_alert, List<DB_AreaModel> dbAreas) {
+        if (db_alert != null) {
             AlertModel alert = new AlertModel();
-            for(DB_AreaModel db_areaModel : dbAreas){
-                if(db_areaModel.getId() == db_alert.getDevice().getArea_id()){
+            for (DB_AreaModel db_areaModel : dbAreas) {
+                if (db_areaModel.getId() == db_alert.getDevice().getArea_id()) {
                     db_alert.getDevice().setArea(db_areaModel);
                     break;
                 }
@@ -57,14 +54,14 @@ public class ModelConverter {
             alert.setLevel(AlertLevel.values()[db_alert.getLevel()]);
             alert.setAreaName(getDeviceArea(db_alert.getDevice(), dbAreas));
             alert.setBlockName(getDeviceBlock(db_alert.getDevice(), dbAreas));
-            alert.setMeasureName(getDeviceMeasureName(db_alert.getDevice(),dbAreas));
+            alert.setMeasureName(getDeviceMeasureName(db_alert.getDevice(), dbAreas));
             return alert;
-        }else {
+        } else {
             return null;
         }
     }
 
-    public DeviceLogModel convertDBDeviceLog2PortalDeviceLog(DB_DeviceLogModel db_deviceLogModel){
+    public DeviceLogModel convertDBDeviceLog2PortalDeviceLog(DB_DeviceLogModel db_deviceLogModel) {
         DeviceLogModel deviceLogModel = new DeviceLogModel();
         deviceLogModel.setId(db_deviceLogModel.getId());
         deviceLogModel.setComments(db_deviceLogModel.getComments());
@@ -74,62 +71,70 @@ public class ModelConverter {
         return deviceLogModel;
     }
 
+    public DataModel convertDBData2PortalData(DB_DataModel dbDataModel, List<DB_AreaModel> dbAreaModelList) {
+        DataModel dataModel = new DataModel();
+        for (DB_AreaModel dbAreaModel : dbAreaModelList) {
+            if (dbAreaModel.getId() == dbDataModel.getDevice().getArea_id()) {
+                dbDataModel.getDevice().setArea(dbAreaModel);
+                break;
+            }
+        }
+        dataModel.setId(dbDataModel.getId());
+        dataModel.setAreaName(getDeviceArea(dbDataModel.getDevice(), dbAreaModelList));
+        dataModel.setBlockName(getDeviceBlock(dbDataModel.getDevice(),dbAreaModelList));
+        dataModel.setMeasureName(getDeviceMeasureName(dbDataModel.getDevice(),dbAreaModelList));
+        dataModel.setDatatime(dbDataModel.getDatetime());
+        dataModel.setDevice_id(dbDataModel.getDevice().getDeviceid());
+        dataModel.setDatatype(dbDataModel.getDatatype().getDatatype());
+        dataModel.setDatavalue(dbDataModel.getDatavalue());
+        dataModel.setUnit(dbDataModel.getDatatype().getUnit());
+
+        return dataModel;
+    }
+
     //region PrivateMethods
-    private String getDeviceArea(DB_DeviceModel deviceModel, List<DB_AreaModel> db_areaModels)
-    {
+    private String getDeviceArea(DB_DeviceModel deviceModel, List<DB_AreaModel> db_areaModels) {
         DB_AreaModel areaModel = deviceModel.getArea();
-        while(areaModel.getParentarea_id() != 0)
-        {
-            for(DB_AreaModel db_areaModel : db_areaModels)
-            {
-                if(db_areaModel.getId() == areaModel.getParentarea_id())
-                {
+        while (areaModel.getParentarea_id() != 0) {
+            for (DB_AreaModel db_areaModel : db_areaModels) {
+                if (db_areaModel.getId() == areaModel.getParentarea_id()) {
                     areaModel = db_areaModel;
                 }
             }
         }
         return areaModel.getName();
     }
-    private String getDeviceBlock(DB_DeviceModel deviceModel, List<DB_AreaModel> db_areaModels)
-    {
+
+    private String getDeviceBlock(DB_DeviceModel deviceModel, List<DB_AreaModel> db_areaModels) {
         DB_AreaModel areaModel = deviceModel.getArea();
-        if(areaModel.getParentarea_id() == 0)
-        {
+        if (areaModel.getParentarea_id() == 0) {
             return null;
         }
-        for(DB_AreaModel db_areaModel : db_areaModels)
-        {
-            if(db_areaModel.getId() == areaModel.getParentarea_id())
-            {
-                if(db_areaModel.getParentarea_id() == 0){
+        for (DB_AreaModel db_areaModel : db_areaModels) {
+            if (db_areaModel.getId() == areaModel.getParentarea_id()) {
+                if (db_areaModel.getParentarea_id() == 0) {
                     break;
-                }
-                else {
+                } else {
                     areaModel = db_areaModel;
                 }
             }
         }
         return areaModel.getName();
     }
-    private String getDeviceMeasureName(DB_DeviceModel deviceModel, List<DB_AreaModel> db_areaModels)
-    {
+
+    private String getDeviceMeasureName(DB_DeviceModel deviceModel, List<DB_AreaModel> db_areaModels) {
         DB_AreaModel areaModel = deviceModel.getArea();
-        if(areaModel.getParentarea_id() == 0)
-        {
+        if (areaModel.getParentarea_id() == 0) {
             return null;
         }
-        for(DB_AreaModel db_areaModel : db_areaModels)
-        {
-            if(db_areaModel.getId() == areaModel.getParentarea_id())
-            {
+        for (DB_AreaModel db_areaModel : db_areaModels) {
+            if (db_areaModel.getId() == areaModel.getParentarea_id()) {
                 areaModel = db_areaModel;
             }
         }
-        if(areaModel.getParentarea_id() == 0)
-        {
+        if (areaModel.getParentarea_id() == 0) {
             return null;
-        }
-        else {
+        } else {
             return deviceModel.getArea().getName();
         }
     }
