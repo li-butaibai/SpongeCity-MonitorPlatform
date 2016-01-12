@@ -71,7 +71,10 @@
       if( hashObject["topmenu"] == 0 ){
         $(".r_con3").load( "/home/areamap?areaId=" + hashObject.areaId );
       }else if( hashObject["topmenu"] == 1 ){
-        $(".r_con3").load( "devices/index?areaId=" + hashObject.areaId  + "&pageIndex=0" );
+        $(".r_con3").load( "devices/index?areaId=" + hashObject.areaId  + "&pageIndex="+hashObject.pageIndex );
+        console.log("topmenu1");
+      }else if( hashObject["topmenu"] == 2 ){
+        $(".r_con3").load( "alerts/index?areaId=" + hashObject.areaId  + "&pageIndex="+hashObject.pageIndex );
         console.log("topmenu1");
       }
     };

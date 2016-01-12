@@ -34,37 +34,38 @@
         </c:forEach>
 
     </table>
-    <nav>
-        <ul class="pagination">
-            <c:if test="${alerts.currentPageIndex==0}">
-                <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-            </c:if>
-            <c:if test="${alerts.currentPageIndex>0}">
-                <li><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-            </c:if>
-            <c:forEach var="i" begin="0" end="${alerts.pageCount-1}">
-                <c:if test="${alerts.currentPageIndex==i}">
-                    <li class="active"><a href="#">${i+1} <span class="sr-only">(current)</span></a></li>
-                </c:if>
-                <c:if test="${alerts.currentPageIndex!=i}">
-                    <li><a href="#">${i+1}</a></li>
-                </c:if>
 
-            </c:forEach>
-            <c:if test="${alerts.currentPageIndex==alerts.pageCount-1}">
-                <li class="disabled">
-                    <a href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </c:if>
-            <c:if test="${alerts.currentPageIndex<alerts.pageCount-1}">
-                <li>
-                    <a href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </c:if>
-        </ul>
-    </nav>
+  <nav>
+    <ul class="pagination">
+      <c:if test="${alerts.currentPageIndex==0}">
+        <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+      </c:if>
+      <c:if test="${alerts.currentPageIndex>0}">
+        <li ><a href="javascript:void(0);" onclick="onpageclick('0')" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+      </c:if>
+      <c:forEach var="i" begin="0" end="${alerts.pageCount-1}">
+        <c:if test="${alerts.currentPageIndex==i}">
+          <li class="active"><a href="javascript:void(0);" onclick="onpageclick('${i}')">${i+1} <span class="sr-only">(current)</span></a></li>
+        </c:if>
+        <c:if test="${alerts.currentPageIndex!=i}">
+          <li><a href="javascript:void(0);" onclick="onpageclick('${i}')">${i+1}</a></li>
+        </c:if>
+
+      </c:forEach>
+      <c:if test="${alerts.currentPageIndex==alerts.pageCount-1}">
+        <li class="disabled">
+          <a href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </c:if>
+      <c:if test="${alerts.currentPageIndex<alerts.pageCount-1}">
+        <li>
+          <a href="javascript:void(0);" onclick="onpageclick('${alerts.pageCount-1}')" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </c:if>
+    </ul>
+  </nav>
 </div>
