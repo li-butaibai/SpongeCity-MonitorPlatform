@@ -5,6 +5,7 @@ import SpongeCity.MonitorPlatform.Core.PlatformData.AreaDataOperation;
 import SpongeCity.MonitorPlatform.Core.PlatformData.DeviceDataOperation;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AlertModel;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AreaModel;
+import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceLogModel;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceModel;
 import models.*;
 
@@ -61,6 +62,16 @@ public class ModelConverter {
         }else {
             return null;
         }
+    }
+
+    public DeviceLogModel convertDBDeviceLog2PortalDeviceLog(DB_DeviceLogModel db_deviceLogModel){
+        DeviceLogModel deviceLogModel = new DeviceLogModel();
+        deviceLogModel.setId(db_deviceLogModel.getId());
+        deviceLogModel.setComments(db_deviceLogModel.getComments());
+        deviceLogModel.setDeviceId(db_deviceLogModel.getId());
+        deviceLogModel.setLogTime(db_deviceLogModel.getLogtime());
+        deviceLogModel.setLogTitle(db_deviceLogModel.getLogtitle());
+        return deviceLogModel;
     }
 
     //region PrivateMethods

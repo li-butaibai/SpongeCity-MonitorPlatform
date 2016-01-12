@@ -25,6 +25,9 @@
         </association>-->
     </resultMap>
     <select id="getDeviceLogByDeviceId" parameterType="int" resultMap="deviceLogMap">
-        select * from devicelog where deviceid = #{deviceId}
+        select * from devicelog where device_id = #{deviceId}
+    </select>
+    <select id="getLastDeviceLogByDeviceId" resultMap="deviceLogMap">
+        select top ${itemCount} * from devicelog where device_id = ${deviceId} order by logtime desc
     </select>
 </mapper>

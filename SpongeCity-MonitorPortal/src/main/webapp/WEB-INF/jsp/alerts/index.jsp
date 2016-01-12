@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <%@ page isELIgnored="false" %>
 <div style="height:0px; overflow:hidden;">&nbsp;</div>
 <div class="table_wrap">
@@ -23,7 +23,7 @@
         </tr>
         <c:forEach items="${alerts.data}" var="al">
             <tr>
-                <td>${al.createtime}</td>
+                <td><fmt:formatDate value="${al.createtime}" pattern="yyyy年MM月dd日HH点mm分ss秒" /></td>
                 <td>${al.title}</td>
                 <td>${al.areaName}</td>
                 <td>${al.blockName}</td>

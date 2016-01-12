@@ -13,13 +13,14 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>海绵城市数据监控平台</title>
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/cssreset-min.css">
-  <link rel="stylesheet" href="css/index.css">
-  <link rel="stylesheet" href="css/jqtree.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/cssreset-min.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/jqtree.css">
 
-  <script src="js/jquery-1.11.3.js"></script>
-  <script src="js/tree.jquery.js"></script>
+  <script src="${pageContext.request.contextPath}/js/jquery-1.11.3.js"></script>
+  <script src="${pageContext.request.contextPath}/js/tree.jquery.js"></script>
+  <script src="http://api.map.baidu.com/api?v=2.0&ak=Fp5YoAmGiStTkpbGVKI8dQkA"></script>
 </head>
 
 <body>
@@ -33,10 +34,10 @@
     </div>
     <div class="r_con2">
       <ul class="r_nav">
-        <li class="nav_btn1 active">首页</li>
-        <li class="nav_btn2">设备</li>
-        <li class="nav_btn3">告警</li>
-        <li class="nav_btn4">数据下载</li>
+        <li class="nav_btn nav_btn1 active">首页</li>
+        <li class="nav_btn nav_btn2">设备</li>
+        <li class="nav_btn nav_btn3">告警</li>
+        <li class="nav_btn nav_btn4">数据下载</li>
       </ul>
     </div>
     <div class="r_con3">
@@ -48,17 +49,66 @@
 </html>
 <script>
   $(function(){
+    //init
     $(".conleft").load('/menu/areamenu');
-    $(".r_con3").load("/devices/index?sortKey=0&sortDes=0");
-    window.onhashchange = function(){
-      var hash = location.hash;
-      console.log(hash);
+    location.hash = "#areaId=1&topmenu=0";
 
-    };
-    $(document).on("click","#tree1 li:eq(0)",function(){
-      location.hash = "part5";
-      location.hash = "part7";
-      console.log(location.hash);
+    //topmenu
+    $(".nav_btn").click(function(){
+      var index = $(".nav_btn").index(this);
+      $(".nav_btn").removeClass("active");
+      $(this).addClass("active");
+      SetHash({"topmenu":index,});
     })
   })
+
+    //listen hash
+    window.onhashchange = function(){
+      var hashObject = GetHash();
+      if( !hashObject.hasOwnProperty('topmenu') ){
+        hashObject["topmenu"] = 0;
+      }
+      if( hashObject["topmenu"] == 0 ){
+        $(".r_con3").load( "/home/areamap?areaId=" + hashObject.areaId );
+      }else if( hashObject["topmenu"] == 1 ){
+        $(".r_con3").load( "devices/index?areaId=" + hashObject.areaId  + "&pageIndex=0" );
+        console.log("topmenu1");
+      }
+    };
+
+
+
+    //hash tools
+    //sethash
+    function SetHash(val) {
+      console.log("sethash");
+      var hashObject = GetHash();
+      if( val.hasOwnProperty('areaId')){
+        hashObject["areaId"] = val["areaId"];
+      }
+      if( val.hasOwnProperty('topmenu')){
+        hashObject["topmenu"] = val["topmenu"];
+      }
+      var hashurl = "";
+      for( var key in hashObject ){
+        hashurl += key + "=" + hashObject[key]+"&";
+      }
+      location.hash = hashurl.slice(0,-1);
+    }
+
+    //gethash
+    function GetHash() {
+      console.log("gethash");
+      var url = location.hash; //获取url中"?"符后的字串
+      var theRequest = new Object();
+      if (url.indexOf("#") != -1) {
+        var str = url.substr(1);
+        strs = str.split("&");
+        for(var i = 0; i < strs.length; i ++) {
+          theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1]);
+        }
+      }
+      return theRequest;
+    }
+
 </script>
