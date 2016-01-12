@@ -12,9 +12,6 @@ import java.util.List;
 public class DeviceDataFileWriter {
     public void writeCSV(String[] heads, List<DataModel> dataModels, String filePath, String fileName) {
         try {
-            fileName = "testCSV.csv";//文件名称
-            filePath = "D:/"; //文件路径
-
             File csv = new File(filePath + fileName);
             BufferedWriter bw = new BufferedWriter(new FileWriter(csv, true));
             bw.newLine();
@@ -22,19 +19,19 @@ public class DeviceDataFileWriter {
             for (String head : heads) {
                 strHead += head + ",";
             }
-            bw.write(strHead.substring(0,strHead.length()-1));
+            bw.write(strHead.substring(0, strHead.length() - 1));
 
             for (DataModel dataModel : dataModels) {
                 // 新增一行数据
                 bw.newLine();
                 StringBuilder sb = new StringBuilder();
-                sb.append(dataModel.getDatatime().toString()+",");
-                sb.append(dataModel.getAreaName() +",");
-                sb.append(dataModel.getBlockName() +",");
-                sb.append(dataModel.getMeasureName() +",");
-                sb.append(dataModel.getDevice_id() +",");
-                sb.append(dataModel.getDatatype() +",");
-                sb.append(dataModel.getDatavalue() +",");
+                sb.append(dataModel.getDatatime().toString() + ",");
+                sb.append(dataModel.getAreaName() + ",");
+                sb.append(dataModel.getBlockName() + ",");
+                sb.append(dataModel.getMeasureName() + ",");
+                sb.append(dataModel.getDevice_id() + ",");
+                sb.append(dataModel.getDatatype() + ",");
+                sb.append(dataModel.getDatavalue() + ",");
                 sb.append(dataModel.getUnit());
                 bw.write(sb.toString());
             }
