@@ -4,9 +4,10 @@
 <div id="allmap"></div>
 <div id="checkwin">
   <p class="devicetitle">设备类型</p>
-  <p class="devicetype"><input type="checkbox">设备类型1</p>
-  <p class="devicetype"><input type="checkbox">设备类型2</p>
-  <p class="devicetype"><input type="checkbox">设备类型3</p>
+  <c:forEach items="${deviceTypes}" var="dt">
+    <p class="devicetype"><input type="checkbox" name="deviceType" value="${dt.ID}">设备类型1</p>
+  </c:forEach>
+
 </div>
 <div style="display: none">
   <c:forEach items="${areaInfo.coordinates}" var="sa">
