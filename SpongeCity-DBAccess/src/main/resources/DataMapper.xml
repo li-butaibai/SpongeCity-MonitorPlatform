@@ -7,7 +7,7 @@
 <mapper namespace="SpongeCity.MonitorPlatform.DBAccess.Interface.IDataOperation">
     <resultMap id="dataMap" type="DB_DataModel">
         <id property="id" column="id"/>
-        <result property="datetime" column="datetime"/>
+        <result property="datetime" column="datatime"/>
         <result property="datavalue" column="datavalue"/>
         <association property="device" javaType="DB_DeviceModel">
             <id property="id" column="pk_deviceid"/>

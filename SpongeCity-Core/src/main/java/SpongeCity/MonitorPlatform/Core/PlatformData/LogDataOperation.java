@@ -20,4 +20,15 @@ public class LogDataOperation {
         }
         return deviceLogList;
     }
+
+    public List<DB_DeviceLogModel> getLastDeviceLogList(int deviceId, int itemCount) {
+        List<DB_DeviceLogModel> deviceLogList = new ArrayList<DB_DeviceLogModel>();
+        try {
+            LogDA ld = new LogDA();
+            deviceLogList = ld.getLastDeviceLogByDeviceId(deviceId, itemCount);
+        }catch (Exception ex){
+            //log
+        }
+        return deviceLogList;
+    }
 }

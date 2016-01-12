@@ -8,9 +8,18 @@ import java.util.Date;
 public class DB_DeviceLogModel {
     private int id;
     private Date logtime;
-    private DB_DeviceModel device;
+    //private DB_DeviceModel device;
+    private int device_id;
     private String logtitle;
     private String comments;
+
+    public int getDevice_id() {
+        return device_id;
+    }
+
+    public void setDevice_id(int device_id) {
+        this.device_id = device_id;
+    }
 
     public int getId() {
         return id;
@@ -26,14 +35,6 @@ public class DB_DeviceLogModel {
 
     public void setLogtime(Date logtime) {
         this.logtime = logtime;
-    }
-
-    public DB_DeviceModel getDevice() {
-        return device;
-    }
-
-    public void setDevice(DB_DeviceModel device) {
-        this.device = device;
     }
 
     public String getLogtitle() {
