@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class Test {
     public static void main(String[] args) throws SQLException {
-        DeviceDataOperation deviceDataOperation = new DeviceDataOperation();
-        deviceDataOperation.getDeviceInfo(1);
+        DataOperation dataOperation = new DataOperation();
+        dataOperation.getDataByAreaId(1);
     }
 }

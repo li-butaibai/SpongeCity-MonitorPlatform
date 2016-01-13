@@ -43,4 +43,15 @@ public class DeviceDataOperation {
         }
         return device;
     }
+
+    //get device list in current area and all sub area
+    public List<DB_DeviceModel> getDeviceListByAreaId(int areaId){
+        List<DB_DeviceModel> deviceList = new ArrayList<DB_DeviceModel>();
+        try {
+            deviceList = dd.getAllDeviceByAreaId(areaId);
+        } catch (Exception ex) {
+            //log
+        }
+        return deviceList;
+    }
 }

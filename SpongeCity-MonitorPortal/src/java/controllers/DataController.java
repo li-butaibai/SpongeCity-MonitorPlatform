@@ -2,9 +2,11 @@ package controllers;
 
 import SpongeCity.MonitorPlatform.Core.PlatformData.AreaDataOperation;
 import SpongeCity.MonitorPlatform.Core.PlatformData.DataOperation;
+import SpongeCity.MonitorPlatform.Core.PlatformData.DeviceDataOperation;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AreaModel;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DataModel;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DataTypeModel;
+import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceModel;
 import Util.DeviceDataFileWriter;
 import Util.ModelConverter;
 import models.DataInfoModel;
@@ -17,9 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by EriclLee on 15/12/29.
@@ -57,32 +57,57 @@ public class DataController {
         }
     }
 
-    public List<DataTypeModel> getDataTypeList(){
+    public List<DataTypeModel> getDataTypeList() {
         try {
             List<DataTypeModel> dataTypes = new ArrayList<DataTypeModel>();
             DataOperation dataOperation = new DataOperation();
             ModelConverter converter = new ModelConverter();
             List<DB_DataTypeModel> dbDataTypeModels = dataOperation.getDataTypeList();
-            for(DB_DataTypeModel dbDataTypeModel : dbDataTypeModels){
+            for (DB_DataTypeModel dbDataTypeModel : dbDataTypeModels) {
                 dataTypes.add(converter.convertDBDatatype2PortalDatatype(dbDataTypeModel));
             }
             return dataTypes;
-        }catch (Exception ex){
+        } catch (Exception ex) {
             return null;
         }
     }
 
     //get dataType,deviceCount,dataItemCount
-    public List<DataInfoModel> getDataInfo(int areaId){
+    public List<DataInfoModel> getDataInfo(int areaId) {
         List<DataInfoModel> dataInfoModels = new ArrayList<DataInfoModel>();
         DataOperation dataOperation = new DataOperation();
-        ModelConverter converter = new ModelConverter();
+        /*ModelConverter converter = new ModelConverter();
         List<DB_DataTypeModel> dbDataTypeModels = dataOperation.getDataTypeList();
         for (DB_DataTypeModel dbDataTypeModel : dbDataTypeModels) {
             DataInfoModel dataInfoModel = new DataInfoModel();
             dataInfoModel.setDataType(dbDataTypeModel.getDatatype());
             dataInfoModel.setDeviceCount(0);
             dataInfoModel.setDataItemCount(0);
+            dataInfoModels.add(dataInfoModel);
+        }*/
+        Map<String, Integer> dataItemCount = new HashMap<String, Integer>();
+        Map<String, Set<Integer>> deviceInfo = new HashMap<String, Set<Integer>>();
+        List<DB_DataModel> dbDataModels = dataOperation.getDataByAreaId(areaId);
+        for (DB_DataModel dbDataModel : dbDataModels) {
+            String key = dbDataModel.getDatatype().getDatatype();
+            boolean keyExist = dataItemCount.containsKey(key);
+            if (keyExist) {
+                dataItemCount.put(key, dataItemCount.get(key) + 1);
+                Set<Integer> set = deviceInfo.get(key);
+                set.add(dbDataModel.getDevice().getId());
+                deviceInfo.put(key, set);
+            } else {
+                dataItemCount.put(key, 1);
+                Set<Integer> deviceSet = new HashSet<Integer>();
+                deviceSet.add(dbDataModel.getDevice().getId());
+                deviceInfo.put(key, deviceSet);
+            }
+        }
+        for (String dataType : dataItemCount.keySet()) {
+            DataInfoModel dataInfoModel = new DataInfoModel();
+            dataInfoModel.setDataType(dataType);
+            dataInfoModel.setDataItemCount(dataItemCount.get(dataType));
+            dataInfoModel.setDeviceCount(deviceInfo.get(dataType).size());
             dataInfoModels.add(dataInfoModel);
         }
         return dataInfoModels;
@@ -110,5 +135,15 @@ public class DataController {
         } else {
             return "";
         }
+    }
+
+    private Set<Integer> getAreaDevices(int areaId) {
+        DeviceDataOperation deviceDataOperation = new DeviceDataOperation();
+        List<DB_DeviceModel> dbDeviceModels = deviceDataOperation.getDeviceListByAreaId(areaId);
+        Set<Integer> setDevicesByArea = new HashSet<Integer>();
+        for (DB_DeviceModel dbDeviceModel : dbDeviceModels) {
+            setDevicesByArea.add(dbDeviceModel.getId());
+        }
+        return setDevicesByArea;
     }
 }

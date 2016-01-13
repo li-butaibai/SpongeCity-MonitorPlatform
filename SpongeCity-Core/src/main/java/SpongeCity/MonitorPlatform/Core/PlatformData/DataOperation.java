@@ -38,7 +38,18 @@ public class DataOperation {
         return datas;
     }
 
-    public List<DB_DataTypeModel> getDataTypeList(){
+    public List<DB_DataModel> getDataByAreaId(int areaId) {
+        List<DB_DataModel> datas = new ArrayList<DB_DataModel>();
+        try {
+            List<DB_AreaModel> areas = getAllChildrenArea(areaId);
+            datas = dataDA.getDataByArea(areas);
+        } catch (Exception ex) {
+            //log
+        }
+        return datas;
+    }
+
+    public List<DB_DataTypeModel> getDataTypeList() {
         List<DB_DataTypeModel> datatypes = new ArrayList<DB_DataTypeModel>();
         try {
             datatypes = dataDA.getDataTypeList();
@@ -48,7 +59,7 @@ public class DataOperation {
         return datatypes;
     }
 
-    private List<DB_AreaModel> getAllChildrenArea(int areaId){
+    private List<DB_AreaModel> getAllChildrenArea(int areaId) {
         List<DB_AreaModel> areas = new ArrayList<DB_AreaModel>();
         AreaDA areaData = new AreaDA();
         areas = areaData.getAreaAllChildren(areaId);

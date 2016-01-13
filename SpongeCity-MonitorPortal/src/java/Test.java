@@ -20,9 +20,7 @@ import java.util.List;
  */
 public class Test {
     public static void main(String[] args) {
-        DeviceDataOperation deviceDataOperation = new DeviceDataOperation();
-        DB_DeviceModel db_deviceModel = deviceDataOperation.getDeviceInfo(1);
-        ModelConverter converter = new ModelConverter();
-        DeviceModel deviceModel = converter.convertDBDeviceModel2PortalDeviceModel(db_deviceModel);
+        DataController controller = new DataController();
+        controller.getDataInfo(1);
     }
 }

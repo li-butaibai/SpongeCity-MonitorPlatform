@@ -67,4 +67,19 @@ public class DataDA {
             session.close();
         }
     }
+
+    public List<DB_DataModel> getDataByArea(List<DB_AreaModel> areas) {
+        SqlSession session = SqlConnection.getSession();
+        try {
+            String strAreaIds = "";
+            for (DB_AreaModel area : areas) {
+                strAreaIds += area.getId() + ",";
+            }
+            IDataOperation dataOperation = session.getMapper(IDataOperation.class);
+            List<DB_DataModel> datas = dataOperation.getDataByArea(strAreaIds.substring(0, strAreaIds.length() - 1));
+            return datas;
+        } finally {
+            session.close();
+        }
+    }
 }
