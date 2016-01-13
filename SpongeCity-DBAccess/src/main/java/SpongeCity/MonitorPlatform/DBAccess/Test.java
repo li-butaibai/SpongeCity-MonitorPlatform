@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class Test {
     public static void main(String[] args) throws SQLException {
-        DeviceDA dd = new DeviceDA();
-        dd.getAllDeviceByAreaId(1);
+        AlertDA alertDA = new AlertDA();
+        alertDA.getAlertListByDeviceId(1);
     }
 }
