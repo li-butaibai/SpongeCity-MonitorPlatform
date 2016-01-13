@@ -5,7 +5,7 @@
 <div id="checkwin">
   <p class="devicetitle">设备类型</p>
   <c:forEach items="${deviceTypes}" var="dt">
-    <p class="devicetype"><input type="checkbox" name="deviceType" value="${dt.ID}">设备类型1</p>
+    <p class="devicetype"><input type="checkbox" name="deviceType" checked="checked" value="${dt.id}">${dt.name}</p>
   </c:forEach>
 
 </div>
