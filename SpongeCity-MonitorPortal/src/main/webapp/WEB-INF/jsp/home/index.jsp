@@ -25,6 +25,7 @@
 
 <body>
 <div class="con">
+  <div id="dialogDiv"></div>
   <div class="conleft">
 
   </div>
