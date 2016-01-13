@@ -58,7 +58,7 @@
       var index = $(".nav_btn").index(this);
       $(".nav_btn").removeClass("active");
       $(this).addClass("active");
-      SetHash({"topmenu":index,});
+      SetHash({"topmenu":index,"pageIndex":0});
     })
   })
 
@@ -71,9 +71,14 @@
       if( hashObject["topmenu"] == 0 ){
         $(".r_con3").load( "/home/areamap?areaId=" + hashObject.areaId );
       }else if( hashObject["topmenu"] == 1 ){
-        $(".r_con3").load( "devices/index?areaId=" + hashObject.areaId  + "&pageIndex="+hashObject.pageIndex );
+        if( !hashObject.hasOwnProperty('pageIndex') ){
+          hashObject["pageIndex"] = 0;}
+          $(".r_con3").load( "devices/index?areaId=" + hashObject.areaId  + "&pageIndex="+hashObject.pageIndex );
         console.log("topmenu1");
       }else if( hashObject["topmenu"] == 2 ){
+        if( !hashObject.hasOwnProperty('pageIndex') ){
+          hashObject["pageIndex"] = 0;
+        }
         $(".r_con3").load( "alerts/index?areaId=" + hashObject.areaId  + "&pageIndex="+hashObject.pageIndex );
         console.log("topmenu1");
       }
@@ -91,6 +96,9 @@
       }
       if( val.hasOwnProperty('topmenu')){
         hashObject["topmenu"] = val["topmenu"];
+      }
+      if( val.hasOwnProperty('pageIndex')){
+        hashObject["pageIndex"] = val["pageIndex"];
       }
       var hashurl = "";
       for( var key in hashObject ){
