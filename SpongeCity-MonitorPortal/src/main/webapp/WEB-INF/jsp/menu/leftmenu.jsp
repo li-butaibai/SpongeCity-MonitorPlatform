@@ -31,7 +31,7 @@
       label: '<a href="javascript:void(0);" onclick="onLeftMenuClick(\'${es.id}\')">${es.name}</a>',
       children: [
               <c:forEach items="${es.subArea}" var="sa">
-                { label:'<a href="javascript:void(0);" onclick="onLeftMenuClick(${es.id})">${sa.name}</a>' },
+                { label:'<a href="javascript:void(0);" onclick="onLeftMenuClick(${sa.id})">${sa.name}</a>' },
               </c:forEach>
       ]
     },

@@ -9,6 +9,19 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <%@ page isELIgnored="false" %>
+<script type="text/javascript">
+    function onpageclick(pageIndex)
+    {
+        console.log("sethash");
+        var hashObject = GetHash();
+        hashObject["pageIndex"] = pageIndex;
+        var hashurl = "";
+        for( var key in hashObject ){
+            hashurl += key + "=" + hashObject[key]+"&";
+        }
+        location.hash = hashurl.slice(0,-1);
+    }
+</script>
 <div style="height:0px; overflow:hidden;">&nbsp;</div>
 <div class="table_wrap">
     <table class="table table-bordered" style="border-radius:5px">
@@ -23,7 +36,7 @@
         </tr>
         <c:forEach items="${alerts.data}" var="al">
             <tr>
-                <td><fmt:formatDate value="${al.createtime}" pattern="yyyy年MM月dd日HH点mm分ss秒" /></td>
+                <td><fmt:formatDate value="${al.createtime}" pattern="yyyy-MM-dd" /></td>
                 <td>${al.title}</td>
                 <td>${al.areaName}</td>
                 <td>${al.blockName}</td>
@@ -37,6 +50,7 @@
 
   <nav>
     <ul class="pagination">
+        <c:if test="${alerts.pageCount>0}">
       <c:if test="${alerts.currentPageIndex==0}">
         <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
       </c:if>
@@ -66,6 +80,7 @@
           </a>
         </li>
       </c:if>
+            </c:if>
     </ul>
   </nav>
 </div>
