@@ -62,9 +62,10 @@
     console.log("data.length"+data.length);
     for(var i = 0; i < data.length; i++ ){
       var marker =new BMap.Marker(new BMap.Point(parseFloat(data[i].coordinate.latitude),parseFloat(data[i].coordinate.longitude)));
-      marker.setAttribute("value",data[i].id);
+      //alert(data[i].id);
+      //marker.setAttribute("alt",data[i].id);
       marker.addEventListener("click", function(e){
-        alert(e.target.attributes["value"]);
+        //alert(e.target.attributes["alt"]);
       });
       map.addOverlay(marker);
     }
