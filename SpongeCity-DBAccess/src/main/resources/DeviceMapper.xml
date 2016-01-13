@@ -42,10 +42,10 @@
         areas.id as areaid,areas.name as areaname,areas.size,areas.position,areas.parentarea_id FROM devices
          join devicetypes on devices.devicetype_id = devicetypes.id join areas on devices.area_id = areas.id WHERE devices.id = #{deviceId}
     </select>
-    <select id="getDeviceListByAreaId" parameterType="int" resultMap="deviceMap">
+    <select id="getDeviceListByAreaId" parameterType="string" resultMap="deviceMap">
         SELECT devices.id,devices.device_id,devices.model,devices.comments,devices.longitude,devices.latitude,devices.firstuptime,devices.updatetime,
         devices.state,devices.datastatus,devices.picture,devicetypes.id as typeid,devicetypes.name as typename,devicetypes.comments as typecomments,
         areas.id as areaid,areas.name as areaname,areas.size,areas.position,areas.parentarea_id FROM devices
-        join devicetypes on devices.devicetype_id = devicetypes.id join areas on devices.area_id = areas.id WHERE devices.area_id = #{areaId}
+        join devicetypes on devices.devicetype_id = devicetypes.id join areas on devices.area_id = areas.id WHERE devices.area_id in (${_parameter})
     </select>
 </mapper>
