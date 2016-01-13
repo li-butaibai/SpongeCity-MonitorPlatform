@@ -76,15 +76,6 @@ public class DataController {
     public List<DataInfoModel> getDataInfo(int areaId) {
         List<DataInfoModel> dataInfoModels = new ArrayList<DataInfoModel>();
         DataOperation dataOperation = new DataOperation();
-        /*ModelConverter converter = new ModelConverter();
-        List<DB_DataTypeModel> dbDataTypeModels = dataOperation.getDataTypeList();
-        for (DB_DataTypeModel dbDataTypeModel : dbDataTypeModels) {
-            DataInfoModel dataInfoModel = new DataInfoModel();
-            dataInfoModel.setDataType(dbDataTypeModel.getDatatype());
-            dataInfoModel.setDeviceCount(0);
-            dataInfoModel.setDataItemCount(0);
-            dataInfoModels.add(dataInfoModel);
-        }*/
         Map<String, Integer> dataItemCount = new HashMap<String, Integer>();
         Map<String, Set<Integer>> deviceInfo = new HashMap<String, Set<Integer>>();
         List<DB_DataModel> dbDataModels = dataOperation.getDataByAreaId(areaId);
