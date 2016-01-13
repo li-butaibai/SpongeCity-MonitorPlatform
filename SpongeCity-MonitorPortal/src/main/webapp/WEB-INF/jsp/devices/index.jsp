@@ -20,6 +20,26 @@
     }
     location.hash = hashurl.slice(0,-1);
   }
+  function openDeviceDetail(deviceId){
+    $.ajax({
+      url:"/devices/detail?deviceId="+deviceId,
+      type:"get",
+      async:true,
+      dataType:"text",
+      beforeSend: function (XMLHttpRequest) {
+        //$("#waiting").show();
+      },
+      success: function (data) {
+        //$("#waiting").hide();
+        $('#dialogDiv').html(data);
+        //$('#dialogDiv').dialog({ autoOpen: true, modal: true, width: (small ? 345 : 690), show: "drop", hide: "drop", position: [295, 40] });
+      },
+      error: function (data) {
+        //$("#waiting").hide();
+        rtn = false;
+      }
+    });
+  }
 </script>
 <div style="height:0px; overflow:hidden;">&nbsp;</div>
 <div class="table_wrap">
@@ -36,7 +56,7 @@
     <c:forEach items="${devices.data}" var="de">
       <tr>
         <td>${de.device_id}</td>
-        <td>${de.deviceType.name}</td>
+        <td><a href="javascript:void(0);" onclick="openDeviceDetail('${de.id}')">${de.deviceType.name}</a></td>
         <td>${de.state}</td>
         <td>${de.areaName}</td>
         <td>${de.blockName}</td>
