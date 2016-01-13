@@ -3,6 +3,7 @@ package SpongeCity.MonitorPlatform.DBAccess;
 import SpongeCity.MonitorPlatform.DBAccess.DataAccess.AlertDA;
 import SpongeCity.MonitorPlatform.DBAccess.DataAccess.AreaDA;
 import SpongeCity.MonitorPlatform.DBAccess.DataAccess.DataDA;
+import SpongeCity.MonitorPlatform.DBAccess.DataAccess.DeviceDA;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AlertModel;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AreaModel;
 
@@ -16,7 +17,7 @@ import java.util.List;
  */
 public class Test {
     public static void main(String[] args) throws SQLException {
-        DataDA dd = new DataDA();
-        dd.getDataTypeList();
+        DeviceDA dd = new DeviceDA();
+        dd.getAllDeviceByAreaId(1);
     }
 }
