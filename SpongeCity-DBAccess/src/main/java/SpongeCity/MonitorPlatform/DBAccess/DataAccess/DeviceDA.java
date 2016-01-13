@@ -50,7 +50,7 @@ public class DeviceDA {
     }
 
     //get device list in current area and all sub area
-    public List<DB_DeviceModel> getAllDeviceByAreaId(int areaId) throws SQLException {
+    public List<DB_DeviceModel> getAllDeviceByAreaId(int areaId) {
         SqlSession session = SqlConnection.getSession();
         try {
             List<DB_DeviceModel> devices = new ArrayList<DB_DeviceModel>();
@@ -58,9 +58,11 @@ public class DeviceDA {
             List<DB_AreaModel> areas = ad.getAreaAllChildren(areaId);
             areas.add(ad.getAreaById(areaId));
             IDeviceOperation deviceOperation = session.getMapper(IDeviceOperation.class);
+            String areaIds = "";
             for (DB_AreaModel area : areas) {
-                devices.addAll(deviceOperation.getDeviceListByAreaId(area.getId()));
+                areaIds += area.getId() + ",";
             }
+            devices.addAll(deviceOperation.getDeviceListByAreaId(areaIds.substring(0, areaIds.length() - 1)));
             return devices;
         } finally {
             session.close();
@@ -73,10 +75,13 @@ public class DeviceDA {
         try {
             List<DB_DeviceModel> devices = new ArrayList<DB_DeviceModel>();
             IDeviceOperation deviceOperation = session.getMapper(IDeviceOperation.class);
-            devices = deviceOperation.getDeviceListByAreaId(areaId);
+            devices = deviceOperation.getDeviceListByAreaId(Integer.toString(areaId));
             return devices;
         } finally {
             session.close();
         }
     }
+
+    /*public List<DB_DeviceModel> getDevicesWithData(int dataTypeId){
+    }*/
 }
