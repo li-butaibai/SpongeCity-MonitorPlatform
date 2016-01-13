@@ -11,6 +11,7 @@
 <div>
   <div>
     <h>设备详情</h>
+    <img src="/picture/c1.jpg">
     <table>
       <tr>
         <td>设备ID:</td>
