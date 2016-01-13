@@ -34,7 +34,7 @@
 db.device_id,db.devicetype_id,db.model,db.comments as devicecomments,db.longitude,db.latitude,db.area_id,
 db.firstuptime,db.updatetime,db.state as devicestate,db.datastatus as devicedatestatus
 from data da join datatypes t on da.datatype_id = t.id join devices db on da.device_id = db.id
-where da.datatype_id = ${dataTypeid} and db.area_id = ${areaId}
+where da.datatype_id = ${dataTypeid} and db.area_id in (${areaIds})
 order by datatime desc ]]>
     </select>
     <select id="getDataByDataTypeAreaAndTime" resultMap="dataMap">
@@ -42,7 +42,7 @@ order by datatime desc ]]>
 db.device_id,db.devicetype_id,db.model,db.comments as devicecomments,db.longitude,db.latitude,db.area_id,
 db.firstuptime,db.updatetime,db.state as devicestate,db.datastatus as devicedatestatus
 from data da join datatypes t on da.datatype_id = t.id join devices db on da.device_id = db.id
-where da.datatype_id = ${dataTypeid} and db.area_id = ${areaId} and da.datatime > ${startTime} and da.datatime < ${endTime}
+where da.datatype_id = ${dataTypeid} and db.area_id in (${areaIds}) and da.datatime > ${startTime} and da.datatime < ${endTime}
 order by datatime desc ]]>
     </select>
 </mapper>

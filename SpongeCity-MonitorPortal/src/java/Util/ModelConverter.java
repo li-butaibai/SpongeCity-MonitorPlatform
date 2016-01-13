@@ -81,8 +81,8 @@ public class ModelConverter {
         }
         dataModel.setId(dbDataModel.getId());
         dataModel.setAreaName(getDeviceArea(dbDataModel.getDevice(), dbAreaModelList));
-        dataModel.setBlockName(getDeviceBlock(dbDataModel.getDevice(),dbAreaModelList));
-        dataModel.setMeasureName(getDeviceMeasureName(dbDataModel.getDevice(),dbAreaModelList));
+        dataModel.setBlockName(getDeviceBlock(dbDataModel.getDevice(), dbAreaModelList));
+        dataModel.setMeasureName(getDeviceMeasureName(dbDataModel.getDevice(), dbAreaModelList));
         dataModel.setDatatime(dbDataModel.getDatetime());
         dataModel.setDevice_id(dbDataModel.getDevice().getDeviceid());
         dataModel.setDatatype(dbDataModel.getDatatype().getDatatype());
@@ -90,6 +90,14 @@ public class ModelConverter {
         dataModel.setUnit(dbDataModel.getDatatype().getUnit());
 
         return dataModel;
+    }
+
+    public DataTypeModel convertDBDatatype2PortalDatatype(DB_DataTypeModel dbDataTypeModel){
+        DataTypeModel dataTypeModel = new DataTypeModel();
+        dataTypeModel.setId(dbDataTypeModel.getId());
+        dataTypeModel.setUnit(dbDataTypeModel.getUnit());
+        dataTypeModel.setDatatype(dbDataTypeModel.getDatatype());
+        return dataTypeModel;
     }
 
     //region PrivateMethods

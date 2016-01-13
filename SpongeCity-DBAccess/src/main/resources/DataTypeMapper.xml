@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SpongeCity.MonitorPlatform.DBAccess.Interface.IDataTypeOperation">
+    <resultMap id="datatypeMap" type="DB_DataTypeModel">
+        <id property="id" column="id"/>
+        <result property="datatype" column="datatype"/>
+        <result property="unit" column="unit"/>
+    </resultMap>
+    <select id="getDataTypeList" resultMap="datatypeMap">
+        select * from datatypes
+    </select>
+</mapper>

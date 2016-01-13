@@ -16,8 +16,7 @@ import java.util.List;
  */
 public class Test {
     public static void main(String[] args) throws SQLException {
-        DataDA dataDA = new DataDA();
-        //dataDA.getDataByDataypeandArea(1,1);
-        dataDA.getDataByDataTypeAreaAndTime(1,1,new Date(16,1,7),new Date(16,1,9));
+        DataDA dd = new DataDA();
+        dd.getDataTypeList();
     }
 }
