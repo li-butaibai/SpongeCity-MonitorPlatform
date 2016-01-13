@@ -37,7 +37,7 @@ public class AreaDA {
         }
     }
 
-    public List<DB_AreaModel> getAreaAllChildren(int areaId) throws SQLException {
+    public List<DB_AreaModel> getAreaAllChildren(int areaId) {
         SqlSession session = SqlConnection.getSession();
         try {
             IAreaOperation areaOperation = session.getMapper(IAreaOperation.class);

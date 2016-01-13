@@ -3,6 +3,7 @@ package Util;
 import models.DataModel;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,11 +22,12 @@ public class DeviceDataFileWriter {
             }
             bw.write(strHead.substring(0, strHead.length() - 1));
 
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             for (DataModel dataModel : dataModels) {
                 // 新增一行数据
                 bw.newLine();
                 StringBuilder sb = new StringBuilder();
-                sb.append(dataModel.getDatatime().toString() + ",");
+                sb.append(sdf.format(dataModel.getDatatime()) + ",");
                 sb.append(dataModel.getAreaName() + ",");
                 sb.append(dataModel.getBlockName() + ",");
                 sb.append(dataModel.getMeasureName() + ",");
