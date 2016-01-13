@@ -7,6 +7,7 @@ import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DataModel;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DataTypeModel;
 import Util.DeviceDataFileWriter;
 import Util.ModelConverter;
+import models.DataInfoModel;
 import models.DataModel;
 import models.DataType;
 import models.DataTypeModel;
@@ -69,6 +70,22 @@ public class DataController {
         }catch (Exception ex){
             return null;
         }
+    }
+
+    //get dataType,deviceCount,dataItemCount
+    public List<DataInfoModel> getDataInfo(int areaId){
+        List<DataInfoModel> dataInfoModels = new ArrayList<DataInfoModel>();
+        DataOperation dataOperation = new DataOperation();
+        ModelConverter converter = new ModelConverter();
+        List<DB_DataTypeModel> dbDataTypeModels = dataOperation.getDataTypeList();
+        for (DB_DataTypeModel dbDataTypeModel : dbDataTypeModels) {
+            DataInfoModel dataInfoModel = new DataInfoModel();
+            dataInfoModel.setDataType(dbDataTypeModel.getDatatype());
+            dataInfoModel.setDeviceCount(0);
+            dataInfoModel.setDataItemCount(0);
+            dataInfoModels.add(dataInfoModel);
+        }
+        return dataInfoModels;
     }
 
     private String createDataCSVFile(List<DB_DataModel> dbDataModelList, int areaId) {
