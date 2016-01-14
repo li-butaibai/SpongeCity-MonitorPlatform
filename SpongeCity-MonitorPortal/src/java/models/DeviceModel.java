@@ -1,6 +1,7 @@
 package models;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by EriclLee on 15/12/30.
@@ -21,6 +22,24 @@ public class DeviceModel {
     private Date updateTime;
     private int alertCount;
     private Coordinate coordinate;
+    private List<DeviceLogModel> deviceLogList;
+    private String picture;
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public List<DeviceLogModel> getDeviceLogList() {
+        return deviceLogList;
+    }
+
+    public void setDeviceLogList(List<DeviceLogModel> deviceLogList) {
+        this.deviceLogList = deviceLogList;
+    }
 
     public int getId() {
         return id;

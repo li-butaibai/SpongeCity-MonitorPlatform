@@ -12,4 +12,6 @@ public interface IDataOperation {
     List<DB_DataModel> getDataByDataTypeandArea(Map params);
 
     List<DB_DataModel> getDataByDataTypeAreaAndTime(Map params);
+
+    List<DB_DataModel> getDataByArea(String areaIds);
 }

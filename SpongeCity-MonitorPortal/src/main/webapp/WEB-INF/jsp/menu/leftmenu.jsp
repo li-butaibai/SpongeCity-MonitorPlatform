@@ -15,13 +15,23 @@
   <div id="tree1"></div>
 </div>
 <script>
+  function onLeftMenuClick(areaId){
+    console.log("sethash");
+    var hashObject = GetHash();
+      hashObject["areaId"] = areaId;
+    var hashurl = "";
+    for( var key in hashObject ){
+      hashurl += key + "=" + hashObject[key]+"&";
+    }
+    location.hash = hashurl.slice(0,-1);
+  }
   var data = [
     <c:forEach items="${areamenus}" var="es">
     {
-      label: '<a href="javascript:leftbtn(${es.id});" class="leftbtn" hash="#areaId=${es.id}">${es.name}</a>',
+      label: '<a href="javascript:void(0);" onclick="onLeftMenuClick(\'${es.id}\')">${es.name}</a>',
       children: [
               <c:forEach items="${es.subArea}" var="sa">
-                { label:'<a href="javascript:leftbtn(${sa.id});" class="leftbtn" hash="#areaId=${sa.id}">${sa.name}</a>' },
+                { label:'<a href="javascript:void(0);" onclick="onLeftMenuClick(${sa.id})">${sa.name}</a>' },
               </c:forEach>
       ]
     },
@@ -35,4 +45,5 @@
       autoEscape:false
     });
   });
+
 </script>

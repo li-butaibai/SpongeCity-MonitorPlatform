@@ -3,6 +3,7 @@ package SpongeCity.MonitorPlatform.DBAccess;
 import SpongeCity.MonitorPlatform.DBAccess.DataAccess.AlertDA;
 import SpongeCity.MonitorPlatform.DBAccess.DataAccess.AreaDA;
 import SpongeCity.MonitorPlatform.DBAccess.DataAccess.DataDA;
+import SpongeCity.MonitorPlatform.DBAccess.DataAccess.DeviceDA;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AlertModel;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AreaModel;
 
@@ -16,8 +17,7 @@ import java.util.List;
  */
 public class Test {
     public static void main(String[] args) throws SQLException {
-        DataDA dataDA = new DataDA();
-        //dataDA.getDataByDataypeandArea(1,1);
-        dataDA.getDataByDataTypeAreaAndTime(1,1,new Date(16,1,7),new Date(16,1,9));
+        AlertDA alertDA = new AlertDA();
+        alertDA.getAlertListByDeviceId(1);
     }
 }

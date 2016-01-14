@@ -46,5 +46,6 @@
         <mapper resource="DeviceLogMapper.xml"/>
         <mapper resource="AlertMapper.xml"/>
         <mapper resource="DataMapper.xml"/>
+        <mapper resource="DataTypeMapper.xml"/>
     </mappers>
 </configuration>
