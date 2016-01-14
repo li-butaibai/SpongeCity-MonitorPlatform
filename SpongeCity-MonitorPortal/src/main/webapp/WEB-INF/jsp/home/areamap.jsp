@@ -63,11 +63,26 @@
     for(var i = 0; i < data.length; i++ ){
       var marker =new BMap.Marker(new BMap.Point(parseFloat(data[i].coordinate.latitude),parseFloat(data[i].coordinate.longitude)));
       //alert(data[i].id);
-      //marker.setAttribute("alt",data[i].id);
-      marker.addEventListener("click", function(e){
-        //alert(e.target.attributes["alt"]);
-      });
       map.addOverlay(marker);
+      //marker.setAttribute("alt",data[i].id);
+      var content = "<table>";
+      content = content + "<tr><td rowspan='7'><img src=\""+data[i].picture+"\"/></td><td> 设备编号：</td><td>" + data[i].id + "</td></tr>";
+      content = content + "<tr><td> 设备状态：</td><td>" + data[i].state + "</td></tr>";
+      content = content + "<tr><td> 设备类型：</td><td>" + data[i].deviceType.name + "</td></tr>";
+      content = content + "<tr><td> 区    域：</td><td>" + data[i].areaName + "</td></tr>";
+      content = content + "<tr><td> 地    段：</td><td>" + data[i].blockName + "</td></tr>";
+      content = content + "<tr><td> 单项措施：</td><td>" + data[i].measureName + "</td></tr>";
+      content = content + "<tr></td><td> 告警数量：</td><td>" + data[i].alertCount + "</td></tr>";
+      content = content + "<tr style=\"height:70px;\"><td colspan='3' style=\"text-align:left\"> 备注信息：" + data[i].comments + "</td></tr>";
+      content += "</table>";
+      (function () {
+               var infoWindow = new BMap.InfoWindow(content);
+             marker.addEventListener("click", function () {
+                   this.openInfoWindow(infoWindow);
+                });
+       })()
+
+
     }
     //console.log(data.length);
       //var marker = new BMap.Marker(new BMap.Point(116.317449, 39.98615)); // 创建点
