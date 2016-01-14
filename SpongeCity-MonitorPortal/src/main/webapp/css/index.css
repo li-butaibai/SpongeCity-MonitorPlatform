@@ -15,6 +15,7 @@
 
 .table_wrap{width:90%; margin:20px auto; text-align:center; background:#fff; border-radius:5px}
 #tree1 a{ color: #fff}
+#tree1 .leftbtn{display: inline-block; width: 60%}
 .pagination > li > a, .pagination > li > span { color: #454648;}
 .pagination > .active > a { background-color: #1fb5ac;border-color: #1fb5ac;}
 .pagination > .active > a:hover{ background-color: #1fb5ac;border-color: #1fb5ac;}
@@ -33,3 +34,5 @@
 #checkwin .devicetype{ line-height:200%; width:85%; margin:10px auto 0; background:#1fbba6;font-family:"微软雅黑"; font-size:14px; color:#fff}
 #checkwin input{ margin-right:10px; margin-left:10px;}
 #checkwin .devicetitle{line-height:250%; font-size:14px; text-align:center; font-family:"微软雅黑"; color:#7a7977; border-bottom:1px solid #eee; background:#f9f9f9}
+
+.table_wrap{ font-size:12px }

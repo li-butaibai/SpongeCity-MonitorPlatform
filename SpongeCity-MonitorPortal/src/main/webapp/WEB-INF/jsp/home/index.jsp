@@ -58,9 +58,17 @@
       var index = $(".nav_btn").index(this);
       $(".nav_btn").removeClass("active");
       $(this).addClass("active");
-      SetHash({"topmenu":index,});
+      SetHash({"topmenu":index});
     })
+
+
   })
+
+  //left navgator
+  function leftbtn(ccc){
+    console.log("aaa");
+    SetHash({"areaId":ccc});
+  }
 
     //listen hash
     window.onhashchange = function(){
@@ -72,6 +80,9 @@
         $(".r_con3").load( "/home/areamap?areaId=" + hashObject.areaId );
       }else if( hashObject["topmenu"] == 1 ){
         $(".r_con3").load( "devices/index?areaId=" + hashObject.areaId  + "&pageIndex=0" );
+        console.log("topmenu1");
+      }else if( hashObject["topmenu"] == 2 ){
+        $(".r_con3").load( "alerts/index?areaId=" + hashObject.areaId  + "&pageIndex=0" );
         console.log("topmenu1");
       }
     };
