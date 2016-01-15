@@ -50,9 +50,7 @@
   }
   // 百度地图API功能
   var map = new BMap.Map("allmap");
-  <c:forEach var="sa" items="${areaInfo.coordinates}" begin="1" end="1">
-    var point = new BMap.Point(${sa.longitude}, ${sa.latitude});
-  </c:forEach>
+  var point = new BMap.Point(<c:out value="${areaInfo.centerPoint.longitude}" />, <c:out value="${areaInfo.centerPoint.latitude}" />);
 
   map.centerAndZoom(point, 18);
   map.addControl(new BMap.MapTypeControl());
@@ -65,16 +63,19 @@
       //alert(data[i].id);
       map.addOverlay(marker);
       //marker.setAttribute("alt",data[i].id);
-      var content = "<table>";
-      content = content + "<tr><td rowspan='7'><img src=\""+data[i].picture+"\"/></td><td> 设备编号：</td><td>" + data[i].id + "</td></tr>";
+      var content = "<div style='width: 450px; height: 300px'><div class='imgdiv' style=''><img src='img/device.png'/></div>";
+      content = content + "<table  class='maptable' style=''>";
+      content = content + "<tr><td> 设备编号：</td><td>" + data[i].id + "</td></tr>";
       content = content + "<tr><td> 设备状态：</td><td>" + data[i].state + "</td></tr>";
       content = content + "<tr><td> 设备类型：</td><td>" + data[i].deviceType.name + "</td></tr>";
       content = content + "<tr><td> 区    域：</td><td>" + data[i].areaName + "</td></tr>";
       content = content + "<tr><td> 地    段：</td><td>" + data[i].blockName + "</td></tr>";
       content = content + "<tr><td> 单项措施：</td><td>" + data[i].measureName + "</td></tr>";
-      content = content + "<tr></td><td> 告警数量：</td><td>" + data[i].alertCount + "</td></tr>";
-      content = content + "<tr style=\"height:70px;\"><td colspan='3' style=\"text-align:left\"> 备注信息：" + data[i].comments + "</td></tr>";
-      content += "</table>";
+      content = content + "<tr><td> 告警数量：</td><td>" + data[i].alertCount + "</td></tr>";
+      content = content + "</table>";
+      content = content + "<p style='clear: both; font-size: 12px; padding: 10px 20px; line-height: 200%; color:#3c3c3c; background: #f7f7f7'> 备注信息：" + data[i].comments + "</p>";
+
+      content += "</div>";
       (function () {
                var infoWindow = new BMap.InfoWindow(content);
              marker.addEventListener("click", function () {

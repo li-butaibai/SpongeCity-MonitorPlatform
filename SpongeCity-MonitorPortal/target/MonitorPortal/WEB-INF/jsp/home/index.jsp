@@ -25,6 +25,7 @@
 
 <body>
 <div class="con">
+  <div id="dialogDiv" style="z-index: 1000"></div>
   <div class="conleft">
 
   </div>
@@ -50,8 +51,17 @@
 <script>
   $(function(){
     //init
-    $(".conleft").load('/menu/areamenu');
-    location.hash = "#areaId=1&topmenu=0";
+    if( location.hash == "" ){
+      $(".conleft").load('/menu/areamenu');
+      location.hash = "#areaId=1&topmenu=0";
+    }else{
+      $(".conleft").load('/menu/areamenu');
+      window.onhashchange();
+      var hashObject = GetHash();
+      if( hashObject.hasOwnProperty('topmenu') ){
+        //hashObject["topmenu"] = 0;
+      }
+    }
 
     //topmenu
     $(".nav_btn").click(function(){
