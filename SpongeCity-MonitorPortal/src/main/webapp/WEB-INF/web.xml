@@ -63,4 +63,8 @@
         <servlet-name>default</servlet-name>
         <url-pattern>/locales/*</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/DeviceDataCSVFiles/*</url-pattern>
+    </servlet-mapping>
 </web-app>

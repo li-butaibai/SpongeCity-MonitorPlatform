@@ -15,6 +15,8 @@
 
 .table_wrap{width:90%; margin:20px auto; text-align:center; background:#fff; border-radius:5px}
 #tree1 a{ color: #fff}
+#tree1 .leftbtn{display: inline-block; width: 60%; text-decoration: none;}
+#tree1 .leftbtns{display: inline-block; width: 80%; text-decoration: none;}
 .pagination > li > a, .pagination > li > span { color: #454648;}
 .pagination > .active > a { background-color: #1fb5ac;border-color: #1fb5ac;}
 .pagination > .active > a:hover{ background-color: #1fb5ac;border-color: #1fb5ac;}
@@ -125,3 +127,13 @@
     float: right;
     margin: 10px 0
 }
+#checkwin .devicetitle{line-height:250%; font-size:14px; text-align:center; font-family:"微软雅黑"; color:#7a7977; border-bottom:1px solid #eee; background:#f9f9f9}
+
+.table_wrap{ font-size:12px }
+
+.window-overlay{width: 700px; height: 600px; overflow: hidden; top: 50%; margin-left: -300px; left: 50%; margin-top: -350px}
+.maptable{ height: 230px; width: 195px; display: block; float: left; margin-left: 20px}
+.imgdiv{height: 200px; width: 200px; border-radius:100px; border: 1px solid #ccc; display: block; float: left; position: relative; margin-left: 22px}
+.imgdiv img{ display: block; margin: 30px auto 0;}
+.maptable tr{ line-height: 220%; color: #3c3c3c; font-size: 13px}
+.maptable tr td:first-child{ padding-right: 20px}
