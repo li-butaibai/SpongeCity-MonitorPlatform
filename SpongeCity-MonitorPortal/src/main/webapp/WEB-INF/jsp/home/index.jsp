@@ -51,8 +51,17 @@
 <script>
   $(function(){
     //init
-    $(".conleft").load('/menu/areamenu');
-    location.hash = "#areaId=1&topmenu=0";
+    if( location.hash == "" ){
+      $(".conleft").load('/menu/areamenu');
+      location.hash = "#areaId=1&topmenu=0";
+    }else{
+      $(".conleft").load('/menu/areamenu');
+      window.onhashchange();
+      var hashObject = GetHash();
+      if( hashObject.hasOwnProperty('topmenu') ){
+        //hashObject["topmenu"] = 0;
+      }
+    }
 
     //topmenu
     $(".nav_btn").click(function(){
@@ -81,7 +90,9 @@
           hashObject["pageIndex"] = 0;
         }
         $(".r_con3").load( "alerts/index?areaId=" + hashObject.areaId  + "&pageIndex="+hashObject.pageIndex );
-        console.log("topmenu1");
+      }else if( hashObject["topmenu"] == 3 ){
+
+        $(".r_con3").load( "data/datadownload?areaId=" + hashObject.areaId );
       }
     };
 
