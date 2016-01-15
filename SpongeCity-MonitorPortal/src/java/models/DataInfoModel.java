@@ -7,6 +7,24 @@ public class DataInfoModel {
     private String dataType;
     private int deviceCount;
     private int dataItemCount;
+    private int areaId;
+    private int dataTypeId;
+
+    public int getAreaId() {
+        return areaId;
+    }
+
+    public void setAreaId(int areaId) {
+        this.areaId = areaId;
+    }
+
+    public int getDataTypeId() {
+        return dataTypeId;
+    }
+
+    public void setDataTypeId(int dataTypeId) {
+        this.dataTypeId = dataTypeId;
+    }
 
     public String getDataType() {
         return dataType;

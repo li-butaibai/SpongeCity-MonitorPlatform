@@ -14,10 +14,16 @@ import models.DataModel;
 import models.DataType;
 import models.DataTypeModel;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.FileInputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -33,24 +39,30 @@ public class DataController {
     }
 
     @RequestMapping(value = "/datadownload", method = RequestMethod.GET)
-    public ModelAndView datadownload() {
-        return null;
+    public ModelAndView datadownload(int areaId) {
+        ModelAndView modelAndView = new ModelAndView("/data/download");
+        List<DataInfoModel> dataInfoModels = getDataInfo(areaId);
+        modelAndView.addObject("data", dataInfoModels);
+        return modelAndView;
     }
 
-    public String getDataCSVFilePath(int dataTypeid, int areaId) {
+    @RequestMapping(value = "/exportdata", method = RequestMethod.GET)
+    @ResponseBody
+    public String getDataCSVFilePath(int dataTypeId, int areaId) {
         try {
             DataOperation dataOperation = new DataOperation();
-            List<DB_DataModel> dbDataModelList = dataOperation.getData(dataTypeid, areaId);
-            return createDataCSVFile(dbDataModelList, areaId);
+            List<DB_DataModel> dbDataModelList = dataOperation.getData(dataTypeId, areaId);
+            String filename = createDataCSVFile(dbDataModelList, areaId);
+            return filename;
         } catch (Exception ex) {
             return "";
         }
     }
 
-    public String getDataCSVFilePath(int dataTypeid, int areaId, Date startTime, Date endTime) {
+    public String getDataCSVFilePath(int dataTypeId, int areaId, Date startTime, Date endTime) {
         try {
             DataOperation dataOperation = new DataOperation();
-            List<DB_DataModel> dbDataModelList = dataOperation.getData(dataTypeid, areaId, startTime, endTime);
+            List<DB_DataModel> dbDataModelList = dataOperation.getData(dataTypeId, areaId, startTime, endTime);
             return createDataCSVFile(dbDataModelList, areaId);
         } catch (Exception ex) {
             return "";
@@ -76,11 +88,13 @@ public class DataController {
     public List<DataInfoModel> getDataInfo(int areaId) {
         List<DataInfoModel> dataInfoModels = new ArrayList<DataInfoModel>();
         DataOperation dataOperation = new DataOperation();
+        Map<String, Integer> dataTypes = new HashMap<String, Integer>();
         Map<String, Integer> dataItemCount = new HashMap<String, Integer>();
         Map<String, Set<Integer>> deviceInfo = new HashMap<String, Set<Integer>>();
         List<DB_DataModel> dbDataModels = dataOperation.getDataByAreaId(areaId);
         for (DB_DataModel dbDataModel : dbDataModels) {
             String key = dbDataModel.getDatatype().getDatatype();
+            dataTypes.put(key, dbDataModel.getDatatype().getId());
             boolean keyExist = dataItemCount.containsKey(key);
             if (keyExist) {
                 dataItemCount.put(key, dataItemCount.get(key) + 1);
@@ -96,6 +110,8 @@ public class DataController {
         }
         for (String dataType : dataItemCount.keySet()) {
             DataInfoModel dataInfoModel = new DataInfoModel();
+            dataInfoModel.setDataTypeId(dataTypes.get(dataType));
+            dataInfoModel.setAreaId(areaId);
             dataInfoModel.setDataType(dataType);
             dataInfoModel.setDataItemCount(dataItemCount.get(dataType));
             dataInfoModel.setDeviceCount(deviceInfo.get(dataType).size());
@@ -118,7 +134,7 @@ public class DataController {
                 dataModelList.add(converter.convertDBData2PortalData(dbDataModel, dbAreaModelList));
             }
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
-            String filePath = this.getClass().getClassLoader().getResource("").getPath().replace("classes", "MonitorPortal") + "DeviceDataCSVFiles/";
+            String filePath = this.getClass().getClassLoader().getResource("").getPath().replace("classes", "DeviceDataCSVFiles").replace("WEB-INF/","");
             String fileName = areaModel.getName() + "_" + dataModelList.get(0).getDatatype() + "_" + df.format(new Date()) + ".csv";
             String[] heads = new String[]{"时间", "区域", "地块", "单项措施", "设备", "数据类型", "值", "单位"};
             writer.writeCSV(heads, dataModelList, filePath, fileName);
