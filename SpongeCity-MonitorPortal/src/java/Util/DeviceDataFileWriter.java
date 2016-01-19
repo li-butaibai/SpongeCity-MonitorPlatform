@@ -14,6 +14,12 @@ public class DeviceDataFileWriter {
     public void writeCSV(String[] heads, List<DataModel> dataModels, String filePath, String fileName) {
         try {
             File csv = new File(filePath + fileName);
+            if(!csv.getParentFile().exists()) {
+                //如果目标文件所在的目录不存在，则创建父目录
+                if(!csv.getParentFile().mkdirs()) {
+                    return;
+                }
+            }
             BufferedWriter bw = new BufferedWriter(new FileWriter(csv, true));
             bw.newLine();
             String strHead = "";

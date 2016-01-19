@@ -49,6 +49,16 @@ public class DataOperation {
         return datas;
     }
 
+    public List<DB_DataModel> getDataByDataTypeAndDeviceId(int dataTypeId, int deviceId, Date startTime, Date endTime) {
+        List<DB_DataModel> datas = new ArrayList<DB_DataModel>();
+        try {
+            datas = dataDA.getDataByDataTypeAndDeviceId(dataTypeId, deviceId, startTime, endTime);
+        } catch (Exception ex) {
+            //log
+        }
+        return datas;
+    }
+
     public List<DB_DataTypeModel> getDataTypeList() {
         List<DB_DataTypeModel> datatypes = new ArrayList<DB_DataTypeModel>();
         try {

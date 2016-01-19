@@ -89,7 +89,9 @@
           hashObject["pageIndex"] = 0;
         }
         $(".r_con3").load( "alerts/index?areaId=" + hashObject.areaId  + "&pageIndex="+hashObject.pageIndex );
-        console.log("topmenu1");
+      }else if( hashObject["topmenu"] == 3 ){
+
+        $(".r_con3").load( "data/datadownload?areaId=" + hashObject.areaId );
       }
     };
 
