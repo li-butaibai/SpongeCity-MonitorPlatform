@@ -20,7 +20,7 @@
       <img src="/img/device1.jpg">
     </div>
     <div class="d_list">
-      <h4 style="font-weight: bold; margin-bottom: 20px">设备详情</h4>
+      <h4 style="font-weight: bold; margin-bottom: 15px; font-size: 16px">设备详情</h4>
       <a href="javascript:void(0);" onclick="closeDialog()" class="close" style="position: absolute; top: 20px; right: 20px;">X</a>
       <table>
         <tr>
@@ -42,8 +42,8 @@
       </table>
     </div>
   </div>
+  <h3 class="d_middle">运行日志(最近10条)</h3>
   <div class="table_wrap d_down" style="height: 200px; overflow: auto">
-    <h>运行日志(最近10条)</h>
     <table class="table table-bordered" style="border-radius:5px; height: 200px; overflow: auto">
       <tr style=" background:#f9f9f9">
         <td style="border-radius:5px">ID</td>

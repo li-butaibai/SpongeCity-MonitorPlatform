@@ -44,7 +44,7 @@
 <div style="height:0px; overflow:hidden;">&nbsp;</div>
 <div id="dialogDiv"></div>
 <div class="table_wrap">
-  <table class="table table-bordered" style="border-radius:5px">
+  <table class="table table-bordered devicelist" style="border-radius:5px">
     <tr style=" background:#f9f9f9">
       <td style="border-radius:5px">设备编号</td>
       <td>设备类型</td>
