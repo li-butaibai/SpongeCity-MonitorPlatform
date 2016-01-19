@@ -59,7 +59,10 @@
       var hashObject = GetHash();
       if( hashObject.hasOwnProperty('topmenu') ){
         //hashObject["topmenu"] = 0;
+        $(".nav_btn").removeClass("active");
+        $(".nav_btn").eq(hashObject.topmenu).addClass("active");
       }
+
     }
 
     //topmenu
@@ -89,7 +92,9 @@
           hashObject["pageIndex"] = 0;
         }
         $(".r_con3").load( "alerts/index?areaId=" + hashObject.areaId  + "&pageIndex="+hashObject.pageIndex );
-        console.log("topmenu1");
+      }else if( hashObject["topmenu"] == 3 ){
+
+        $(".r_con3").load( "data/datadownload?areaId=" + hashObject.areaId );
       }
     };
 

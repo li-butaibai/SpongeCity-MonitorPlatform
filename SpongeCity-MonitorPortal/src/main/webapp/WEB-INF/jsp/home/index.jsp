@@ -59,7 +59,10 @@
       var hashObject = GetHash();
       if( hashObject.hasOwnProperty('topmenu') ){
         //hashObject["topmenu"] = 0;
+        $(".nav_btn").removeClass("active");
+        $(".nav_btn").eq(hashObject.topmenu).addClass("active");
       }
+
     }
 
     //topmenu

@@ -28,10 +28,10 @@
   var data = [
     <c:forEach items="${areamenus}" var="es">
     {
-      label: '<a href="javascript:void(0);" onclick="onLeftMenuClick(\'${es.id}\')" class="leftbtn">${es.name}</a>',
+      label: '<a href="javascript:void(0);" onclick="onLeftMenuClick(\'${es.id}\')" class="leftbtn">${es.name}</a>',id:${es.id},
       children: [
               <c:forEach items="${es.subArea}" var="sa">
-                { label:'<a href="javascript:void(0);" onclick="onLeftMenuClick(${sa.id})" class="leftbtns">${sa.name}</a>' },
+                { label:'<a href="javascript:void(0);" onclick="onLeftMenuClick(${sa.id})" class="leftbtns">${sa.name}</a>',id:${sa.id},},
               </c:forEach>
       ]
     },
@@ -44,6 +44,20 @@
       data: data,
       autoEscape:false
     });
+    //刷新后对meun的重置
+
+      var hashObject = GetHash();
+      if( hashObject.hasOwnProperty('areaId') ){
+        $tree = $("#tree1");
+        <c:forEach items="${areamenus}" var="es">
+        var node${es.id} = $tree.tree('getNodeById', ${es.id});
+        $tree.tree('openNode', node${es.id});
+        </c:forEach>
+        var node = $tree.tree('getNodeById', hashObject.areaId);
+        $tree.tree('selectNode', node);
+      }
+
+
   });
 
 </script>
