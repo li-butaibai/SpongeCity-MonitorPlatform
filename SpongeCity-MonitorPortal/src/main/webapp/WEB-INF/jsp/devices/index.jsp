@@ -31,7 +31,7 @@
       },
       success: function (data) {
         //$("#waiting").hide();
-        $('#dialogDiv').html(data);
+        $('#dialogDiv').css("display","block").html(data);
         //$('#dialogDiv').dialog({ autoOpen: true, modal: true, width: (small ? 345 : 690), show: "drop", hide: "drop", position: [295, 40] });
       },
       error: function (data) {
@@ -42,6 +42,7 @@
   }
 </script>
 <div style="height:0px; overflow:hidden;">&nbsp;</div>
+<div id="dialogDiv"></div>
 <div class="table_wrap">
   <table class="table table-bordered" style="border-radius:5px">
     <tr style=" background:#f9f9f9">

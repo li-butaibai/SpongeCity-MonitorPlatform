@@ -36,6 +36,7 @@
 #checkwin input{ margin-right:10px; margin-left:10px;}
 #checkwin .devicetitle{line-height:250%; font-size:14px; text-align:center; font-family:"微软雅黑"; color:#7a7977; border-bottom:1px solid #eee; background:#f9f9f9}
 
+#dialogDiv{width: 100%; height: 600px; position: absolute; top: 0; left: 0; display: none;}
 .modal {
     position: absolute;
     top: 50%;
@@ -51,22 +52,6 @@
 
 .modal legend {
     display: none
-}
-
-.window-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background: -moz-radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, .65) 100%);
-    background: -webkit-gradient(radial, center center, 0, center center, 100%, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(100%, rgba(0, 0, 0, .65)));
-    background: -webkit-radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, .65) 100%);
-    background: -o-radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, .65) 100%);
-    background: -ms-radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, .65) 100%);
-    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, .65) 100%);
-    z-index: 101
 }
 
 .modal-header {
@@ -129,11 +114,18 @@
 }
 #checkwin .devicetitle{line-height:250%; font-size:14px; text-align:center; font-family:"微软雅黑"; color:#7a7977; border-bottom:1px solid #eee; background:#f9f9f9}
 
-.table_wrap{ font-size:12px }
+.table_wrap{ font-size:12px;}
 
-.window-overlay{width: 700px; height: 600px; overflow: hidden; top: 50%; margin-left: -300px; left: 50%; margin-top: -350px}
+.r_con3 .window-overlay{width: 700px; height: 500px; margin-left: 140px; margin-top: 50px; border-radius:10px;  background: #fff; position: absolute; top: 0; left: 0;}
 .maptable{ height: 230px; width: 195px; display: block; float: left; margin-left: 20px}
 .imgdiv{height: 200px; width: 200px; border-radius:100px; border: 1px solid #ccc; display: block; float: left; position: relative; margin-left: 22px}
 .imgdiv img{ display: block; margin: 30px auto 0;}
 .maptable tr{ line-height: 220%; color: #3c3c3c; font-size: 13px}
 .maptable tr td:first-child{ padding-right: 20px}
+.dialogbg{width: 100%; height: 600px; background: #000; position: absolute; top: 0; left: 0; opacity: 0.4;}
+
+#windows-overlay .d_up { width:90%; height:250px; margin: 0 auto; overflow:hidden; margin-top: 20px; margin-bottom: 20px; font-size: 12px}
+#windows-overlay .d_up .d_img{ float: left; width:200px; width: 220px; overflow: hidden}
+#windows-overlay .d_up .d_list{ float: left; width:350px; font-size: 13px; line-height: 200%; margin-left: 20px; margin-top: 20px}
+#windows-overlay .d_down { width:90%; height:200px; margin: 0 auto;  overflow:hidden; font-size: 12px}
+.d_list table tr td:first-child{ width: 70px; font-weight: bold}
