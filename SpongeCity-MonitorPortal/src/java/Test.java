@@ -10,6 +10,7 @@ import controllers.DataController;
 import models.DataModel;
 import models.DeviceModel;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,6 +22,11 @@ import java.util.List;
 public class Test {
     public static void main(String[] args) {
         DataController controller = new DataController();
-        controller.getDataInfo(1);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        try {
+            controller.getDeviceData(1, 1,sdf.parse("2016/01/04"), sdf.parse("2016/01/08"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }

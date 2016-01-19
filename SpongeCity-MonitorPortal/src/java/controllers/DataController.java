@@ -13,6 +13,7 @@ import models.DataInfoModel;
 import models.DataModel;
 import models.DataType;
 import models.DataTypeModel;
+import net.sf.json.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -84,6 +85,24 @@ public class DataController {
         }
     }
 
+    //return device data
+    public String getDeviceData(int dataTypeId, int deviceId, Date startTime, Date endTime) {
+        try {
+            DataOperation dataOperation = new DataOperation();
+            List<DB_DataModel> dbDataModelList = dataOperation.getDataByDataTypeAndDeviceId(dataTypeId, deviceId, startTime, endTime);
+            List<String> dateList = new ArrayList<String>();
+            List<Float> valueList = new ArrayList<Float>();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+            for (DB_DataModel dbDataModel : dbDataModelList) {
+                dateList.add(sdf.format(dbDataModel.getDatetime()));
+                valueList.add(dbDataModel.getDatavalue());
+            }
+            return "";
+        } catch (Exception ex) {
+            return "";
+        }
+    }
+
     //get dataType,deviceCount,dataItemCount
     public List<DataInfoModel> getDataInfo(int areaId) {
         List<DataInfoModel> dataInfoModels = new ArrayList<DataInfoModel>();
@@ -134,7 +153,7 @@ public class DataController {
                 dataModelList.add(converter.convertDBData2PortalData(dbDataModel, dbAreaModelList));
             }
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
-            String filePath = this.getClass().getClassLoader().getResource("").getPath().replace("classes", "DeviceDataCSVFiles").replace("WEB-INF/","");
+            String filePath = this.getClass().getClassLoader().getResource("").getPath().replace("classes", "DeviceDataCSVFiles").replace("WEB-INF/", "");
             String fileName = areaModel.getName() + "_" + dataModelList.get(0).getDatatype() + "_" + df.format(new Date()) + ".csv";
             String[] heads = new String[]{"时间", "区域", "地块", "单项措施", "设备", "数据类型", "值", "单位"};
             writer.writeCSV(heads, dataModelList, filePath, fileName);

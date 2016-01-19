@@ -82,4 +82,21 @@ public class DataDA {
             session.close();
         }
     }
+
+    public List<DB_DataModel> getDataByDataTypeAndDeviceId(int dataTypeId, int deviceId, Date startTime, Date endTime) {
+        SqlSession session = SqlConnection.getSession();
+        try {
+            SimpleDateFormat ft = new SimpleDateFormat("yyyy/MM/dd");
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("dataTypeId", dataTypeId);
+            params.put("deviceId", deviceId);
+            params.put("startTime", "'" + ft.format(startTime) + "'");
+            params.put("endTime", "'" + ft.format(endTime) + "'");
+            IDataOperation dataOperation = session.getMapper(IDataOperation.class);
+            List<DB_DataModel> datas = dataOperation.getDataByDataTypeAndDeviceId(params);
+            return datas;
+        } finally {
+            session.close();
+        }
+    }
 }
