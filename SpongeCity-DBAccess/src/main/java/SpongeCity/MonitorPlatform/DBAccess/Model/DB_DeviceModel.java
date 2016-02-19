@@ -20,6 +20,15 @@ public class DB_DeviceModel {
     private Date updatetime;
     private String state;
     private int datastatus;
+    private String picture;
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
 
     public int getId() {
         return id;

@@ -50,15 +50,27 @@
 <script>
   $(function(){
     //init
-    $(".conleft").load('/menu/areamenu');
-    location.hash = "#areaId=1&topmenu=0";
+    if( location.hash == "" ){
+      $(".conleft").load('/menu/areamenu');
+      location.hash = "#areaId=1&topmenu=0";
+    }else{
+      $(".conleft").load('/menu/areamenu');
+      window.onhashchange();
+      var hashObject = GetHash();
+      if( hashObject.hasOwnProperty('topmenu') ){
+        //hashObject["topmenu"] = 0;
+        $(".nav_btn").removeClass("active");
+        $(".nav_btn").eq(hashObject.topmenu).addClass("active");
+      }
+
+    }
 
     //topmenu
     $(".nav_btn").click(function(){
       var index = $(".nav_btn").index(this);
       $(".nav_btn").removeClass("active");
       $(this).addClass("active");
-      SetHash({"topmenu":index,});
+      SetHash({"topmenu":index,"pageIndex":0});
     })
   })
 
@@ -71,11 +83,18 @@
       if( hashObject["topmenu"] == 0 ){
         $(".r_con3").load( "/home/areamap?areaId=" + hashObject.areaId );
       }else if( hashObject["topmenu"] == 1 ){
-        $(".r_con3").load( "devices/index?areaId=" + hashObject.areaId  + "&pageIndex="+hashObject.pageIndex );
+        if( !hashObject.hasOwnProperty('pageIndex') ){
+          hashObject["pageIndex"] = 0;}
+          $(".r_con3").load( "devices/index?areaId=" + hashObject.areaId  + "&pageIndex="+hashObject.pageIndex );
         console.log("topmenu1");
       }else if( hashObject["topmenu"] == 2 ){
+        if( !hashObject.hasOwnProperty('pageIndex') ){
+          hashObject["pageIndex"] = 0;
+        }
         $(".r_con3").load( "alerts/index?areaId=" + hashObject.areaId  + "&pageIndex="+hashObject.pageIndex );
-        console.log("topmenu1");
+      }else if( hashObject["topmenu"] == 3 ){
+
+        $(".r_con3").load( "data/datadownload?areaId=" + hashObject.areaId );
       }
     };
 
@@ -91,6 +110,9 @@
       }
       if( val.hasOwnProperty('topmenu')){
         hashObject["topmenu"] = val["topmenu"];
+      }
+      if( val.hasOwnProperty('pageIndex')){
+        hashObject["pageIndex"] = val["pageIndex"];
       }
       var hashurl = "";
       for( var key in hashObject ){

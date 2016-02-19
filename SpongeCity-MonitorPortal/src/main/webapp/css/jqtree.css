@@ -28,10 +28,13 @@ ul.jqtree-tree {
     ul.jqtree-tree .jqtree-toggler.jqtree-closed {
       background-position: 0 0; }
     ul.jqtree-tree .jqtree-toggler.jqtree-toggler-left {
+        width: 80px;
 		position:absolute;
-		right:20px;
+		right:0;
 		top:0;
-      margin-right: 0.5em; }
+        text-indent: 0;
+        text-align: center;
+      margin-right:0;}
     ul.jqtree-tree .jqtree-toggler.jqtree-toggler-right {
       margin-left: 0.5em; }
   ul.jqtree-tree .jqtree-element {
