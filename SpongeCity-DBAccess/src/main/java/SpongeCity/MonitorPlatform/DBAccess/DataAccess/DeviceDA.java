@@ -1,16 +1,21 @@
 package SpongeCity.MonitorPlatform.DBAccess.DataAccess;
 
 import SpongeCity.MonitorPlatform.DBAccess.Common.SqlConnection;
+import SpongeCity.MonitorPlatform.DBAccess.Interface.IDataOperation;
+import SpongeCity.MonitorPlatform.DBAccess.Interface.IDataTypeOperation;
 import SpongeCity.MonitorPlatform.DBAccess.Interface.IDeviceOperation;
 import SpongeCity.MonitorPlatform.DBAccess.Interface.IDeviceTypeOperation;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AreaModel;
+import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DataTypeModel;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceModel;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceTypeModel;
 import org.apache.ibatis.session.SqlSession;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by sabermai on 2016/1/4.
@@ -21,6 +26,20 @@ public class DeviceDA {
         try {
             IDeviceTypeOperation deviceTypeOperation = session.getMapper(IDeviceTypeOperation.class);
             List<DB_DeviceTypeModel> types = deviceTypeOperation.getAllDeviceType();
+            return types;
+        } finally {
+            session.close();
+        }
+    }
+
+    public List<DB_DataTypeModel> getDataTypeListByDeviceId(int deviceId)
+    {
+        SqlSession session = SqlConnection.getSession();
+        try {
+            IDataTypeOperation deviceTypeOperation = session.getMapper(IDataTypeOperation.class);
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("deviceId", deviceId);
+            List<DB_DataTypeModel> types = deviceTypeOperation.getDataTypeListByDeviceId(params);
             return types;
         } finally {
             session.close();

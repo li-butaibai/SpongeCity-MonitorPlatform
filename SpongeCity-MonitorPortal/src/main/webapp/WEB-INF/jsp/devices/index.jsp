@@ -31,8 +31,8 @@
       },
       success: function (data) {
         //$("#waiting").hide();
-        $('#dialogDiv').css("display","block").html(data);
-        //$('#dialogDiv').dialog({ autoOpen: true, modal: true, width: (small ? 345 : 690), show: "drop", hide: "drop", position: [295, 40] });
+        $('#dialogDiv').html(data);
+        $('#dialogDiv').dialog({ autoOpen: true, modal: true, width: "auto", show: "drop", hide: "drop", position: [295, 40] });
       },
       error: function (data) {
         //$("#waiting").hide();
@@ -41,8 +41,8 @@
     });
   }
 </script>
-<div style="height:0px; overflow:hidden;">&nbsp;</div>
 <div id="dialogDiv"></div>
+<div style="height:0px; overflow:hidden;">&nbsp;</div>
 <div class="table_wrap">
   <table class="table table-bordered devicelist" style="border-radius:5px">
     <tr style=" background:#f9f9f9">

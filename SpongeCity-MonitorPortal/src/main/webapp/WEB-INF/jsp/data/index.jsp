@@ -8,77 +8,113 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page isELIgnored="false" %>
-<script type="text/javascript">
-  function onpageclick(pageIndex)
-  {
-    console.log("sethash");
-    var hashObject = GetHash();
-    hashObject["pageIndex"] = pageIndex;
-    var hashurl = "";
-    for( var key in hashObject ){
-      hashurl += key + "=" + hashObject[key]+"&";
-    }
-    location.hash = hashurl.slice(0,-1);
-  }
-</script>
+
 <div style="height:0px; overflow:hidden;">&nbsp;</div>
 <div class="table_wrap">
-  <table class="table table-bordered" style="border-radius:5px">
-    <tr style=" background:#f9f9f9">
-      <td style="border-radius:5px">设备编号</td>
-      <td>设备类型</td>
-      <td>设备状态</td>
-      <td>区域</td>
-      <td>地块</td>
-      <td>单项措施</td>
-      <td>描述</td>
-    </tr>
-    <c:forEach items="${devices.data}" var="de">
-      <tr>
-        <td>${de.device_id}</td>
-        <td>${de.deviceType.name}</td>
-        <td>${de.state}</td>
-        <td>${de.areaName}</td>
-        <td>${de.blockName}</td>
-        <td>${de.measureName}</td>
-        <td>${de.comments}</td>
-      </tr>
-    </c:forEach>
-
-  </table>
-  <nav>
-    <ul class="pagination">
-      <c:if test="${alerts.pageCount>0}">
-        <c:if test="${alerts.currentPageIndex==0}">
-          <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-        </c:if>
-        <c:if test="${alerts.currentPageIndex>0}">
-          <li ><a href="javascript:void(0);" onclick="onpageclick('0')" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-        </c:if>
-        <c:forEach var="i" begin="0" end="${alerts.pageCount-1}">
-          <c:if test="${alerts.currentPageIndex==i}">
-            <li class="active"><a href="javascript:void(0);" onclick="onpageclick('${i}')">${i+1} <span class="sr-only">(current)</span></a></li>
-          </c:if>
-          <c:if test="${alerts.currentPageIndex!=i}">
-            <li><a href="javascript:void(0);" onclick="onpageclick('${i}')">${i+1}</a></li>
-          </c:if>
-
-        </c:forEach>
-        <c:if test="${alerts.currentPageIndex==alerts.pageCount-1}">
-          <li class="disabled">
-            <a href="#" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-        </c:if>
-        <c:if test="${alerts.currentPageIndex<alerts.pageCount-1}">
-          <li>
-            <a href="javascript:void(0);" onclick="onpageclick('${alerts.pageCount-1}')" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-        </c:if>
-      </c:if>
-    </ul>
-  </nav>
+<select id="dtSelect">
+  <c:forEach items="${dataTypes}" var="dt">
+    <option value="${dt.id}">${dt.unit}</option>
+  </c:forEach>
+</select>
+  <div id="dataDiv" style="height: 300px; width: 100%"></div>
 </div>
+<script type="text/javascript">
+  var axisData = [];
+  var cpuData = [];
+  var drData = [];
+  var dwData = [];
+  var niData = [];
+  var noData = [];
+
+  function drawEChart() {
+
+    require.config({
+      paths: {
+        echarts: 'http://echarts.baidu.com/build/dist'
+      }
+    });
+    require(
+            [
+              'echarts',
+              'echarts/chart/line'
+            ],
+            function (ec) {
+              // 基于准备好的dom，初始化echarts图表
+              var myChartC = ec.init(document.getElementById('dataDiv'));
+              //设置数据     var myChart = ec.init(document.getElementById('cpu_div'));
+              var optionC = {
+                //设置标题
+                title: {
+                  text: 'CPU'
+                },
+                //设置提示
+                tooltip: {
+                  trigger: 'axis',
+                  formatter: function (params) {
+                    var res = params[0].name;
+                    res += '<br/>Percentage CPU: ' + params[0].value.toFixed(2) + "%";
+                    return res;
+                  },
+                  showDelay: 0
+
+                },
+                //设置图例//"Percentage CPU", "Disk Read Bytes/sec", "Disk Write Bytes/sec", "Network Out", "Network In"
+                legend: {
+                  data: ['Percentage CPU']
+                },
+                //设置坐标轴
+                xAxis: [
+                  {
+                    type: 'category',
+                    data: axisData
+                  }
+                ],
+                yAxis: [
+                  {
+                    type: 'value',
+                    axisLabel: {
+                      formatter: function (v) {
+                        return v + '%';
+                      }
+                    }
+                  }
+                ],
+                //设置数据
+                series: [
+                ]
+              };
+              optionC.series.push({
+                "name": "Percentage CPU",
+                "type": "line",
+                "data": cpuData
+              })
+              // 为echarts对象加载数据
+              myChartC.setOption(optionC);
+            }
+    );
+  }
+  function loadMonitorData(hours) {
+    $.ajax({
+      url: "/VirtualMachine/GetMonitorData",
+      type: "get",
+      async: true,
+      dataType: "json",
+      data: { "rnd": Math.random(), "vmId": '@Request["vmId"].ToString()', "hours": hours },
+      success: function (data) {
+        axisData = data.TD;
+        cpuData = data.CD;
+        drData = data.DRD;
+        dwData = data.DWD;
+        niData = data.NID;
+        noData = data.NOD;
+
+        drawEChart();
+      },
+      error: function (data) {
+        alert("Error");
+        rtn = false;
+      }
+    });
+  }
+  loadMonitorData(1);
+</script>

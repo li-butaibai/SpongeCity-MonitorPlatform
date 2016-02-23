@@ -29,7 +29,6 @@
     }
 
     function downloadFile(filePath){
-
         var aLink = document.createElement('a');
         aLink.href = filePath;
         aLink.target = "_self";

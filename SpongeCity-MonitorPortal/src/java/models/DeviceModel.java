@@ -11,7 +11,7 @@ public class DeviceModel {
     private String device_id;
     private DeviceState state;
     private DeviceTypeModel deviceType;
-    //private String deviceTypeName;
+    private String deviceTypeName;
     private String areaName;
     private String blockName;
     private String measureName;
@@ -23,6 +23,7 @@ public class DeviceModel {
     private int alertCount;
     private Coordinate coordinate;
     private List<DeviceLogModel> deviceLogList;
+    private List<DataModel> dataList;
     private String picture;
 
     public String getPicture() {
@@ -159,5 +160,21 @@ public class DeviceModel {
 
     public void setCoordinate(Coordinate coordinate) {
         this.coordinate = coordinate;
+    }
+
+    public String getDeviceTypeName() {
+        return deviceTypeName;
+    }
+
+    public void setDeviceTypeName(String deviceTypeName) {
+        this.deviceTypeName = deviceTypeName;
+    }
+
+    public List<DataModel> getDataList() {
+        return dataList;
+    }
+
+    public void setDataList(List<DataModel> dataList) {
+        this.dataList = dataList;
     }
 }

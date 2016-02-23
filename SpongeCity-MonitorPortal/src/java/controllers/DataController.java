@@ -9,10 +9,7 @@ import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DataTypeModel;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceModel;
 import Util.DeviceDataFileWriter;
 import Util.ModelConverter;
-import models.DataInfoModel;
-import models.DataModel;
-import models.DataType;
-import models.DataTypeModel;
+import models.*;
 import net.sf.json.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,8 +32,12 @@ import java.util.*;
 @RequestMapping(value = "/data")
 public class DataController {
     @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public ModelAndView index() {
-        return null;
+    public ModelAndView index(int areaId) {
+        ModelAndView modelAndView = new ModelAndView("/data/index");
+        List<DataTypeModel> dts = getDataTypes(areaId);
+
+        modelAndView.addObject("dataTypes", dts);
+        return modelAndView;
     }
 
     @RequestMapping(value = "/datadownload", method = RequestMethod.GET)
@@ -86,10 +87,10 @@ public class DataController {
     }
 
     //return device data
-    public String getDeviceData(int dataTypeId, int deviceId, Date startTime, Date endTime) {
+    public EchartData getDeviceData(int dataTypeId, int areaId, Date startTime, Date endTime) {
         try {
             DataOperation dataOperation = new DataOperation();
-            List<DB_DataModel> dbDataModelList = dataOperation.getDataByDataTypeAndDeviceId(dataTypeId, deviceId, startTime, endTime);
+            List<DB_DataModel> dbDataModelList = dataOperation.getData(dataTypeId,areaId, startTime, endTime);
             List<String> dateList = new ArrayList<String>();
             List<Float> valueList = new ArrayList<Float>();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
@@ -97,13 +98,17 @@ public class DataController {
                 dateList.add(sdf.format(dbDataModel.getDatetime()));
                 valueList.add(dbDataModel.getDatavalue());
             }
-            return "";
+            Series series = new Series("Test","dd",valueList);
+            List<Series> seriesList = new ArrayList<Series>();
+            seriesList.add(series);
+            EchartData echartData = new EchartData(dateList, null, seriesList);
+            return echartData;
         } catch (Exception ex) {
-            return "";
+            return null;
         }
     }
 
-    //get dataType,deviceCount,dataItemCount
+
     public List<DataInfoModel> getDataInfo(int areaId) {
         List<DataInfoModel> dataInfoModels = new ArrayList<DataInfoModel>();
         DataOperation dataOperation = new DataOperation();
@@ -137,6 +142,22 @@ public class DataController {
             dataInfoModels.add(dataInfoModel);
         }
         return dataInfoModels;
+    }
+    //get dataType,deviceCount,dataItemCount
+    public List<DataTypeModel>  getDataTypes(int areaId) {
+        List<DataInfoModel> dataInfoModels = new ArrayList<DataInfoModel>();
+        DataOperation dataOperation = new DataOperation();
+        List<DataTypeModel> dtModels = new ArrayList<DataTypeModel>();
+        Map<String, Integer> dataTypes = new HashMap<String, Integer>();;
+        List<DB_DataTypeModel> dbDataModels = dataOperation.getDataTypeList();
+        for (DB_DataTypeModel dbDataModel : dbDataModels) {
+            DataTypeModel dtM = new DataTypeModel();
+            dtM.setDatatype(dbDataModel.getDatatype());
+            dtM.setId(dbDataModel.getId());
+            dtM.setUnit(dbDataModel.getUnit());
+            dtModels.add(dtM);
+        }
+        return dtModels;
     }
 
     private String createDataCSVFile(List<DB_DataModel> dbDataModelList, int areaId) {

@@ -29,6 +29,7 @@
               <intercept-url pattern="/scripts/**" access="permitAll"/>
               <intercept-url pattern="/img/**" access="permitAll"/>
               <intercept-url pattern="/font/**" access="permitAll"/>
+              <intercept-url pattern="/picture/**" access="permitAll"/>
               <intercept-url pattern="/**" access="hasRole('ROLE_ADMIN')"/>
 
               <form-login login-page="/account/login" default-target-url="/"/>
