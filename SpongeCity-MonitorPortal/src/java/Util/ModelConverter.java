@@ -32,6 +32,7 @@ public class ModelConverter {
         deviceModel.setDeviceType(dtModel);
         deviceModel.setComments(db_deviceModel.getComments());
         deviceModel.setPicture(db_deviceModel.getPicture());
+        deviceModel.setDeviceTypeName(dtModel.getDisplayName());
 
         return deviceModel;
     }

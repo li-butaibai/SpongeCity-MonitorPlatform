@@ -27,6 +27,26 @@ public class DataOperation {
         return datas;
     }
 
+    public List<DB_DataModel> getData(int dataTypeid) {
+        List<DB_DataModel> datas = new ArrayList<DB_DataModel>();
+        try {
+            datas = dataDA.getDataByDeviceId(dataTypeid);
+        } catch (Exception ex) {
+            //log
+        }
+        return datas;
+    }
+
+    public List<DB_DataModel> getDataByDeviceAndDt(int deviceId, int dataTypeid) {
+        List<DB_DataModel> datas = new ArrayList<DB_DataModel>();
+        try {
+            datas = dataDA.getDataByDeviceIdandDtId(deviceId, dataTypeid);
+        } catch (Exception ex) {
+            //log
+        }
+        return datas;
+    }
+
     public List<DB_DataModel> getData(int dataTypeid, int areaId, Date startTime, Date endTime) {
         List<DB_DataModel> datas = new ArrayList<DB_DataModel>();
         try {

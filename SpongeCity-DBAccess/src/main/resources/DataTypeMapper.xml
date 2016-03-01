@@ -13,4 +13,7 @@
     <select id="getDataTypeList" resultMap="datatypeMap">
         select * from datatypes
     </select>
+    <select id="getDataTypeListByDeviceId" resultMap="datatypeMap">
+        <![CDATA[select distinct datatype_id as id from dbo.data where device_id= ${deviceId}]]>
+    </select>
 </mapper>

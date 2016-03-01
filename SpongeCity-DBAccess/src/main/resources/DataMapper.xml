@@ -57,4 +57,14 @@ where db.area_id in (${_parameter}) ]]>
   where device_id = ${deviceId} and datatype_id = ${dataTypeId} and datatime > ${startTime} and datatime < ${endTime}
 order by datatime desc ]]>
     </select>
+    <select id="getDataByDeviceId" resultMap="dataMap">
+        <![CDATA[ SELECT top 100 da.id,da.datatime,da.device_id,da.datatype_id,da.datavalue, t.id as datatypeid, t.datatype, t.unit FROM data da join datatypes t on da.datatype_id=t.id
+  where device_id = ${deviceId}
+order by datatime desc ]]>
+    </select>
+    <select id="getDataByDeviceIdandDtId" resultMap="dataMap">
+        <![CDATA[ SELECT top 1 da.id,da.datatime,da.device_id,da.datatype_id,da.datavalue, t.id as datatypeid, t.datatype, t.unit FROM data da join datatypes t on da.datatype_id=t.id
+  where device_id = ${deviceId} and da.datatype_id = ${dataTypeId}
+order by datatime desc ]]>
+    </select>
 </mapper>

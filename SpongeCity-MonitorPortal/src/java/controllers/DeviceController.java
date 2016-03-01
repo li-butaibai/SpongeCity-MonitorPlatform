@@ -2,10 +2,7 @@ package controllers;
 
 import SpongeCity.MonitorPlatform.Core.PlatformData.*;
 import SpongeCity.MonitorPlatform.DBAccess.DataAccess.LogDA;
-import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AlertModel;
-import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AreaModel;
-import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceLogModel;
-import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceModel;
+import SpongeCity.MonitorPlatform.DBAccess.Model.*;
 import Util.ModelConverter;
 import Util.SortList;
 import models.*;
@@ -17,10 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by EriclLee on 15/12/29.
@@ -72,8 +66,22 @@ public class DeviceController {
         deviceModel = converter.convertDBDeviceModel2PortalDeviceModel(db_deviceModel);
 
         //get device data
-        /*DataOperation dataOperation = new DataOperation();
-        dataOperation.getData()*/
+        DataOperation dataOperation = new DataOperation();
+        List<DB_DataModel> db_dataModels = dataOperation.getData(deviceId);
+        List<DataModel> dataModels = new ArrayList<DataModel>();
+        if(db_dataModels!=null)
+        {
+            for(DB_DataModel dm : db_dataModels)
+            {
+                DataModel dataModel = new DataModel();
+                dataModel.setId(dm.getId());
+                dataModel.setDatatime(dm.getDatetime());
+                dataModel.setDatatype(dm.getDatatype().getDatatype());
+                dataModel.setDatavalue(dm.getDatavalue());
+                dataModel.setUnit(dm.getDatatype().getUnit());
+                dataModels.add(dataModel);
+            }
+        }
 
         //get device log
         LogDataOperation logDataOperation = new LogDataOperation();
@@ -85,7 +93,7 @@ public class DeviceController {
             }
         }
         deviceModel.setDeviceLogList(deviceLogModels);
-
+        deviceModel.setDataList(dataModels);
         modelAndView.addObject("device", deviceModel);
         return modelAndView;
     }
@@ -101,30 +109,31 @@ public class DeviceController {
         List<DB_DeviceModel> deviceModelList = deviceDataOperation.getAllDevice();
         List<DB_DeviceModel> deviceModelListByTypes = getDevicesByGTypes(deviceModelList, deviceTypeIds);
         AlertDataOperation alertDataOperation = new AlertDataOperation();
-
+        DataOperation dataOperation = new DataOperation();
+        List<DB_DeviceTypeModel> deviceTypeModels = deviceDataOperation.getAllDeviceType();
         for (Integer aId : allAreaIds) {
             for (DB_DeviceModel db_deviceModel : deviceModelListByTypes) {
                 if (db_deviceModel.getArea().getId() == aId) {
+
                     DeviceModel deviceModel = new DeviceModel();
-
-                    //region Unused. Already extract to Util.ModelConverter class
-                    /*deviceModel.setId(db_deviceModel.getId());
-                    List<DB_AlertModel> alerts = alertDataOperation.getAlertListByDeviceId(deviceModel.getId());
-                    deviceModel.setAlertCount(alerts.size());
-                    deviceModel.setDevice_id(db_deviceModel.getDeviceid());
-                    deviceModel.setAreaName(getDeviceArea(db_deviceModel, db_areaModels));
-                    deviceModel.setBlockName(getDeviceBlock(db_deviceModel, db_areaModels));
-                    deviceModel.setState(DeviceState.fromString(db_deviceModel.getState()));
-                    deviceModel.setMeasureName(getDeviceMeasureName(db_deviceModel, db_areaModels));
-                    deviceModel.setCoordinate(new Coordinate(db_deviceModel.getLatitude(), db_deviceModel.getLongitude()));
-                    DeviceTypeModel dtModel = new DeviceTypeModel(db_deviceModel.getDevicetype().getId(),
-                            db_deviceModel.getDevicetype().getName(),db_deviceModel.getDevicetype().getName());
-                    deviceModel.setDeviceType(dtModel);
-                    deviceModel.setComments(db_deviceModel.getComments());*/
-                    //endregion
-
                     ModelConverter converter = new ModelConverter();
                     deviceModel = converter.convertDBDeviceModel2PortalDeviceModel(db_deviceModel);
+                    deviceModel.setDataList(new ArrayList<DataModel>());
+                    List<DB_DataTypeModel> db_dataTypeModels = deviceDataOperation.getAllDeviceTypeByDeviceId(db_deviceModel.getId());
+                    for(DB_DataTypeModel dt : db_dataTypeModels)
+                    {
+                        List<DB_DataModel> dataModels = dataOperation.getDataByDeviceAndDt(db_deviceModel.getId(), dt.getId());
+                        for(DB_DataModel dm : dataModels)
+                        {
+                            DataModel dmodel = new DataModel();
+                            dmodel.setId(dm.getId());
+                            dmodel.setDatatime(dm.getDatetime());
+                            dmodel.setDatatype(dm.getDatatype().getDatatype());
+                            dmodel.setDatavalue(dm.getDatavalue());
+                            dmodel.setUnit(dm.getDatatype().getUnit());
+                            deviceModel.getDataList().add(dmodel);
+                        }
+                    }
                     deviceModels.add(deviceModel);
                 }
             }

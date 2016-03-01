@@ -12,25 +12,35 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="shortcut icon" href="favicon.ico">
   <title>海绵城市数据监控平台</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/cssreset-min.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/jqtree.css">
-
+  <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
   <script src="${pageContext.request.contextPath}/js/jquery-1.11.3.js"></script>
   <script src="${pageContext.request.contextPath}/js/tree.jquery.js"></script>
   <script src="http://api.map.baidu.com/api?v=2.0&ak=Fp5YoAmGiStTkpbGVKI8dQkA"></script>
+  <script type="text/javascript">
+    function onresize(){
+      $('.conright').css("height",($(window).innerHeight())+"px");
+      $('.r_con3').css("height",($(window).innerHeight()-207)+"px");
+      $('.conright').css("width",($(window).innerWidth()-$('.conleft').innerWidth())+"px");
+      $('.conright').css("margin-left",$('.conleft').innerWidth()+"px");
+    }
+  </script>
 </head>
 
-<body>
+<body onload="onresize()" onresize="onresize()">
 <div class="con">
+
   <div class="conleft">
 
   </div>
   <div class="conright">
     <div class="r_con1">
-      <img src="img/logo.jpg">
+      <img src="img/logo.jpg" style="padding-top: 25px; padding-left: 25px;">
     </div>
     <div class="r_con2">
       <ul class="r_nav">
@@ -97,9 +107,6 @@
         $(".r_con3").load( "data/datadownload?areaId=" + hashObject.areaId );
       }
     };
-
-
-
     //hash tools
     //sethash
     function SetHash(val) {
@@ -135,5 +142,8 @@
       }
       return theRequest;
     }
-
+   $(window).load(  function(){
+    alert($(screen).innerHeight());
+    $('.conright').css("height",$(screen).innerHeight());
+  });
 </script>

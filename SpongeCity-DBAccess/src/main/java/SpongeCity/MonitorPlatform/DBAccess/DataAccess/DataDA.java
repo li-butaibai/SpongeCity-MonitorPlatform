@@ -99,4 +99,34 @@ public class DataDA {
             session.close();
         }
     }
+
+    public List<DB_DataModel> getDataByDeviceId(int deviceId)
+    {
+        SqlSession session = SqlConnection.getSession();
+        try {
+            SimpleDateFormat ft = new SimpleDateFormat("yyyy/MM/dd");
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("deviceId", deviceId);
+            IDataOperation dataOperation = session.getMapper(IDataOperation.class);
+            List<DB_DataModel> datas = dataOperation.getDataByDeviceId(params);
+            return datas;
+        } finally {
+            session.close();
+        }
+    }
+
+    public List<DB_DataModel> getDataByDeviceIdandDtId(int deviceId, int dataTypeId)
+    {
+        SqlSession session = SqlConnection.getSession();
+        try {
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("deviceId", deviceId);
+            params.put("dataTypeId", dataTypeId);
+            IDataOperation dataOperation = session.getMapper(IDataOperation.class);
+            List<DB_DataModel> datas = dataOperation.getDataByDeviceIdandDtId(params);
+            return datas;
+        } finally {
+            session.close();
+        }
+    }
 }
