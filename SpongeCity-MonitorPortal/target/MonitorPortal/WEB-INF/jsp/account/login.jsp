@@ -13,6 +13,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>海绵城市数据监控平台</title>
+  <link rel="shortcut icon" href="/picture/favicon.ico">
   <link rel="stylesheet" href="/css/cssreset-min.css">
   <link rel="stylesheet" href="/css/login.css">
   <style type="text/css">

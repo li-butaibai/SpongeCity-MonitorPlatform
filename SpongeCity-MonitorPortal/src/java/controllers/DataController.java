@@ -55,6 +55,7 @@ public class DataController {
             DataOperation dataOperation = new DataOperation();
             List<DB_DataModel> dbDataModelList = dataOperation.getData(dataTypeId, areaId);
             String filename = createDataCSVFile(dbDataModelList, areaId);
+            //filename = java.net.URLEncoder.encode(filename,"UTF-8");
             return filename;
         } catch (Exception ex) {
             return "";
@@ -160,7 +161,7 @@ public class DataController {
         return dtModels;
     }
 
-    private String createDataCSVFile(List<DB_DataModel> dbDataModelList, int areaId) {
+    private String createDataCSVFile(List<DB_DataModel> dbDataModelList, int areaId) throws UnsupportedEncodingException {
         DeviceDataFileWriter writer = new DeviceDataFileWriter();
         DataOperation dataOperation = new DataOperation();
         List<DataModel> dataModelList = new ArrayList<DataModel>();
@@ -178,6 +179,7 @@ public class DataController {
             String fileName = areaModel.getName() + "_" + dataModelList.get(0).getDatatype() + "_" + df.format(new Date()) + ".csv";
             String[] heads = new String[]{"时间", "区域", "地块", "单项措施", "设备", "数据类型", "值", "单位"};
             writer.writeCSV(heads, dataModelList, filePath, fileName);
+            fileName = java.net.URLEncoder.encode(fileName,"UTF-8");
             return "DeviceDataCSVFiles/" + fileName;
         } else {
             return "";

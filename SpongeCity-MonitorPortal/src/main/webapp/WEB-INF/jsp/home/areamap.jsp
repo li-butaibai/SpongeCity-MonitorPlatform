@@ -24,7 +24,7 @@
     }
   </script>
   <c:forEach items="${deviceTypes}" var="dt">
-    <p class="devicetype"><input type="checkbox" id="dt_${dt.id}" name="deviceType" value="${dt.id}" onclick="onDTChange()">${dt.name}</p>
+    <p class="devicetype"><input type="checkbox" id="dt_${dt.id}" name="deviceType" value="${dt.id}" onclick="onDTChange()">${dt.name}<img src="picture/d${dt.id}_Online.png" style="height:23px; margin-left: 5px;"/></p>
   </c:forEach>
 
 </div>
@@ -112,7 +112,8 @@
         for(var i = 0; i < data.length; i++ ) {
           if ($.inArray(data[i].id, devices)<0) {
             devices.push(data[i].id);
-            var marker = new BMap.Marker(new BMap.Point(parseFloat(data[i].coordinate.latitude), parseFloat(data[i].coordinate.longitude)));
+            var myIcon = new BMap.Icon("picture/d"+data[i].deviceType.id+"_"+data[i].state+".png", new BMap.Size(24,37));
+            var marker = new BMap.Marker(new BMap.Point(parseFloat(data[i].coordinate.latitude), parseFloat(data[i].coordinate.longitude)), {icon:myIcon});
             console.log("marker"+data[i].coordinate.latitude);
             markers.push(marker);
             //alert(data[i].id);
@@ -134,7 +135,7 @@
               for (var j = 0; j < data[i].dataList.length; j++) {
                 labelContent += data[i].dataList[j].unit + ":" + data[i].dataList[j].datavalue.toFixed(2) + "</br>";
               }
-              var label = new BMap.Label(labelContent, {offset: new BMap.Size(20, -10)});
+              var label = new BMap.Label(labelContent, {offset: new BMap.Size(30, -10)});
               label.setStyle({
                 color: "green",
                 fontSize: "12px",
@@ -147,7 +148,7 @@
             else
             {
               labelContent = "离线";
-              var label = new BMap.Label(labelContent, {offset: new BMap.Size(20, -10)});
+              var label = new BMap.Label(labelContent, {offset: new BMap.Size(30, -10)});
               label.setStyle({
                 color: "red",
                 fontSize: "12px",
@@ -187,7 +188,7 @@
               for (var j = 0; j < data[i].dataList.length; j++) {
                 labelContent += data[i].dataList[j].unit + ":" + data[i].dataList[j].datavalue.toFixed(2) + "</br>";
               }
-              var label = new BMap.Label(labelContent, {offset: new BMap.Size(20, -10)});
+              var label = new BMap.Label(labelContent, {offset: new BMap.Size(30, -10)});
               label.setStyle({
                 color: "green",
                 fontSize: "12px",
@@ -200,7 +201,7 @@
             else
             {
               labelContent = "离线";
-              var label = new BMap.Label(labelContent, {offset: new BMap.Size(20, -10)});
+              var label = new BMap.Label(labelContent, {offset: new BMap.Size(30, -10)});
               label.setStyle({
                 color: "red",
                 fontSize: "12px",
