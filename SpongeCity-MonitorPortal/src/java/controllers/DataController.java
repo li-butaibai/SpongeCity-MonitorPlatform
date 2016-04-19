@@ -10,7 +10,7 @@ import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceModel;
 import Util.DeviceDataFileWriter;
 import Util.ModelConverter;
 import models.*;
-import net.sf.json.JSONArray;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
