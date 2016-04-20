@@ -25,10 +25,11 @@
   <script type="text/javascript">
     function onresize(){
       $('.conright').css("height",($(window).innerHeight())+"px");
-      $('.r_con3').css("height",($(window).innerHeight()-207)+"px");
+      $('.r_con3').css("height",($(window).innerHeight()-150)+"px");
       $('.conright').css("width",($(window).innerWidth()-$('.conleft').innerWidth())+"px");
       $('.conright').css("margin-left",$('.conleft').innerWidth()+"px");
     }
+
   </script>
 </head>
 
@@ -40,7 +41,7 @@
   </div>
   <div class="conright">
     <div class="r_con1">
-      <img src="img/logo.jpg" style="padding-top: 25px; padding-left: 25px;">
+
     </div>
     <div class="r_con2">
       <ul class="r_nav">

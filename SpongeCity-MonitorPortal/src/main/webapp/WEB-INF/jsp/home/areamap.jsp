@@ -63,7 +63,7 @@
   map.setViewport(points);//map.centerAndZoom(point, 15);
   map.addControl(new BMap.MapTypeControl());
   map.enableScrollWheelZoom(true);
-  var polygon = new BMap.Polygon(points, {strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});  //创建多边形
+  var polygon = new BMap.Polygon(points, {strokeColor:"#91b4ad", strokeWeight:2, strokeOpacity:0.5});  //创建多边形
   map.addOverlay(polygon);
   ///
 //  $.getJSON("/devices/devices?"+location.hash.replace("#",""), function (data) {

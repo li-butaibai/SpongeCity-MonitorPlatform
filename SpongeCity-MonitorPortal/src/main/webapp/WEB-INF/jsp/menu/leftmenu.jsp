@@ -8,11 +8,26 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page isELIgnored="false" %>
+<script>
+  $(function(){
+    Date.prototype.toLocaleString = function() {
+      return this.getFullYear() + "年" + (this.getMonth() + 1) + "月" + this.getDate() + "日 " + this.getHours() + "点" + this.getMinutes() + "分";
+    };
+    var d = new Date();
+    $("#datestr").html(d.toLocaleString());
+  })
+</script>
+
 <div class="l_con1">
   <h1>海绵城市监控平台</h1>
 </div>
+<div class="l_con_img">
+  <p id="datestr"></p>
+</div>
 <div class="l_con2">
-  <div id="tree1"></div>
+  <div id="tree1">
+
+  </div>
 </div>
 <script>
   function onLeftMenuClick(areaId){
