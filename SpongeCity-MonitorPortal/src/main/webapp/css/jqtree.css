@@ -43,8 +43,8 @@ ul.jqtree-tree {
 	text-indent:1.5em}
   ul.jqtree-tree .jqtree-title {
     color: #94949c;
-    vertical-align: middle;
-    margin-left: 1.5em; }
+    vertical-align: middle;}
+    /*margin-left: 1.5em; */
     ul.jqtree-tree .jqtree-title.jqtree-title-folder {
       margin-left: 0; }
   ul.jqtree-tree li.jqtree-folder {
