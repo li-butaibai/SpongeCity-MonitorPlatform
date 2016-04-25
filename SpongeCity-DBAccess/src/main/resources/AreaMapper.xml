@@ -11,9 +11,10 @@
         <result property="size" column="size"/>
         <result property="position" column="position"/>
         <result property="parentarea_id" column="parentarea_id"/>
+        <result property="SortIdx" column="SortIdx"/>
     </resultMap>
     <select id="getAllArea" resultMap="areaMap">
-        select * from areas
+        select * from areas order by SortIdx
     </select>
     <select id="getAreaById" parameterType="int" resultType="DB_AreaModel">
         SELECT * FROM areas WHERE id = #{areaId}

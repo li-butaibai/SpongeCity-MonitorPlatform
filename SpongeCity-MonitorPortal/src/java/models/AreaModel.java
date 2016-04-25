@@ -9,6 +9,7 @@ public class AreaModel {
     private int id;
     private String name;
     private float size;
+    private int sortIdx;
     private AreaModel parentArea;
     private List<AreaModel> subArea;
     private List<Coordinate> coordinates;
@@ -36,6 +37,14 @@ public class AreaModel {
 
     public void setSize(float size) {
         this.size = size;
+    }
+
+    public int getsortIdx() {
+        return sortIdx;
+    }
+
+    public void setsortIdx(int sortIdx) {
+        this.sortIdx = sortIdx;
     }
 
     public AreaModel getParentArea() {

@@ -9,6 +9,7 @@ public class DB_AreaModel {
     private float size;
     private String position;
     private int parentarea_id;
+    private int SortIdx;
 
     public int getId() {
         return id;
@@ -48,5 +49,13 @@ public class DB_AreaModel {
 
     public void setParentarea_id(int parentarea_id) {
         this.parentarea_id = parentarea_id;
+    }
+
+    public int getSortIdx() {
+        return parentarea_id;
+    }
+
+    public void setSortIdx(int SortIdx) {
+        this.SortIdx = SortIdx;
     }
 }
