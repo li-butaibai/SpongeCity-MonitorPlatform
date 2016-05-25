@@ -3,10 +3,7 @@ package controllers;
 import SpongeCity.MonitorPlatform.Core.PlatformData.AreaDataOperation;
 import SpongeCity.MonitorPlatform.Core.PlatformData.DataOperation;
 import SpongeCity.MonitorPlatform.Core.PlatformData.DeviceDataOperation;
-import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AreaModel;
-import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DataModel;
-import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DataTypeModel;
-import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceModel;
+import SpongeCity.MonitorPlatform.DBAccess.Model.*;
 import Util.DeviceDataFileWriter;
 import Util.ModelConverter;
 import models.*;
@@ -18,10 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.FileInputStream;
-import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -91,7 +85,7 @@ public class DataController {
     public EchartData getDeviceData(int dataTypeId, int areaId, Date startTime, Date endTime) {
         try {
             DataOperation dataOperation = new DataOperation();
-            List<DB_DataModel> dbDataModelList = dataOperation.getData(dataTypeId,areaId, startTime, endTime);
+            List<DB_DataModel> dbDataModelList = dataOperation.getData(dataTypeId, areaId, startTime, endTime);
             List<String> dateList = new ArrayList<String>();
             List<Float> valueList = new ArrayList<Float>();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
@@ -99,7 +93,7 @@ public class DataController {
                 dateList.add(sdf.format(dbDataModel.getDatetime()));
                 valueList.add(dbDataModel.getDatavalue());
             }
-            Series series = new Series("Test","dd",valueList);
+            Series series = new Series("Test", "dd", valueList);
             List<Series> seriesList = new ArrayList<Series>();
             seriesList.add(series);
             EchartData echartData = new EchartData(dateList, null, seriesList);
@@ -144,12 +138,14 @@ public class DataController {
         }
         return dataInfoModels;
     }
+
     //get dataType,deviceCount,dataItemCount
-    public List<DataTypeModel>  getDataTypes(int areaId) {
+    public List<DataTypeModel> getDataTypes(int areaId) {
         List<DataInfoModel> dataInfoModels = new ArrayList<DataInfoModel>();
         DataOperation dataOperation = new DataOperation();
         List<DataTypeModel> dtModels = new ArrayList<DataTypeModel>();
-        Map<String, Integer> dataTypes = new HashMap<String, Integer>();;
+        Map<String, Integer> dataTypes = new HashMap<String, Integer>();
+        ;
         List<DB_DataTypeModel> dbDataModels = dataOperation.getDataTypeList();
         for (DB_DataTypeModel dbDataModel : dbDataModels) {
             DataTypeModel dtM = new DataTypeModel();
@@ -179,7 +175,7 @@ public class DataController {
             String fileName = areaModel.getName() + "_" + dataModelList.get(0).getDatatype() + "_" + df.format(new Date()) + ".csv";
             String[] heads = new String[]{"时间", "区域", "地块", "单项措施", "设备", "数据类型", "值", "单位"};
             writer.writeCSV(heads, dataModelList, filePath, fileName);
-            fileName = java.net.URLEncoder.encode(fileName,"UTF-8");
+            fileName = java.net.URLEncoder.encode(fileName, "UTF-8");
             return "DeviceDataCSVFiles/" + fileName;
         } else {
             return "";
@@ -194,5 +190,60 @@ public class DataController {
             setDevicesByArea.add(dbDeviceModel.getId());
         }
         return setDevicesByArea;
+    }
+
+    @RequestMapping(value = "/getdata", method = RequestMethod.GET)
+    @ResponseBody
+    public List<AreaDataModel> getDataByAreaAndDataType(int areaId, List<Integer> dataTypeIdList) {
+        List<AreaDataModel> areaDataModelList = new ArrayList<AreaDataModel>();
+        try {
+            DeviceDataOperation deviceDataOperation = new DeviceDataOperation();
+            AreaDataOperation areaDataOperation = new AreaDataOperation();
+            DataOperation dataOperation = new DataOperation();
+            List<DB_DeviceTypeModel> db_deviceTypeList = new ArrayList<DB_DeviceTypeModel>();
+            db_deviceTypeList = deviceDataOperation.getAllDeviceType();
+
+            for (Integer dataTypeId : dataTypeIdList) {
+                AreaDataModel areaData = new AreaDataModel();
+                Map<Integer, DeviceDataModel> map = new HashMap<Integer, DeviceDataModel>();
+                //get data
+                List<DB_DataModel> dbDataModelList = dataOperation.getData(dataTypeId, areaId);
+                Collections.reverse(dbDataModelList);
+                for (DB_DataModel item : dbDataModelList) {
+                    if (!map.containsKey(item.getDevice().getId())) {
+                        DeviceDataModel ddm = new DeviceDataModel();
+                        List<Float> values = new ArrayList<Float>();
+                        List<Date> dates = new ArrayList<Date>();
+                        ddm.setDatas(values);
+                        ddm.setDates(dates);
+                        ddm.setDeviceId(item.getDevice().getId());
+                        ddm.setDeviceCode(item.getDevice().getDeviceid());
+                        int devicetypeid = item.getDevice().getDevicetype_id();
+                        for (DB_DeviceTypeModel db_deviceTypeModel : db_deviceTypeList) {
+                            if (db_deviceTypeModel.getId() == devicetypeid) {
+                                ddm.setDeviceTypeName(db_deviceTypeModel.getName());
+                                break;
+                            }
+                        }
+                        map.put(item.getDevice().getId(), ddm);
+                    }
+                    DeviceDataModel ddm = map.get(item.getDevice().getId());
+                    ddm.getDatas().add(item.getDatavalue());
+                    ddm.getDates().add(item.getDatetime());
+                }
+                List<DeviceDataModel> deviceDataList = new ArrayList<DeviceDataModel>();
+                deviceDataList.addAll(map.values());
+                areaData.setAreaId(areaId);
+                areaData.setAreaName(areaDataOperation.getAreaInfo(areaId).getName());
+                areaData.setDataTypeId(dataTypeId);
+                areaData.setDataTypeName(dbDataModelList.get(0).getDatatype().getDatatype());
+                areaData.setUnit(dbDataModelList.get(0).getDatatype().getUnit());
+                areaData.setDataList(deviceDataList);
+                areaDataModelList.add(areaData);
+            }
+        } catch (Exception ex) {
+            //System.out.println(ex.getMessage());
+        }
+        return areaDataModelList;
     }
 }
