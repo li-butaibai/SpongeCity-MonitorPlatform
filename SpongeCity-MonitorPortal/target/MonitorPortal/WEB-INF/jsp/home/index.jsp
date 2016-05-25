@@ -18,9 +18,10 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/cssreset-min.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/jqtree.css">
-  <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+
   <script src="${pageContext.request.contextPath}/js/jquery-1.11.3.js"></script>
   <script src="${pageContext.request.contextPath}/js/tree.jquery.js"></script>
+  <script src="${pageContext.request.contextPath}/js/echarts.min-2.js"></script>
   <script src="http://api.map.baidu.com/api?v=2.0&ak=Fp5YoAmGiStTkpbGVKI8dQkA"></script>
   <script type="text/javascript">
     function onresize(){
@@ -63,7 +64,7 @@
     //init
     if( location.hash == "" ){
       $(".conleft").load('/menu/areamenu');
-      location.hash = "#areaId=1&topmenu=0";
+      location.hash = "#areaId=16&topmenu=0";
     }else{
       $(".conleft").load('/menu/areamenu');
       window.onhashchange();
@@ -105,7 +106,7 @@
         $(".r_con3").load( "alerts/index?areaId=" + hashObject.areaId  + "&pageIndex="+hashObject.pageIndex );
       }else if( hashObject["topmenu"] == 3 ){
 
-        $(".r_con3").load( "data/datadownload?areaId=" + hashObject.areaId );
+        $(".r_con3").load( "data/index?areaId=" + hashObject.areaId );
       }
     };
     //hash tools

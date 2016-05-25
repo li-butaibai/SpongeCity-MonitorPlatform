@@ -30,7 +30,7 @@
               <intercept-url pattern="/img/**" access="permitAll"/>
               <intercept-url pattern="/font/**" access="permitAll"/>
               <intercept-url pattern="/picture/**" access="permitAll"/>
-              <intercept-url pattern="/**" access="hasRole('ROLE_ADMIN')"/>
+              <intercept-url pattern="/**" access="permitAll"/>
 
               <form-login login-page="/account/login" default-target-url="/"/>
        </http>

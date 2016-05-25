@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page isELIgnored="false" %>
-<div id="allmap"></div>
+<div id="allmap" style="margin-left: 20px; margin-right: 270px; "></div>
 <div id="checkwin">
   <p class="devicetitle">设备类型</p>
   <script type="text/javascript">
@@ -49,11 +49,11 @@
   else{
 
     $("input[type=checkbox]").each(function(){
-        $(this).attr("checked","checked");
+      $(this).attr("checked","checked");
     });
   }
   // 百度地图API功能
-  var map = new BMap.Map("allmap");
+  var map = new BMap.Map("allmap",{mapType:BMAP_HYBRID_MAP});
   var point = new BMap.Point(<c:out value="${areaInfo.centerPoint.longitude}" />, <c:out value="${areaInfo.centerPoint.latitude}" />);
   var points = [
     <c:forEach items="${areaInfo.coordinates}" var="sa">
@@ -63,42 +63,8 @@
   map.setViewport(points);//map.centerAndZoom(point, 15);
   map.addControl(new BMap.MapTypeControl());
   map.enableScrollWheelZoom(true);
-  var polygon = new BMap.Polygon(points, {strokeColor:"#91b4ad", strokeWeight:2, strokeOpacity:0.5});  //创建多边形
+  var polygon = new BMap.Polygon(points, {strokeColor:"#91b4ad", strokeWeight:2, strokeOpacity:0.9, fillOpacity:0.2});  //创建多边形
   map.addOverlay(polygon);
-  ///
-//  $.getJSON("/devices/devices?"+location.hash.replace("#",""), function (data) {
-//    console.log("data.length"+data.length);
-//    for(var i = 0; i < data.length; i++ ){
-//      var marker =new BMap.Marker(new BMap.Point(parseFloat(data[i].coordinate.latitude),parseFloat(data[i].coordinate.longitude)));
-//      //alert(data[i].id);
-//      map.addOverlay(marker);
-//      //marker.setAttribute("alt",data[i].id);
-//      var content = "<div style='width: 500px; height: 300px'><div class='imgdiv' style=''><img src='img/device.png'/></div>";
-//      content = content + "<table  class='maptable' style=''>";
-//      content = content + "<tr><td> 设备编号：</td><td>" + data[i].id + "["+data[i].state+"]"+"</td></tr>";
-//      content = content + "<tr><td> 设备类型：</td><td>" + data[i].deviceType.name + "</td></tr>";
-//      content = content + "<tr><td> 位    置：</td><td>" + data[i].areaName + "->"+data[i].blockName+"->"+data[i].measureName+"</td></tr>";
-//      content = content + "<tr><td> 告警数量：</td><td>" + data[i].alertCount + "</td></tr>";
-//      content = content + "</table>";
-//      content = content + "<p style='clear: both; font-size: 12px; padding: 10px 20px; line-height: 200%; color:#3c3c3c; background: #f7f7f7'> 备注信息：" + data[i].comments + "</p>";
-//
-//      content += "</div>";
-//      (function () {
-//               var infoWindow = new BMap.InfoWindow(content);
-//             marker.addEventListener("click", function () {
-//                   this.openInfoWindow(infoWindow);
-//                });
-//       })()
-//
-//
-//    }
-//    //console.log(data.length);
-//      //var marker = new BMap.Marker(new BMap.Point(116.317449, 39.98615)); // 创建点
-//      //map.addOverlay(marker);
-//  });
-  ///
-  //var marker = new BMap.Marker(new BMap.Point(116.317449, 39.98615)); // 创建点
-  //map.addOverlay(marker);
   setInterval(getAllDevices, 10000)
   function getAllDevices()
   {
@@ -112,14 +78,15 @@
         for(var i = 0; i < data.length; i++ ) {
           if ($.inArray(data[i].id, devices)<0) {
             devices.push(data[i].id);
-            var myIcon = new BMap.Icon("picture/d"+data[i].deviceType.id+"_"+data[i].state+".png", new BMap.Size(24,37));
+            var myIcon = new BMap.Icon("picture/d"+data[i].deviceType.id+"_"+data[i].state+".png", new BMap.Size(18,18),{imageSize:new BMap.Size(18,18)});
+            myIcon.images
             var marker = new BMap.Marker(new BMap.Point(parseFloat(data[i].coordinate.latitude), parseFloat(data[i].coordinate.longitude)), {icon:myIcon});
             console.log("marker"+data[i].coordinate.latitude);
             markers.push(marker);
             //alert(data[i].id);
             map.addOverlay(marker);
             //marker.setAttribute("alt",data[i].id);
-            var content = "<div style='width: 500px; height: 300px'><div class='imgdiv' style=''><img src='picture/d"+data[i].id+".jpg'/></div>";
+            var content = "<div style='width: 500px; height: 300px'><div class='imgdiv' style=''><img src='picture/d"+data[i].deviceType.id+".jpg'/></div>";
             content = content + "<table  class='maptable' style=''>";
             content = content + "<tr><td> 设备编号：</td><td>" + data[i].id+"</td></tr>";
             content = content + "<tr><td> 设备类型：</td><td>" + data[i].deviceType.name + "</td></tr>";
@@ -158,7 +125,7 @@
                 fontFamily: "微软雅黑"
               });
             }
-            marker.setLabel(label);
+            //marker.setLabel(label);
 
             labels.push(label);
             (function () {
@@ -172,7 +139,7 @@
           else{
 
             //marker.setAttribute("alt",data[i].id);
-            var content = "<div style='width: 500px; height: 300px'><div class='imgdiv' style=''><img src='picture/d"+data[i].id+".jpg'/></div>";
+            var content = "<div style='width: 500px; height: 300px'><div class='imgdiv' style=''><img src='picture/d"+data[i].deviceType.id+".jpg'/></div>";
             content = content + "<table  class='maptable' style=''>";
             content = content + "<tr><td> 设备编号：</td><td>" + data[i].id+"</td></tr>";
             content = content + "<tr><td> 设备类型：</td><td>" + data[i].deviceType.name + "</td></tr>";
@@ -214,8 +181,8 @@
             var idx = $.inArray(data[i].id, devices)
             map.removeOverlay(labels[idx]);
             labels[idx]=label;
-            markers[idx].setLabel(label);
-            infoWindows[idx].content=content;
+            //markers[idx].setLabel(label);
+            //infoWindows[idx].content=content;
           }
         }
       },

@@ -8,113 +8,148 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page isELIgnored="false" %>
-
-<div style="height:0px; overflow:hidden;">&nbsp;</div>
-<div class="table_wrap">
-<select id="dtSelect">
-  <c:forEach items="${dataTypes}" var="dt">
-    <option value="${dt.id}">${dt.unit}</option>
+<div id="allmap" style="min-height: 300px; background-color: white">
+<c:forEach items="${dataTypes}" var="dt" >
+  <div id="dataDiv_${dt.id}" style="height: 200px; width: 100%; "></div>
   </c:forEach>
-</select>
-  <div id="dataDiv" style="height: 300px; width: 100%"></div>
 </div>
+<div id="checkwin">
+  <p class="devicetitle">数据类型</p>
+  <script type="text/javascript">
+    function onDTChange(){
+      var dataTypes="";
+      $("input[type=checkbox]").each(function(){
+        if(this.checked){
+          dataTypes+=","+$(this).val();
+        }
+      });
+      if(dataTypes.length>0) dataTypes=dataTypes.substring(1,dataTypes.length);
+      var hashObject = GetHash();
+
+      hashObject["dataTypeIds"] = dataTypes;
+      var hashurl = "";
+      for( var key in hashObject ){
+        hashurl += key + "=" + hashObject[key]+"&";
+      }
+      location.hash = hashurl.slice(0,-1);
+    }
+  </script>
+  <%--<p class="devicetype"><input type="checkbox" id="dt_1" name="dataType" value="1" onclick="onDTChange()">降雨量</p>--%>
+  <%--<p class="devicetype"><input type="checkbox" id="dt_2" name="dataType" value="2" onclick="onDTChange()">流量</p>--%>
+  <%--<p class="devicetype"><input type="checkbox" id="dt_3" name="dataType" value="3" onclick="onDTChange()">风速</p>--%>
+  <%--<p class="devicetype"><input type="checkbox" id="dt_4" name="dataType" value="4" onclick="onDTChange()">气温</p>--%>
+  <%--<p class="devicetype"><input type="checkbox" id="dt_5" name="dataType" value="5" onclick="onDTChange()">水位</p>--%>
+  <%--<p class="devicetype"><input type="checkbox" id="dt_6" name="dataType" value="6" onclick="onDTChange()">湿度</p>--%>
+  <c:forEach items="${dataTypes}" var="dt">
+    <p class="devicetype"><input type="checkbox" id="dt_${dt.id}" name="deviceType" value="${dt.id}" onclick="onDTChange()">${dt.datatype}</p>
+  </c:forEach>
+</div>
+
+</div>
+<c:forEach items="${dataTypes}" var="dt">
 <script type="text/javascript">
-  var axisData = [];
-  var cpuData = [];
-  var drData = [];
-  var dwData = [];
-  var niData = [];
-  var noData = [];
-
-  function drawEChart() {
-
-    require.config({
-      paths: {
-        echarts: 'http://echarts.baidu.com/build/dist'
+      // 基于准备好的dom，初始化echarts图表
+  var myChartC_${dt.id}  = echarts.init(document.getElementById('dataDiv_${dt.id}'));
+      function randomData_${dt.id}() {
+        now = new Date(+now + Math.random()*${dt.id}*60* 1000);
+        value = value + Math.random() * 21 - 10;
+        console.log(now.toString());
+        return {
+          name: now.toString(),
+          value: [
+            now.toString(),
+            Math.round(value)
+          ]
+        }
       }
-    });
-    require(
-            [
-              'echarts',
-              'echarts/chart/line'
-            ],
-            function (ec) {
-              // 基于准备好的dom，初始化echarts图表
-              var myChartC = ec.init(document.getElementById('dataDiv'));
-              //设置数据     var myChart = ec.init(document.getElementById('cpu_div'));
-              var optionC = {
-                //设置标题
-                title: {
-                  text: 'CPU'
-                },
-                //设置提示
-                tooltip: {
-                  trigger: 'axis',
-                  formatter: function (params) {
-                    var res = params[0].name;
-                    res += '<br/>Percentage CPU: ' + params[0].value.toFixed(2) + "%";
-                    return res;
-                  },
-                  showDelay: 0
 
-                },
-                //设置图例//"Percentage CPU", "Disk Read Bytes/sec", "Disk Write Bytes/sec", "Network Out", "Network In"
-                legend: {
-                  data: ['Percentage CPU']
-                },
-                //设置坐标轴
-                xAxis: [
-                  {
-                    type: 'category',
-                    data: axisData
-                  }
-                ],
-                yAxis: [
-                  {
-                    type: 'value',
-                    axisLabel: {
-                      formatter: function (v) {
-                        return v + '%';
-                      }
-                    }
-                  }
-                ],
-                //设置数据
-                series: [
-                ]
-              };
-              optionC.series.push({
-                "name": "Percentage CPU",
-                "type": "line",
-                "data": cpuData
-              })
-              // 为echarts对象加载数据
-              myChartC.setOption(optionC);
-            }
-    );
-  }
-  function loadMonitorData(hours) {
-    $.ajax({
-      url: "/VirtualMachine/GetMonitorData",
-      type: "get",
-      async: true,
-      dataType: "json",
-      data: { "rnd": Math.random(), "vmId": '@Request["vmId"].ToString()', "hours": hours },
-      success: function (data) {
-        axisData = data.TD;
-        cpuData = data.CD;
-        drData = data.DRD;
-        dwData = data.DWD;
-        niData = data.NID;
-        noData = data.NOD;
+      var data_${dt.id} = [];
+      var now = +new Date(2015, 9, 3);
+      var oneDay = 24 * 3600 * 1000;
+      var value = Math.random() * 100;
+      for (var i = 0; i < 100; i++) {
+        data_${dt.id}.push(randomData_${dt.id}());
+      }
 
-        drawEChart();
+
+      //设置数据     var myChart = ec.init(document.getElementById('cpu_div'));
+  var optionC_${dt.id} = {
+    //设置标题
+    title: {
+      text: '${dt.datatype}'
+    },
+    //设置提示
+    tooltip: {
+      trigger: 'axis',
+      formatter: function (params) {
+        params = params[0];
+        var date = new Date(params.name);
+        return date.getHours() + " "+ date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
       },
-      error: function (data) {
-        alert("Error");
-        rtn = false;
+      axisPointer: {
+        animation: false
       }
+    },
+    //设置图例//"Percentage CPU", "Disk Read Bytes/sec", "Disk Write Bytes/sec", "Network Out", "Network In"
+    legend: {
+      data: ['模拟数据']
+    },
+    //设置坐标轴
+    xAxis: {
+      type: 'time',
+      splitLine: {
+        show: false
+      }
+    },
+    yAxis: {
+      type: 'value',
+      boundaryGap: [0, '100%'],
+      splitLine: {
+        show: false
+      }
+    },
+    //设置数据
+    series: [
+      {
+        name: '模拟数据',
+        type: 'line',
+        showSymbol: false,
+        hoverAnimation: false,
+        data: data_${dt.id}
+      }
+    ]
+  };
+      myChartC_${dt.id}.setOption(optionC_${dt.id});
+      // 为echarts对象加载数据
+
+
+
+ // function loadMonitorData(hours) {
+//    $.ajax({
+//      url: "/VirtualMachine/GetMonitorData",
+//      type: "get",
+//      async: true,
+//      dataType: "json",
+//      data: { "rnd": Math.random(), "vmId": '@Request["vmId"].ToString()', "hours": hours },
+//      success: function (data) {
+//        axisData = data.TD;
+//        cpuData = data.CD;
+//        drawEChart();
+//      },
+//      error: function (data) {
+//        alert("Error");
+//        rtn = false;
+//      }
+//    });
+  var timeTicket_${dt.id};
+  timeTicket_${dt.id} = setInterval(function(){
+    data_${dt.id}.push(randomData_${dt.id}());
+    myChartC_${dt.id}.setOption({
+      series: [{
+        data: data_${dt.id}
+      }]
     });
-  }
-  loadMonitorData(1);
+  }, 2000);
+      //
 </script>
+</c:forEach>

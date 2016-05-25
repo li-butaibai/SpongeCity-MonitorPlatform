@@ -53,7 +53,7 @@
       <form class="formdiv" action="/login" method="POST">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <label>用户：</label>
-        <input type="text" name="username" placeholder="E-mail" class="user">
+        <input type="text" name="username" placeholder="UserName" class="user">
         <label>密码：</label>
         <input type="password" name="password" placeholder="Password" class="password">
         <input type="submit" value="登录" class="submitbutton" value="Login"/>

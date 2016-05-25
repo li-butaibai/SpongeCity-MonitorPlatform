@@ -148,6 +148,10 @@ public class DeviceController {
             if (areaDbModel.getParentarea_id() == aid) {
                 allSubAreaId.addAll(getAllSubAreaId(areaDbModel.getId(), db_areaModelList));
             }
+            if(aid==16 && areaDbModel.getParentarea_id()==0 && areaDbModel.getId()!=16)
+            {
+                allSubAreaId.addAll(getAllSubAreaId(areaDbModel.getId(), db_areaModelList));
+            }
         }
         return allSubAreaId;
     }
