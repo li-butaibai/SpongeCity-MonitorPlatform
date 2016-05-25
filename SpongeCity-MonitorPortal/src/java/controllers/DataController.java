@@ -194,7 +194,7 @@ public class DataController {
 
     @RequestMapping(value = "/getdata", method = RequestMethod.GET)
     @ResponseBody
-    public List<AreaDataModel> getDataByAreaAndDataType(int areaId, List<Integer> dataTypeIdList) {
+    public List<AreaDataModel> getDataByAreaAndDataType(int areaId, List<Integer> dataTypeIdList, Date startTime, Date endTime) {
         List<AreaDataModel> areaDataModelList = new ArrayList<AreaDataModel>();
         try {
             DeviceDataOperation deviceDataOperation = new DeviceDataOperation();
@@ -207,7 +207,7 @@ public class DataController {
                 AreaDataModel areaData = new AreaDataModel();
                 Map<Integer, DeviceDataModel> map = new HashMap<Integer, DeviceDataModel>();
                 //get data
-                List<DB_DataModel> dbDataModelList = dataOperation.getData(dataTypeId, areaId);
+                List<DB_DataModel> dbDataModelList = dataOperation.getData(dataTypeId, areaId, startTime, endTime);
                 Collections.reverse(dbDataModelList);
                 for (DB_DataModel item : dbDataModelList) {
                     if (!map.containsKey(item.getDevice().getId())) {
