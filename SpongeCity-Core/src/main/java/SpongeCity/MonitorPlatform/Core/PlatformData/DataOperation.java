@@ -96,4 +96,14 @@ public class DataOperation {
         areas.add(areaData.getAreaById(areaId));
         return areas;
     }
+
+    public List<DB_DataModel> getDataByDeviceIdAndTime(int deviceId, Date startTime, Date endTime) {
+        List<DB_DataModel> datas = new ArrayList<DB_DataModel>();
+        try {
+            datas = dataDA.getDataByDeviceIdAndTime(deviceId, startTime, endTime);
+        } catch (Exception ex) {
+            //log
+        }
+        return datas;
+    }
 }

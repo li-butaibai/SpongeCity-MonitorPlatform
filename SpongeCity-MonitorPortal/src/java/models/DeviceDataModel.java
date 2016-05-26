@@ -10,6 +10,9 @@ public class DeviceDataModel {
     private int deviceId;
     private String deviceCode;
     private String deviceTypeName;
+    private int dataTypeId;
+    private String dataTypeName;
+    private String unit;
     private List<Float> datas;
     private List<Date> dates;
 
@@ -39,6 +42,30 @@ public class DeviceDataModel {
 
     public List<Float> getDatas() {
         return datas;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public int getDataTypeId() {
+        return dataTypeId;
+    }
+
+    public void setDataTypeId(int dataTypeId) {
+        this.dataTypeId = dataTypeId;
+    }
+
+    public String getDataTypeName() {
+        return dataTypeName;
+    }
+
+    public void setDataTypeName(String dataTypeName) {
+        this.dataTypeName = dataTypeName;
     }
 
     public void setDatas(List<Float> datas) {

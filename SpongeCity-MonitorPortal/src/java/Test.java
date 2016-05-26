@@ -25,7 +25,7 @@ public class Test {
             datatypes.add(2);
             datatypes.add(4);
             SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
-            dc.getDataByAreaAndDataType(1, datatypes, ft.parse("2016-03-01"), ft.parse("2016-03-31"));
+            dc.getDeviceDetail(1, ft.parse("2016-01-01"), ft.parse("2016-01-31"));
         } catch (ParseException e) {
             e.printStackTrace();
         }
