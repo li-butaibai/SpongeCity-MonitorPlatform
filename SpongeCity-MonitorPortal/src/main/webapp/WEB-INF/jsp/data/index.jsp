@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page isELIgnored="false" %>
-<div id="allmap" style="min-height: 300px; background-color: white">
+<div id="allmap" style="min-height: 300px; background-color: white;margin-left:20px">
 <c:forEach items="${dataTypes}" var="dt" >
   <div id="dataDiv_${dt.id}" style="height: 200px; width: 100%; "></div>
   </c:forEach>
@@ -41,19 +41,36 @@
   <%--<p class="devicetype"><input type="checkbox" id="dt_5" name="dataType" value="5" onclick="onDTChange()">水位</p>--%>
   <%--<p class="devicetype"><input type="checkbox" id="dt_6" name="dataType" value="6" onclick="onDTChange()">湿度</p>--%>
   <c:forEach items="${dataTypes}" var="dt">
-    <p class="devicetype"><input type="checkbox" id="dt_${dt.id}" name="deviceType" value="${dt.id}" onclick="onDTChange()">${dt.datatype}</p>
+    <p class="devicetype"><input type="checkbox" id="dt_${dt.id}" name="deviceType" value="${dt.id}" onclick="onDTChange()">${dt.unit}</p>
   </c:forEach>
 </div>
 
 </div>
 <c:forEach items="${dataTypes}" var="dt">
 <script type="text/javascript">
+  var hashObject = GetHash();
+  var devices=[];
+  var markers=[];
+  var infoWindows=[];
+  var labels=[];
+  if( hashObject.hasOwnProperty('dataTypeIds') ){
+    var dtIds = hashObject['dataTypeIds'].split(',');
+    for(var i =0; i<dtIds.length; i++)
+    {
+      $("#dt_"+dtIds[i]).attr("checked","checked");
+    }
+  }
+  else{
+
+    $("input[type=checkbox]").each(function(){
+      $(this).attr("checked","checked");
+    });
+  }
       // 基于准备好的dom，初始化echarts图表
   var myChartC_${dt.id}  = echarts.init(document.getElementById('dataDiv_${dt.id}'));
       function randomData_${dt.id}() {
         now = new Date(+now + Math.random()*${dt.id}*60* 1000);
         value = value + Math.random() * 21 - 10;
-        console.log(now.toString());
         return {
           name: now.toString(),
           value: [
@@ -63,29 +80,29 @@
         }
       }
 
-      var data_${dt.id} = [];
-      var now = +new Date(2015, 9, 3);
-      var oneDay = 24 * 3600 * 1000;
-      var value = Math.random() * 100;
-      for (var i = 0; i < 100; i++) {
-        data_${dt.id}.push(randomData_${dt.id}());
-      }
+      <%--var data_${dt.id} = [];--%>
+      <%--var now = +new Date(2015, 9, 3);--%>
+      <%--var oneDay = 24 * 3600 * 1000;--%>
+      <%--var value = Math.random() * 100;--%>
+      <%--for (var i = 0; i < 100; i++) {--%>
+        <%--data_${dt.id}.push(randomData_${dt.id}());--%>
+      <%--}--%>
 
 
       //设置数据     var myChart = ec.init(document.getElementById('cpu_div'));
   var optionC_${dt.id} = {
     //设置标题
     title: {
-      text: '${dt.datatype}'
+      text: '${dt.unit}'
     },
     //设置提示
     tooltip: {
       trigger: 'axis',
-      formatter: function (params) {
-        params = params[0];
-        var date = new Date(params.name);
-        return date.getHours() + " "+ date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
-      },
+//      formatter: function (params) {
+//        params = params[0];
+//        var date = new Date(params.name);
+//        return date.getHours() + " "+ date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
+//      },
       axisPointer: {
         animation: false
       }
@@ -115,41 +132,53 @@
         type: 'line',
         showSymbol: false,
         hoverAnimation: false,
-        data: data_${dt.id}
+        data:[]
       }
     ]
   };
-      myChartC_${dt.id}.setOption(optionC_${dt.id});
+  myChartC_${dt.id}.setOption(optionC_${dt.id});
       // 为echarts对象加载数据
 
+  //var timeTicket_${dt.id};
+  //timeTicket_${dt.id} = setInterval(function(){
+
+    $.ajax({
+      url: "/data/getdata?areaId="+hashObject.areaId+"&dataTypeIdList=${dt.id}",
+      type: "get",
+      async: false,
+      dataType: "json",
+      data: { "rnd": Math.random() },
+      success: function (data) {
+
+        for(var i = 0; i < data.length; i++ ) {
 
 
- // function loadMonitorData(hours) {
-//    $.ajax({
-//      url: "/VirtualMachine/GetMonitorData",
-//      type: "get",
-//      async: true,
-//      dataType: "json",
-//      data: { "rnd": Math.random(), "vmId": '@Request["vmId"].ToString()', "hours": hours },
-//      success: function (data) {
-//        axisData = data.TD;
-//        cpuData = data.CD;
-//        drawEChart();
-//      },
-//      error: function (data) {
-//        alert("Error");
-//        rtn = false;
-//      }
-//    });
-  var timeTicket_${dt.id};
-  timeTicket_${dt.id} = setInterval(function(){
-    data_${dt.id}.push(randomData_${dt.id}());
-    myChartC_${dt.id}.setOption({
-      series: [{
-        data: data_${dt.id}
-      }]
+          for(var j=0; j<data[i].dataList.length;j++)
+          {
+            var dds_${dt.id} = new Array();
+            for(var k=0; k<data[i].dataList[j].datas.length;k++)
+            {
+            dds_${dt.id}.push(
+                    {name: data[i].dataList[j].dates[k].toString(),
+                    value: [
+            data[i].dataList[j].dates[k].toString(),
+            data[i].dataList[j].datas[k]]});
+            }
+            optionC_${dt.id}.series.push({
+              type: 'line',
+              smooth: true,
+              data: dds_${dt.id}
+            });
+          }
+        }
+      },
+      error: function (data) {
+        alert(data.responseText);
+        rtn = false;
+      }
     });
-  }, 2000);
+    myChartC_${dt.id}.setOption(optionC_${dt.id});
+  //}, 2000);
       //
 </script>
 </c:forEach>
