@@ -250,4 +250,45 @@ public class DataController {
         }
         return areaDataModelList;
     }
+
+    @RequestMapping(value = "/getdeviceinfo", method = RequestMethod.GET)
+    @ResponseBody
+    public DeviceDetailModel getDeviceDetail(int deviceId, Date startTime, Date endTime) {
+        DeviceDetailModel deviceDetailModel = new DeviceDetailModel();
+        DeviceDataOperation deviceDataOperation = new DeviceDataOperation();
+        DB_DeviceModel dbDeviceModel = deviceDataOperation.getDeviceInfo(deviceId);
+
+        DataOperation dataOperation = new DataOperation();
+        Map<Integer, DeviceDataModel> map = new HashMap<Integer, DeviceDataModel>();
+        List<DB_DataModel> dbDataModelList = dataOperation.getDataByDeviceIdAndTime(deviceId, startTime, endTime);
+        for (DB_DataModel item : dbDataModelList) {
+            if (!map.containsKey(item.getDatatype().getId())) {
+                DeviceDataModel ddm = new DeviceDataModel();
+                List<Float> values = new ArrayList<Float>();
+                List<Date> dates = new ArrayList<Date>();
+                ddm.setDatas(values);
+                ddm.setDates(dates);
+                ddm.setDeviceId(item.getDevice().getId());
+                ddm.setDeviceCode(item.getDevice().getDeviceid());
+                ddm.setDataTypeId(item.getDatatype().getId());
+                ddm.setDataTypeName(item.getDatatype().getDatatype());
+                ddm.setUnit(item.getDatatype().getUnit());
+                map.put(item.getDatatype().getId(), ddm);
+            }
+            DeviceDataModel ddm = map.get(item.getDatatype().getId());
+            ddm.getDatas().add(item.getDatavalue());
+            ddm.getDates().add(item.getDatetime());
+        }
+        List<DeviceDataModel> deviceDataList = new ArrayList<DeviceDataModel>();
+        deviceDataList.addAll(map.values());
+        deviceDetailModel.setDataList(deviceDataList);
+        deviceDetailModel.setDeviceTypeName(dbDeviceModel.getDevicetype().getName());
+        deviceDetailModel.setDeviceCode(dbDeviceModel.getDeviceid());
+        deviceDetailModel.setDeviceId(deviceId);
+        deviceDetailModel.setAreaId(dbDeviceModel.getArea().getId());
+        deviceDetailModel.setAreaName(dbDeviceModel.getArea().getName());
+        deviceDetailModel.setDeviceState(dbDeviceModel.getState());
+        deviceDetailModel.setDeviceTypeId(dbDeviceModel.getDevicetype().getId());
+        return deviceDetailModel;
+    }
 }

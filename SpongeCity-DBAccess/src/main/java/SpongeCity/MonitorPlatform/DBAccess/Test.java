@@ -6,6 +6,7 @@ import SpongeCity.MonitorPlatform.DBAccess.DataAccess.DataDA;
 import SpongeCity.MonitorPlatform.DBAccess.DataAccess.DeviceDA;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AlertModel;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AreaModel;
+import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DataModel;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceTypeModel;
 
 import java.sql.SQLException;
@@ -20,12 +21,11 @@ import java.util.List;
  */
 public class Test {
     public static void main(String[] args) throws SQLException {
-        DeviceDA dda = new DeviceDA();
+        DataDA dda = new DataDA();
         try {
-            List<DB_DeviceTypeModel> list = dda.getAllDeviceType();
-            for (DB_DeviceTypeModel db_deviceTypeModel : list) {
-                System.out.println(db_deviceTypeModel.getName());
-            }
+            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+            List<DB_DataModel> list = dda.getDataByDeviceIdAndTime(1, sf.parse("2016-01-01"),sf.parse("2016-01-31"));
+            System.out.println(list.size());
         } catch (Exception e) {
             e.printStackTrace();
         }

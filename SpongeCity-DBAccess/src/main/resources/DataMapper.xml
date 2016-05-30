@@ -67,4 +67,12 @@ order by datatime desc ]]>
   where device_id = ${deviceId} and da.datatype_id = ${dataTypeId}
 order by datatime desc ]]>
     </select>
+    <select id="getDataByDeviceIdAndTime" resultMap="dataMap">
+        <![CDATA[ select da.id,da.datatime,da.datavalue,t.id as datatypeid,t.datatype,t.unit,db.id as pk_deviceid,
+db.device_id,db.devicetype_id,db.model,db.comments as devicecomments,db.longitude,db.latitude,db.area_id,
+db.firstuptime,db.updatetime,db.state as devicestate,db.datastatus as devicedatestatus
+from data da join datatypes t on da.datatype_id = t.id join devices db on da.device_id = db.id
+where da.device_id = ${deviceId} and da.datatime > ${startTime} and da.datatime < ${endTime}
+order by datatime ]]>
+    </select>
 </mapper>
