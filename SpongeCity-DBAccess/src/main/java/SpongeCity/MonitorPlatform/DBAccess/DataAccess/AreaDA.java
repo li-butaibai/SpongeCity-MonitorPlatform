@@ -1,13 +1,10 @@
 package SpongeCity.MonitorPlatform.DBAccess.DataAccess;
 
-import SpongeCity.MonitorPlatform.DBAccess.Common.SqlConnection;
+import SpongeCity.MonitorPlatform.DBAccess.Common.BatisConnection;
 import SpongeCity.MonitorPlatform.DBAccess.Interface.IAreaOperation;
-import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AlertModel;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AreaModel;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +13,7 @@ import java.util.List;
  */
 public class AreaDA {
     public List<DB_AreaModel> getAllArea() {
-        SqlSession session = SqlConnection.getSession();
+        SqlSession session = BatisConnection.getSession();
         try {
             IAreaOperation areaOperation = session.getMapper(IAreaOperation.class);
             List<DB_AreaModel> areas = areaOperation.getAllArea();
@@ -27,7 +24,7 @@ public class AreaDA {
     }
 
     public DB_AreaModel getAreaById(int areaId) {
-        SqlSession session = SqlConnection.getSession();
+        SqlSession session = BatisConnection.getSession();
         try {
             IAreaOperation areaOperation = session.getMapper(IAreaOperation.class);
             DB_AreaModel area = areaOperation.getAreaById(areaId);
@@ -38,7 +35,7 @@ public class AreaDA {
     }
 
     public List<DB_AreaModel> getAreaAllChildren(int areaId) {
-        SqlSession session = SqlConnection.getSession();
+        SqlSession session = BatisConnection.getSession();
         try {
             IAreaOperation areaOperation = session.getMapper(IAreaOperation.class);
             List<DB_AreaModel> areas = new ArrayList<DB_AreaModel>();

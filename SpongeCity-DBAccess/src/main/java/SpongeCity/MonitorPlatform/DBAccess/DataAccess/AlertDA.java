@@ -1,6 +1,6 @@
 package SpongeCity.MonitorPlatform.DBAccess.DataAccess;
 
-import SpongeCity.MonitorPlatform.DBAccess.Common.SqlConnection;
+import SpongeCity.MonitorPlatform.DBAccess.Common.BatisConnection;
 import SpongeCity.MonitorPlatform.DBAccess.Interface.IAlertOperation;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AlertModel;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AreaModel;
@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public class AlertDA {
     public List<DB_AlertModel> getAlertList(int pageIndex, int pageSize) {
-        SqlSession session = SqlConnection.getSession();
+        SqlSession session = BatisConnection.getSession();
         try {
             Map<String, Integer> params = new HashMap<String, Integer>();
             params.put("pageSize", pageSize);
@@ -29,7 +29,7 @@ public class AlertDA {
     }
 
     public List<DB_AlertModel> getAlertListByDeviceId(int deviceId) {
-        SqlSession session = SqlConnection.getSession();
+        SqlSession session = BatisConnection.getSession();
         try {
             /*Map<String, Integer> params = new HashMap<String, Integer>();
             params.put("deviceId", deviceId);
@@ -44,7 +44,7 @@ public class AlertDA {
     }
 
     public DB_AlertModel getAlertInfoByAlertId(int alertId) {
-        SqlSession session = SqlConnection.getSession();
+        SqlSession session = BatisConnection.getSession();
         try {
             IAlertOperation alertOperation = session.getMapper(IAlertOperation.class);
             DB_AlertModel alert = alertOperation.getAlertInfo(alertId);
@@ -55,7 +55,7 @@ public class AlertDA {
     }
 
     public List<DB_AlertModel> getAllAlertByAreaList(List<DB_AreaModel> areas, int pageIndex, int pageSize) {
-        SqlSession session = SqlConnection.getSession();
+        SqlSession session = BatisConnection.getSession();
         try {
             Map<String, Object> params = new HashMap<String, Object>();
             String strAreaIds = "";
@@ -74,7 +74,7 @@ public class AlertDA {
     }
 
     public int getAllAlertCountByAreaList(List<DB_AreaModel> areas) {
-        SqlSession session = SqlConnection.getSession();
+        SqlSession session = BatisConnection.getSession();
         try {
             Map<String, Object> params = new HashMap<String, Object>();
             String strAreaIds = "";

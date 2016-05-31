@@ -7,6 +7,7 @@ public class DB_DataTypeModel {
     private int id;
     private String datatype;
     private String unit;
+    private int attributeIndex;
 
     public int getId() {
         return id;
@@ -30,5 +31,13 @@ public class DB_DataTypeModel {
 
     public void setUnit(String unit) {
         this.unit = unit;
+    }
+
+    public int getAttributeIndex() {
+        return attributeIndex;
+    }
+
+    public void setAttributeIndex(int attributeIndex) {
+        this.attributeIndex = attributeIndex;
     }
 }
