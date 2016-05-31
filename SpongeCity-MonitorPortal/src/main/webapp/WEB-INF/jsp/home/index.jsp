@@ -105,8 +105,10 @@
         }
         $(".r_con3").load( "alerts/index?areaId=" + hashObject.areaId  + "&pageIndex="+hashObject.pageIndex );
       }else if( hashObject["topmenu"] == 3 ){
-
-        $(".r_con3").load( "data/index?areaId=" + hashObject.areaId );
+        if( !hashObject.hasOwnProperty('dataTypeIds') ){
+          $(".r_con3").load( "data/index?areaId=" + hashObject.areaId +"&dataTypeIds="+hashObject.dataTypeIds);
+        }
+        $(".r_con3").load( "data/index?areaId=" + hashObject.areaId);
       }
     };
     //hash tools

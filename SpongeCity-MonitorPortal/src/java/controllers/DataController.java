@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -194,8 +195,13 @@ public class DataController {
 
     @RequestMapping(value = "/getdata", method = RequestMethod.GET)
     @ResponseBody
-    public List<AreaDataModel> getDataByAreaAndDataType(int areaId, List<Integer> dataTypeIdList, Date startTime, Date endTime) {
+    public List<AreaDataModel> getDataByAreaAndDataType(int areaId, int[] dataTypeIdList) throws ParseException{
         List<AreaDataModel> areaDataModelList = new ArrayList<AreaDataModel>();
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date endTime = new Date();
+        Date startTime= new Date(endTime.getTime()-5*3600*1000);
+
         try {
             DeviceDataOperation deviceDataOperation = new DeviceDataOperation();
             AreaDataOperation areaDataOperation = new AreaDataOperation();
