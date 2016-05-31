@@ -6,7 +6,7 @@
 
     <groupId>SpongeCity.MonitorPlatform</groupId>
     <artifactId>SpongeCity.MonitorPlatform</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.1</version>
 <dependencies>
     <!-- http://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
     <dependency>
