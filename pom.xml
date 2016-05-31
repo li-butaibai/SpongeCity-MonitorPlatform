@@ -12,7 +12,7 @@
         <module>SpongeCity-MonitorPortal</module>
         <module>SpongeCity-Core</module>
         <module>SpongeCity-DBAccess</module>
-        <module>SpongeCity-SpongeCity.MonitorPlatform.ScheduleTask.ScheduleTask</module>
+        <module>SpongeCity-ScheduleTask</module>
     </modules>
 
     <properties>
