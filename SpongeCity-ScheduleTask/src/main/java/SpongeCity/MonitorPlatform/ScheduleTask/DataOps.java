@@ -25,15 +25,15 @@ public class DataOps {
     private DeviceDataOperation deviceDataOperation = new DeviceDataOperation();
     private List<DB_DeviceModel> devices = new ArrayList<DB_DeviceModel>();
 
-    public void extractDeviceDatas(Date startTime, Date endTime) {
+    public void extractDeviceDatas(String startTime, String endTime) {
         devices = deviceDataOperation.getAllDevice();
         if (devices.size() > 0) {
             List<DeviceData> datas = new ArrayList<DeviceData>();
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            /*SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");*/
 
             for (DB_DeviceModel device : devices) {
                 //Random r = new Random();
-                String address = apiAddress + String.format("/devices/%s/events?startDate=%s&endDate=%s", device.getDeviceid(), df.format(startTime), df.format(endTime));
+                String address = apiAddress + String.format("/devices/%s/events?startDate=%s&endDate=%s", device.getDeviceid(), startTime, endTime);
                 //JSONObject jsonObj = RestApiHelper.get(address);
                 RestApiHelper helper = new RestApiHelper();
                 JSONObject jsonObj = helper.get(address);
@@ -49,7 +49,7 @@ public class DataOps {
                             dd.setAttributeData(Float.parseFloat(item.get("attributeData").toString()));
                             dd.setAttributeIndex(Integer.parseInt(item.get("attributeIndex").toString()));
                             Long timestamp = Long.parseLong(item.get("deviceTimestamp").toString());
-                            dd.setCreatetime(new Date(timestamp));
+                            dd.setCreatetime(new Date(timestamp + 8 * 60 * 60 * 1000));
                             datas.add(dd);
                         }
                     }
