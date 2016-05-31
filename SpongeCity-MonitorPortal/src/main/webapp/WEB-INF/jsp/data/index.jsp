@@ -98,11 +98,19 @@
     //设置提示
     tooltip: {
       trigger: 'axis',
-//      formatter: function (params) {
-//        params = params[0];
-//        var date = new Date(params.name);
-//        return date.getHours() + " "+ date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
-//      },
+      formatter: function (params) {
+        console.log(params);
+        date = new Date();
+        date.setTime(params[0].value[0]);
+        var content = date.toISOString()+'</br>';
+        for(i=0;i<params.length;i++) {
+          param = params[i];
+          var date = new Date(param.value[0]);
+          content += param.name + ' : '
+                  + param.value[1] + '</br>';
+        }
+        return content;
+      },
       axisPointer: {
         animation: false
       }
@@ -120,20 +128,12 @@
     },
     yAxis: {
       type: 'value',
-      boundaryGap: [0, '100%'],
       splitLine: {
         show: false
       }
     },
     //设置数据
     series: [
-      {
-        name: '模拟数据',
-        type: 'line',
-        showSymbol: false,
-        hoverAnimation: false,
-        data:[]
-      }
     ]
   };
   myChartC_${dt.id}.setOption(optionC_${dt.id});
@@ -159,7 +159,7 @@
             for(var k=0; k<data[i].dataList[j].datas.length;k++)
             {
             dds_${dt.id}.push(
-                    {name: data[i].dataList[j].dates[k].toString(),
+                    {name: data[i].dataList[j].deviceTypeName,
                     value: [
             data[i].dataList[j].dates[k].toString(),
             data[i].dataList[j].datas[k]]});

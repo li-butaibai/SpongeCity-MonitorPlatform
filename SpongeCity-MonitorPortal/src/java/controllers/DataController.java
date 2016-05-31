@@ -197,9 +197,11 @@ public class DataController {
     @ResponseBody
     public List<AreaDataModel> getDataByAreaAndDataType(int areaId, int[] dataTypeIdList) throws ParseException{
         List<AreaDataModel> areaDataModelList = new ArrayList<AreaDataModel>();
+        Calendar c = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date startTime= sdf.parse("2016-01-04 17:11:00");
-        Date endTime = sdf.parse("2016-01-04 19:13:59");
+        Date endTime = new Date();
+        Date startTime= new Date(endTime.getTime()-5*3600*1000);
+
         try {
             DeviceDataOperation deviceDataOperation = new DeviceDataOperation();
             AreaDataOperation areaDataOperation = new AreaDataOperation();
