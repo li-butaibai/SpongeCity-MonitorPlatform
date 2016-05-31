@@ -1,6 +1,6 @@
 package SpongeCity.MonitorPlatform.DBAccess.DataAccess;
 
-import SpongeCity.MonitorPlatform.DBAccess.Common.SqlConnection;
+import SpongeCity.MonitorPlatform.DBAccess.Common.BatisConnection;
 import SpongeCity.MonitorPlatform.DBAccess.Interface.IDataOperation;
 import SpongeCity.MonitorPlatform.DBAccess.Interface.IDataTypeOperation;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_AreaModel;
@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class DataDA {
     public List<DB_DataModel> getDataByDataypeandArea(int dataTypeid, List<DB_AreaModel> areas) {
-        SqlSession session = SqlConnection.getSession();
+        SqlSession session = BatisConnection.getSession();
         try {
             Map<String, Object> params = new HashMap<String, Object>();
             String strAreaIds = "";
@@ -37,7 +37,7 @@ public class DataDA {
     }
 
     public List<DB_DataModel> getDataByDataTypeAreaAndTime(int dataTypeid, List<DB_AreaModel> areas, Date startTime, Date endTime) {
-        SqlSession session = SqlConnection.getSession();
+        SqlSession session = BatisConnection.getSession();
         try {
             SimpleDateFormat ft = new SimpleDateFormat("yyyy/MM/dd");
             Map<String, Object> params = new HashMap<String, Object>();
@@ -58,7 +58,7 @@ public class DataDA {
     }
 
     public List<DB_DataTypeModel> getDataTypeList(){
-        SqlSession session = SqlConnection.getSession();
+        SqlSession session = BatisConnection.getSession();
         try {
             IDataTypeOperation dataTypeOperation = session.getMapper(IDataTypeOperation.class);
             List<DB_DataTypeModel> datatypes = dataTypeOperation.getDataTypeList();
@@ -68,8 +68,19 @@ public class DataDA {
         }
     }
 
+    public List<DB_DataTypeModel> getDataTypeListByDeviceTypeId(int devicetypeId){
+        SqlSession session = BatisConnection.getSession();
+        try {
+            IDataTypeOperation dataTypeOperation = session.getMapper(IDataTypeOperation.class);
+            List<DB_DataTypeModel> datatypes = dataTypeOperation.getDataTypeListByDeviceTypeId(devicetypeId);
+            return datatypes;
+        } finally {
+            session.close();
+        }
+    }
+
     public List<DB_DataModel> getDataByArea(List<DB_AreaModel> areas) {
-        SqlSession session = SqlConnection.getSession();
+        SqlSession session = BatisConnection.getSession();
         try {
             String strAreaIds = "";
             for (DB_AreaModel area : areas) {
@@ -84,7 +95,7 @@ public class DataDA {
     }
 
     public List<DB_DataModel> getDataByDataTypeAndDeviceId(int dataTypeId, int deviceId, Date startTime, Date endTime) {
-        SqlSession session = SqlConnection.getSession();
+        SqlSession session = BatisConnection.getSession();
         try {
             SimpleDateFormat ft = new SimpleDateFormat("yyyy/MM/dd");
             Map<String, Object> params = new HashMap<String, Object>();
@@ -102,7 +113,7 @@ public class DataDA {
 
     public List<DB_DataModel> getDataByDeviceId(int deviceId)
     {
-        SqlSession session = SqlConnection.getSession();
+        SqlSession session = BatisConnection.getSession();
         try {
             SimpleDateFormat ft = new SimpleDateFormat("yyyy/MM/dd");
             Map<String, Object> params = new HashMap<String, Object>();
@@ -117,7 +128,7 @@ public class DataDA {
 
     public List<DB_DataModel> getDataByDeviceIdandDtId(int deviceId, int dataTypeId)
     {
-        SqlSession session = SqlConnection.getSession();
+        SqlSession session = BatisConnection.getSession();
         try {
             Map<String, Object> params = new HashMap<String, Object>();
             params.put("deviceId", deviceId);
@@ -131,7 +142,7 @@ public class DataDA {
     }
 
     public List<DB_DataModel> getDataByDeviceIdAndTime(int deviceId, Date startTime, Date endTime) {
-        SqlSession session = SqlConnection.getSession();
+        SqlSession session = BatisConnection.getSession();
         try {
             SimpleDateFormat ft = new SimpleDateFormat("yyyy/MM/dd");
             Map<String, Object> params = new HashMap<String, Object>();

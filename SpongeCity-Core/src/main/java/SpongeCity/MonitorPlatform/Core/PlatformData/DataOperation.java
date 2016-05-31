@@ -89,6 +89,16 @@ public class DataOperation {
         return datatypes;
     }
 
+    public List<DB_DataTypeModel> getDataTypeListByDeviceTypeId(int devicetypeId) {
+        List<DB_DataTypeModel> datatypes = new ArrayList<DB_DataTypeModel>();
+        try {
+            datatypes = dataDA.getDataTypeListByDeviceTypeId(devicetypeId);
+        } catch (Exception ex) {
+            //log
+        }
+        return datatypes;
+    }
+
     private List<DB_AreaModel> getAllChildrenArea(int areaId) {
         List<DB_AreaModel> areas = new ArrayList<DB_AreaModel>();
         AreaDA areaData = new AreaDA();

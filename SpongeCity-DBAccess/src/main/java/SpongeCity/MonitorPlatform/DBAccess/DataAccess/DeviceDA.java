@@ -1,7 +1,6 @@
 package SpongeCity.MonitorPlatform.DBAccess.DataAccess;
 
-import SpongeCity.MonitorPlatform.DBAccess.Common.SqlConnection;
-import SpongeCity.MonitorPlatform.DBAccess.Interface.IDataOperation;
+import SpongeCity.MonitorPlatform.DBAccess.Common.BatisConnection;
 import SpongeCity.MonitorPlatform.DBAccess.Interface.IDataTypeOperation;
 import SpongeCity.MonitorPlatform.DBAccess.Interface.IDeviceOperation;
 import SpongeCity.MonitorPlatform.DBAccess.Interface.IDeviceTypeOperation;
@@ -11,7 +10,6 @@ import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceModel;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceTypeModel;
 import org.apache.ibatis.session.SqlSession;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +20,7 @@ import java.util.Map;
  */
 public class DeviceDA {
     public List<DB_DeviceTypeModel> getAllDeviceType() {
-        SqlSession session = SqlConnection.getSession();
+        SqlSession session = BatisConnection.getSession();
         try {
             IDeviceTypeOperation deviceTypeOperation = session.getMapper(IDeviceTypeOperation.class);
             List<DB_DeviceTypeModel> types = deviceTypeOperation.getAllDeviceType();
@@ -34,7 +32,7 @@ public class DeviceDA {
 
     public List<DB_DataTypeModel> getDataTypeListByDeviceId(int deviceId)
     {
-        SqlSession session = SqlConnection.getSession();
+        SqlSession session = BatisConnection.getSession();
         try {
             IDataTypeOperation deviceTypeOperation = session.getMapper(IDataTypeOperation.class);
             Map<String, Object> params = new HashMap<String, Object>();
@@ -47,7 +45,7 @@ public class DeviceDA {
     }
 
     public List<DB_DeviceModel> getAllDevices() {
-        SqlSession session = SqlConnection.getSession();
+        SqlSession session = BatisConnection.getSession();
         try {
             IDeviceOperation deviceOperation = session.getMapper(IDeviceOperation.class);
             List<DB_DeviceModel> devices = deviceOperation.getAllDevice();
@@ -58,7 +56,7 @@ public class DeviceDA {
     }
 
     public DB_DeviceModel getDeviceById(int deviceId) {
-        SqlSession session = SqlConnection.getSession();
+        SqlSession session = BatisConnection.getSession();
         try {
             IDeviceOperation deviceOperation = session.getMapper(IDeviceOperation.class);
             DB_DeviceModel device = deviceOperation.getDeviceById(deviceId);
@@ -70,7 +68,7 @@ public class DeviceDA {
 
     //get device list in current area and all sub area
     public List<DB_DeviceModel> getAllDeviceByAreaId(int areaId) {
-        SqlSession session = SqlConnection.getSession();
+        SqlSession session = BatisConnection.getSession();
         try {
             List<DB_DeviceModel> devices = new ArrayList<DB_DeviceModel>();
             AreaDA ad = new AreaDA();
@@ -90,7 +88,7 @@ public class DeviceDA {
 
     //get device list in current area
     public List<DB_DeviceModel> getDevicesByCurrentAreaId(int areaId) {
-        SqlSession session = SqlConnection.getSession();
+        SqlSession session = BatisConnection.getSession();
         try {
             List<DB_DeviceModel> devices = new ArrayList<DB_DeviceModel>();
             IDeviceOperation deviceOperation = session.getMapper(IDeviceOperation.class);

@@ -32,7 +32,7 @@
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
-                <property name="url" value="jdbc:sqlserver://el-dev.chinacloudapp.cn:1433;databaseName=xixian" />
+                <property name="url" value="jdbc:sqlserver://el.chinacloudapp.cn:1433;databaseName=xixian" />
                 <property name="username" value="etadmin"/>
                 <property name="password" value="abcd1234!"/>
             </dataSource>

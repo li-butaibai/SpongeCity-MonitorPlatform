@@ -9,11 +9,15 @@
         <id property="id" column="id"/>
         <result property="datatype" column="datatype"/>
         <result property="unit" column="unit"/>
+        <result property="attributeIndex" column="attributeIndex"/>
     </resultMap>
     <select id="getDataTypeList" resultMap="datatypeMap">
         select * from datatypes
     </select>
     <select id="getDataTypeListByDeviceId" resultMap="datatypeMap">
         <![CDATA[select distinct datatype_id as id from dbo.data where device_id= ${deviceId}]]>
+    </select>
+    <select id="getDataTypeListByDeviceTypeId" parameterType="int" resultMap="datatypeMap">
+        <![CDATA[select * from datatypes where id in (select a.datatype_id from typesmap a join devicetypes b on a.devicetype_id = b.id where b.id = #{devicetypeId})]]>
     </select>
 </mapper>

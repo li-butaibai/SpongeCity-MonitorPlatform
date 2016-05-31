@@ -1,6 +1,6 @@
 package SpongeCity.MonitorPlatform.DBAccess.DataAccess;
 
-import SpongeCity.MonitorPlatform.DBAccess.Common.SqlConnection;
+import SpongeCity.MonitorPlatform.DBAccess.Common.BatisConnection;
 import SpongeCity.MonitorPlatform.DBAccess.Interface.IDeviceLogOperation;
 import SpongeCity.MonitorPlatform.DBAccess.Model.DB_DeviceLogModel;
 import org.apache.ibatis.session.SqlSession;
@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public class LogDA {
     public List<DB_DeviceLogModel> getDeviceLogByDeviceId(int deviceId) {
-        SqlSession session = SqlConnection.getSession();
+        SqlSession session = BatisConnection.getSession();
         try {
             IDeviceLogOperation logOperation = session.getMapper(IDeviceLogOperation.class);
             List<DB_DeviceLogModel> logs = logOperation.getDeviceLogByDeviceId(deviceId);
@@ -25,7 +25,7 @@ public class LogDA {
     }
 
     public List<DB_DeviceLogModel> getLastDeviceLogByDeviceId(int deviceId, int itemCount) {
-        SqlSession session = SqlConnection.getSession();
+        SqlSession session = BatisConnection.getSession();
         try {
             IDeviceLogOperation logOperation = session.getMapper(IDeviceLogOperation.class);
             Map<String, Integer> params = new HashMap<String, Integer>();

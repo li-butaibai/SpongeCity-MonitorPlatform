@@ -12,4 +12,5 @@ import java.util.Map;
 public interface IDataTypeOperation {
     List<DB_DataTypeModel> getDataTypeList();
     List<DB_DataTypeModel> getDataTypeListByDeviceId(Map params);
+    List<DB_DataTypeModel> getDataTypeListByDeviceTypeId(int devicetypeId);
 }
