@@ -8,6 +8,7 @@
     <artifactId>SpongeCity.MonitorPlatform</artifactId>
     <packaging>pom</packaging>
     <version>1.0.1</version>
+
     <modules>
         <module>SpongeCity-MonitorPortal</module>
         <module>SpongeCity-Core</module>
