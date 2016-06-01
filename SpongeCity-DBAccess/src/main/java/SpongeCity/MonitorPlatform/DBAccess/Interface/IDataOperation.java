@@ -22,4 +22,6 @@ public interface IDataOperation {
     List<DB_DataModel> getDataByDeviceIdandDtId(Map params);
 
     List<DB_DataModel> getDataByDeviceIdAndTime(Map params);
+
+    List<DB_DataModel> getLastestDeviceData(int deviceId);
 }

@@ -156,4 +156,16 @@ public class DataDA {
             session.close();
         }
     }
+
+    public List<DB_DataModel> getLastestDeviceData(int deviceId)
+    {
+        SqlSession session = BatisConnection.getSession();
+        try {
+            IDataOperation dataOperation = session.getMapper(IDataOperation.class);
+            List<DB_DataModel> datas = dataOperation.getLastestDeviceData(deviceId);
+            return datas;
+        } finally {
+            session.close();
+        }
+    }
 }

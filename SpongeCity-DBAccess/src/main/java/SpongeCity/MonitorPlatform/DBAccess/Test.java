@@ -20,7 +20,7 @@ public class Test {
     public static void main(String[] args) throws SQLException {
         DataDA dda = new DataDA();
         try {
-            List<DB_DataTypeModel> types = dda.getDataTypeListByDeviceTypeId(1);
+            List<DB_DataModel> types = dda.getLastestDeviceData(1);
             System.out.println(types.size());
         } catch (Exception e) {
             e.printStackTrace();

@@ -6,6 +6,7 @@ import Util.DeviceDataFileWriter;
 import Util.ModelConverter;
 import controllers.DataController;
 import models.DataModel;
+import models.DeviceDetailModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,13 +21,9 @@ public class Test {
     public static void main(String[] args) {
         try {
             DataController dc = new DataController();
-            List<Integer> datatypes = new ArrayList<Integer>();
-            datatypes.add(1);
-            datatypes.add(2);
-            datatypes.add(4);
-            SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
-            dc.getDeviceDetail(1, ft.parse("2016-01-01"), ft.parse("2016-01-31"));
-        } catch (ParseException e) {
+            DeviceDetailModel ddm = dc.getDeviceDetailWithLastestData(1);
+            ddm.getAreaName();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
