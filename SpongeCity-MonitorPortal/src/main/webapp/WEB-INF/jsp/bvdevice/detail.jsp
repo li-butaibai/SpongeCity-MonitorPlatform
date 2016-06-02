@@ -418,7 +418,7 @@
 </style>
 <div id="services" class="services">
   <div class="container">
-    <h3 class="title"><strong>${device.areaName}:${device.deviceTypeName}</strong></h3>
+    <h3 class="title"><strong>${device.deviceModel}</strong></h3>
     <div class="about-text">
       <c:forEach items="${device.dataList}" var="dt">
         <div class="col-md-6">

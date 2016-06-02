@@ -43,7 +43,7 @@
   function getDeviceInfo(deviceId)
   {
     $.ajax({
-      url: "/data/getdeviceinfo?deviceId="+deviceId,
+      url: "/data/getdevicebv?deviceId="+deviceId,
       type: "get",
       async: false,
       dataType: "text",
@@ -72,7 +72,8 @@ function upatediv() {
   indx++;
   if(indx > devices.length) indx=0;
 }
-  var devicesTimeticket =  setInterval(upatediv, 10000)
+  upatediv();
+  var devicesTimeticket =  setInterval(upatediv, 3000)
   //}
 </script>
 </body>

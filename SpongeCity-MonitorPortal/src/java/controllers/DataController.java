@@ -263,12 +263,15 @@ public class DataController {
         return deviceDetailModel;
     }
 
-    public DeviceDetailModel getDeviceDetailWithLastestData(int deviceId) {
+    @RequestMapping(value = "/getdevicebv", method = RequestMethod.GET)
+    public ModelAndView getDeviceDetailWithLastestData(int deviceId) {
+        ModelAndView modelAndView = new ModelAndView("/bvdevice/detail");
         DeviceDetailModel deviceDetailModel = new DeviceDetailModel();
         DataOperation dataOperation = new DataOperation();
         List<DB_DataModel> dbDataModelList = dataOperation.getLastestDeviceData(deviceId);
         deviceDetailModel = generateDeviceDetail(dbDataModelList, deviceId);
-        return deviceDetailModel;
+        modelAndView.addObject("device", deviceDetailModel);
+        return modelAndView;
     }
 
     public DeviceDetailModel generateDeviceDetail(List<DB_DataModel> datas, int deviceId) {
