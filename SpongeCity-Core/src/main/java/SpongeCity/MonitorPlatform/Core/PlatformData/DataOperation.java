@@ -116,4 +116,14 @@ public class DataOperation {
         }
         return datas;
     }
+
+    public List<DB_DataModel> getLastestDeviceData(int deviceId) {
+        List<DB_DataModel> datas = new ArrayList<DB_DataModel>();
+        try {
+            datas = dataDA.getLastestDeviceData(deviceId);
+        } catch (Exception ex) {
+            //log
+        }
+        return datas;
+    }
 }
