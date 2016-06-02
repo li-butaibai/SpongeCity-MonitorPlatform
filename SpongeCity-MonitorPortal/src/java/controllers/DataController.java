@@ -253,13 +253,15 @@ public class DataController {
         return areaDataModelList;
     }
 
+
     @RequestMapping(value = "/getdeviceinfo", method = RequestMethod.GET)
-    @ResponseBody
-    public DeviceDetailModel getDeviceDetail(int deviceId, Date startTime, Date endTime) {
+    public ModelAndView getDeviceDetail(int deviceId) {
+        ModelAndView modelAndView = new ModelAndView("/bvdevice/detail");
         DeviceDetailModel deviceDetailModel = new DeviceDetailModel();
         DeviceDataOperation deviceDataOperation = new DeviceDataOperation();
         DB_DeviceModel dbDeviceModel = deviceDataOperation.getDeviceInfo(deviceId);
-
+        Date endTime = new Date();
+        Date startTime= new Date(endTime.getTime()-10*24*3600*1000);
         DataOperation dataOperation = new DataOperation();
         Map<Integer, DeviceDataModel> map = new HashMap<Integer, DeviceDataModel>();
         List<DB_DataModel> dbDataModelList = dataOperation.getDataByDeviceIdAndTime(deviceId, startTime, endTime);
@@ -291,6 +293,8 @@ public class DataController {
         deviceDetailModel.setAreaName(dbDeviceModel.getArea().getName());
         deviceDetailModel.setDeviceState(dbDeviceModel.getState());
         deviceDetailModel.setDeviceTypeId(dbDeviceModel.getDevicetype().getId());
-        return deviceDetailModel;
+        modelAndView.addObject("device", deviceDetailModel);
+        return modelAndView;
+        //return deviceDetailModel;
     }
 }

@@ -18,16 +18,6 @@ import java.util.List;
  */
 public class Test {
     public static void main(String[] args) {
-        try {
-            DataController dc = new DataController();
-            List<Integer> datatypes = new ArrayList<Integer>();
-            datatypes.add(1);
-            datatypes.add(2);
-            datatypes.add(4);
-            SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
-            dc.getDeviceDetail(1, ft.parse("2016-01-01"), ft.parse("2016-01-31"));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+
     }
 }

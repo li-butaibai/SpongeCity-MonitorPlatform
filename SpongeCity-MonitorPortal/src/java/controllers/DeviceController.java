@@ -24,6 +24,12 @@ import java.util.*;
 public class DeviceController {
     private final int DEVICE_LOG_COUNT = 10;
 
+    @RequestMapping(value = "/bvindex", method = RequestMethod.GET)
+    public ModelAndView bvindex() {
+        ModelAndView modelAndView = new ModelAndView("/bvdevice/index");
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public ModelAndView index(int pageIndex, int areaId, String sortKey, String sortDes) {
         ModelAndView modelAndView = new ModelAndView("/devices/index");
