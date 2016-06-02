@@ -11,6 +11,7 @@ public class DeviceDetailModel {
     private int deviceTypeId;
     private String deviceTypeName;
     private String deviceState;
+    private String deviceModel;
     private int areaId;
     private String areaName;
     /*//区域
@@ -76,7 +77,16 @@ public class DeviceDetailModel {
     public void setAreaName(String areaName) {
         this.areaName = areaName;
     }
-/*public String getRegionName() {
+
+    public String getDeviceModel() {
+        return deviceModel;
+    }
+
+    public void setDeviceModel(String deviceModel) {
+        this.deviceModel = deviceModel;
+    }
+
+    /*public String getRegionName() {
         return regionName;
     }
 

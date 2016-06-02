@@ -18,10 +18,10 @@ import java.util.List;
  */
 public class Test {
     public static void main(String[] args) throws SQLException {
-        DataDA dda = new DataDA();
+        DeviceDA dda = new DeviceDA();
         try {
-            List<DB_DataModel> types = dda.getLastestDeviceData(1);
-            System.out.println(types.size());
+            DB_DeviceModel device = dda.getDeviceById(45);
+            System.out.println(device.getModel());
         } catch (Exception e) {
             e.printStackTrace();
         }

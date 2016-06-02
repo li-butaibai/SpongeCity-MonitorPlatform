@@ -6,6 +6,7 @@ import Util.DeviceDataFileWriter;
 import Util.ModelConverter;
 import controllers.DataController;
 import models.DataModel;
+import models.DeviceDetailModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,6 +19,8 @@ import java.util.List;
  */
 public class Test {
     public static void main(String[] args) {
-
+        DataController dc = new DataController();
+        DeviceDetailModel ddm = dc.getDeviceDetailWithLastestData(45);
+        System.out.print(ddm.getDeviceModel());
     }
 }

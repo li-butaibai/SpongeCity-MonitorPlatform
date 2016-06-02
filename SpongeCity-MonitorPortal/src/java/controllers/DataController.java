@@ -301,6 +301,7 @@ public class DataController {
         deviceDetailModel.setDeviceTypeName(dbDeviceModel.getDevicetype().getName());
         deviceDetailModel.setDeviceCode(dbDeviceModel.getDeviceid());
         deviceDetailModel.setDeviceId(deviceId);
+        deviceDetailModel.setDeviceModel(dbDeviceModel.getModel());
         deviceDetailModel.setAreaId(dbDeviceModel.getArea().getId());
         deviceDetailModel.setAreaName(dbDeviceModel.getArea().getName());
         deviceDetailModel.setDeviceState(dbDeviceModel.getState());
