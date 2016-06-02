@@ -195,12 +195,12 @@ public class DataController {
 
     @RequestMapping(value = "/getdata", method = RequestMethod.GET)
     @ResponseBody
-    public List<AreaDataModel> getDataByAreaAndDataType(int areaId, int[] dataTypeIdList) throws ParseException{
+    public List<AreaDataModel> getDataByAreaAndDataType(int areaId, int[] dataTypeIdList) throws ParseException {
         List<AreaDataModel> areaDataModelList = new ArrayList<AreaDataModel>();
         Calendar c = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date endTime = new Date();
-        Date startTime= new Date(endTime.getTime()-5*3600*1000);
+        Date startTime = new Date(endTime.getTime() - 5 * 3600 * 1000);
 
         try {
             DeviceDataOperation deviceDataOperation = new DeviceDataOperation();
@@ -253,19 +253,31 @@ public class DataController {
         return areaDataModelList;
     }
 
-
     @RequestMapping(value = "/getdeviceinfo", method = RequestMethod.GET)
-    public ModelAndView getDeviceDetail(int deviceId) {
-        ModelAndView modelAndView = new ModelAndView("/bvdevice/detail");
+    @ResponseBody
+    public DeviceDetailModel getDeviceDetail(int deviceId, Date startTime, Date endTime) {
+        DeviceDetailModel deviceDetailModel = new DeviceDetailModel();
+        DataOperation dataOperation = new DataOperation();
+        List<DB_DataModel> dbDataModelList = dataOperation.getDataByDeviceIdAndTime(deviceId, startTime, endTime);
+        deviceDetailModel = generateDeviceDetail(dbDataModelList, deviceId);
+        return deviceDetailModel;
+    }
+
+    public DeviceDetailModel getDeviceDetailWithLastestData(int deviceId) {
+        DeviceDetailModel deviceDetailModel = new DeviceDetailModel();
+        DataOperation dataOperation = new DataOperation();
+        List<DB_DataModel> dbDataModelList = dataOperation.getLastestDeviceData(deviceId);
+        deviceDetailModel = generateDeviceDetail(dbDataModelList, deviceId);
+        return deviceDetailModel;
+    }
+
+    public DeviceDetailModel generateDeviceDetail(List<DB_DataModel> datas, int deviceId) {
         DeviceDetailModel deviceDetailModel = new DeviceDetailModel();
         DeviceDataOperation deviceDataOperation = new DeviceDataOperation();
         DB_DeviceModel dbDeviceModel = deviceDataOperation.getDeviceInfo(deviceId);
-        Date endTime = new Date();
-        Date startTime= new Date(endTime.getTime()-10*24*3600*1000);
-        DataOperation dataOperation = new DataOperation();
+
         Map<Integer, DeviceDataModel> map = new HashMap<Integer, DeviceDataModel>();
-        List<DB_DataModel> dbDataModelList = dataOperation.getDataByDeviceIdAndTime(deviceId, startTime, endTime);
-        for (DB_DataModel item : dbDataModelList) {
+        for (DB_DataModel item : datas) {
             if (!map.containsKey(item.getDatatype().getId())) {
                 DeviceDataModel ddm = new DeviceDataModel();
                 List<Float> values = new ArrayList<Float>();
@@ -293,8 +305,6 @@ public class DataController {
         deviceDetailModel.setAreaName(dbDeviceModel.getArea().getName());
         deviceDetailModel.setDeviceState(dbDeviceModel.getState());
         deviceDetailModel.setDeviceTypeId(dbDeviceModel.getDevicetype().getId());
-        modelAndView.addObject("device", deviceDetailModel);
-        return modelAndView;
-        //return deviceDetailModel;
+        return deviceDetailModel;
     }
 }
