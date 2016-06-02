@@ -6,6 +6,7 @@
         <artifactId>SpongeCity.MonitorPlatform</artifactId>
         <groupId>SpongeCity.MonitorPlatform</groupId>
         <version>1.0.1</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 

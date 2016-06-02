@@ -4,6 +4,7 @@
         <artifactId>SpongeCity.MonitorPlatform</artifactId>
         <groupId>SpongeCity.MonitorPlatform</groupId>
         <version>1.0.1</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>MonitorPortal</artifactId>
@@ -84,16 +85,19 @@
             <groupId>SpongeCity.MonitorPlatform</groupId>
             <artifactId>SpongeCity-DBAccess</artifactId>
             <version>1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>SpongeCity.MonitorPlatform</groupId>
             <artifactId>SpongeCity-Core</artifactId>
             <version>1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>SpongeCity.MonitorPlatform</groupId>
             <artifactId>SpongeCity-ScheduleTask</artifactId>
             <version>1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>net.sf.json-lib</groupId>

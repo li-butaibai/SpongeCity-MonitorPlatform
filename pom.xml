@@ -9,12 +9,21 @@
     <packaging>pom</packaging>
     <version>1.0.1</version>
 
-    <modules>
-        <module>SpongeCity-MonitorPortal</module>
-        <module>SpongeCity-Core</module>
-        <module>SpongeCity-DBAccess</module>
-        <module>SpongeCity-ScheduleTask</module>
-    </modules>
+    <profiles>
+        <profile>
+            <id>release</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>SpongeCity-MonitorPortal</module>
+                <module>SpongeCity-Core</module>
+                <module>SpongeCity-DBAccess</module>
+                <module>SpongeCity-ScheduleTask</module>
+            </modules>
+        </profile>
+    </profiles>
+
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -26,4 +35,10 @@
         <spring.security.version>4.0.3.RELEASE</spring.security.version>
         <jackson.version>2.1.5</jackson.version>
     </properties>
+    <modules>
+        <module>SpongeCity-MonitorPortal</module>
+        <module>SpongeCity-Core</module>
+        <module>SpongeCity-DBAccess</module>
+        <module>SpongeCity-ScheduleTask</module>
+    </modules>
 </project>

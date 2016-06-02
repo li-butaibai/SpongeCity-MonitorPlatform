@@ -6,6 +6,7 @@
         <artifactId>SpongeCity.MonitorPlatform</artifactId>
         <groupId>SpongeCity.MonitorPlatform</groupId>
         <version>1.0.1</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -15,6 +16,7 @@
             <groupId>SpongeCity.MonitorPlatform</groupId>
             <artifactId>SpongeCity-DBAccess</artifactId>
             <version>1.0.1</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

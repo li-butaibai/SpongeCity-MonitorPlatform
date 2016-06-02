@@ -49,7 +49,7 @@
         <li class="nav_btn nav_btn1 active">首页</li>
         <li class="nav_btn nav_btn2">设备</li>
         <li class="nav_btn nav_btn3">告警</li>
-        <li class="nav_btn nav_btn4">数据下载</li>
+        <li class="nav_btn nav_btn4">数据</li>
       </ul>
     </div>
     <div class="r_con3">

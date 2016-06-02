@@ -12,8 +12,6 @@ public class SpongeCityDataSyncLoader extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-
-        // set static Enno object to be referenced globally
         WebApplicationContext applicationContext = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
 
         try {
@@ -21,7 +19,6 @@ public class SpongeCityDataSyncLoader extends HttpServlet {
 
         } catch (Exception e) {
             e.printStackTrace();
-           // throw new EnnoException("Enno server start failed !!!", e);
         }
 
     }
