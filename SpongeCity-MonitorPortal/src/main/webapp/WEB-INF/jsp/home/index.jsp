@@ -146,8 +146,4 @@
       }
       return theRequest;
     }
-   $(window).load(  function(){
-    alert($(screen).innerHeight());
-    $('.conright').css("height",$(screen).innerHeight());
-  });
 </script>
