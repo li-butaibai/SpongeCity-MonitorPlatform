@@ -8,44 +8,44 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page isELIgnored="false" %>
-<div id="allmap" style="min-height: 300px; background-color: white;margin-left:20px">
+<div id="allmap" style="min-height: 300px; width:100%; background-color: white;margin-left:20px">
 <c:forEach items="${dataTypes}" var="dt" >
   <div id="dataDiv_${dt.id}" style="height: 200px; width: 100%; "></div>
   </c:forEach>
 </div>
-<div id="checkwin">
-  <p class="devicetitle">数据类型</p>
-  <script type="text/javascript">
-    function onDTChange(){
-      var dataTypes="";
-      $("input[type=checkbox]").each(function(){
-        if(this.checked){
-          dataTypes+=","+$(this).val();
-        }
-      });
-      if(dataTypes.length>0) dataTypes=dataTypes.substring(1,dataTypes.length);
-      var hashObject = GetHash();
+<%--<div id="checkwin">--%>
+  <%--<p class="devicetitle">数据类型</p>--%>
+  <%--<script type="text/javascript">--%>
+    <%--function onDTChange(){--%>
+      <%--var dataTypes="";--%>
+      <%--$("input[type=checkbox]").each(function(){--%>
+        <%--if(this.checked){--%>
+          <%--dataTypes+=","+$(this).val();--%>
+        <%--}--%>
+      <%--});--%>
+      <%--if(dataTypes.length>0) dataTypes=dataTypes.substring(1,dataTypes.length);--%>
+      <%--var hashObject = GetHash();--%>
 
-      hashObject["dataTypeIds"] = dataTypes;
-      var hashurl = "";
-      for( var key in hashObject ){
-        hashurl += key + "=" + hashObject[key]+"&";
-      }
-      location.hash = hashurl.slice(0,-1);
-    }
-  </script>
-  <%--<p class="devicetype"><input type="checkbox" id="dt_1" name="dataType" value="1" onclick="onDTChange()">降雨量</p>--%>
-  <%--<p class="devicetype"><input type="checkbox" id="dt_2" name="dataType" value="2" onclick="onDTChange()">流量</p>--%>
-  <%--<p class="devicetype"><input type="checkbox" id="dt_3" name="dataType" value="3" onclick="onDTChange()">风速</p>--%>
-  <%--<p class="devicetype"><input type="checkbox" id="dt_4" name="dataType" value="4" onclick="onDTChange()">气温</p>--%>
-  <%--<p class="devicetype"><input type="checkbox" id="dt_5" name="dataType" value="5" onclick="onDTChange()">水位</p>--%>
-  <%--<p class="devicetype"><input type="checkbox" id="dt_6" name="dataType" value="6" onclick="onDTChange()">湿度</p>--%>
-  <c:forEach items="${dataTypes}" var="dt">
-    <p class="devicetype"><input type="checkbox" id="dt_${dt.id}" name="deviceType" value="${dt.id}" onclick="onDTChange()">${dt.unit}</p>
-  </c:forEach>
-</div>
+      <%--hashObject["dataTypeIds"] = dataTypes;--%>
+      <%--var hashurl = "";--%>
+      <%--for( var key in hashObject ){--%>
+        <%--hashurl += key + "=" + hashObject[key]+"&";--%>
+      <%--}--%>
+      <%--location.hash = hashurl.slice(0,-1);--%>
+    <%--}--%>
+  <%--</script>--%>
+  <%--&lt;%&ndash;<p class="devicetype"><input type="checkbox" id="dt_1" name="dataType" value="1" onclick="onDTChange()">降雨量</p>&ndash;%&gt;--%>
+  <%--&lt;%&ndash;<p class="devicetype"><input type="checkbox" id="dt_2" name="dataType" value="2" onclick="onDTChange()">流量</p>&ndash;%&gt;--%>
+  <%--&lt;%&ndash;<p class="devicetype"><input type="checkbox" id="dt_3" name="dataType" value="3" onclick="onDTChange()">风速</p>&ndash;%&gt;--%>
+  <%--&lt;%&ndash;<p class="devicetype"><input type="checkbox" id="dt_4" name="dataType" value="4" onclick="onDTChange()">气温</p>&ndash;%&gt;--%>
+  <%--&lt;%&ndash;<p class="devicetype"><input type="checkbox" id="dt_5" name="dataType" value="5" onclick="onDTChange()">水位</p>&ndash;%&gt;--%>
+  <%--&lt;%&ndash;<p class="devicetype"><input type="checkbox" id="dt_6" name="dataType" value="6" onclick="onDTChange()">湿度</p>&ndash;%&gt;--%>
+  <%--<c:forEach items="${dataTypes}" var="dt">--%>
+    <%--<p class="devicetype"><input type="checkbox" id="dt_${dt.id}" name="deviceType" value="${dt.id}" onclick="onDTChange()">${dt.unit}</p>--%>
+  <%--</c:forEach>--%>
+<%--</div>--%>
 
-</div>
+<%--</div>--%>
 <c:forEach items="${dataTypes}" var="dt">
 <script type="text/javascript">
   var hashObject = GetHash();
@@ -61,7 +61,6 @@
     }
   }
   else{
-
     $("input[type=checkbox]").each(function(){
       $(this).attr("checked","checked");
     });
@@ -93,7 +92,7 @@
   var optionC_${dt.id} = {
     //设置标题
     title: {
-      text: '${dt.unit}'
+      text: '${dt.datatype}'
     },
     //设置提示
     tooltip: {
