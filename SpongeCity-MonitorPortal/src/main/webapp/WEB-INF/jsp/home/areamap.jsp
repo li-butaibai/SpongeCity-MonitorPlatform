@@ -1,10 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page isELIgnored="false" %>
-<div id="allmap" style="margin-left: 20px; margin-right: 270px; "></div>
+<div id="allmap" style="margin-left: 20px; margin-right: 270px; height: 400px; "></div>
 <div id="checkwin">
   <p class="devicetitle">设备类型</p>
   <script type="text/javascript">
+    $('#allmap').css("height",($(window).innerHeight()-150)+"px");
     function onDTChange(){
       var devciceTypes="";
       $("input[type=checkbox]").each(function(){
@@ -22,6 +23,7 @@
       }
       location.hash = hashurl.slice(0,-1);
     }
+
   </script>
   <c:forEach items="${deviceTypes}" var="dt">
     <p class="devicetype"><input type="checkbox" id="dt_${dt.id}" name="deviceType" value="${dt.id}" onclick="onDTChange()">${dt.name}<img src="picture/d${dt.id}_Online.png" style="height:23px; margin-left: 5px;"/></p>

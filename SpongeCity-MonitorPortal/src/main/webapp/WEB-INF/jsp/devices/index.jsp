@@ -46,8 +46,8 @@
 <div class="table_wrap">
   <table class="table table-bordered devicelist" style="border-radius:5px">
     <tr style=" background:#f9f9f9">
-      <td style="border-radius:5px">设备编号</td>
-      <td>设备类型</td>
+      <%--<td >设备编号</td>--%>
+      <td style="border-radius:5px">设备类型</td>
       <td>设备状态</td>
       <td>区域</td>
       <td>地块</td>
@@ -56,16 +56,15 @@
     </tr>
     <c:forEach items="${devices.data}" var="de">
       <tr>
-        <td>${de.device_id}</td>
+        <%--<td>${de.id}</td>--%>
         <td><a href="javascript:void(0);" onclick="openDeviceDetail('${de.id}')">${de.deviceType.name}</a></td>
-        <td>${de.state}</td>
+        <td>${de.state=="Online"?"在线":"离线"}</td>
         <td>${de.areaName}</td>
         <td>${de.blockName}</td>
         <td>${de.measureName}</td>
         <td>${de.comments}</td>
       </tr>
     </c:forEach>
-
   </table>
   <nav>
     <ul class="pagination">

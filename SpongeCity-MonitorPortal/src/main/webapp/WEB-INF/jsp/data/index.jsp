@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page isELIgnored="false" %>
-<div id="allmap" style="min-height: 300px; width:100%; background-color: white;margin-left:20px">
+<div id="allmap" style="min-height: 530px; width:96%; background-color: white;margin-left:20px">
 <c:forEach items="${dataTypes}" var="dt" >
   <div id="dataDiv_${dt.id}" style="height: 200px; width: 100%; "></div>
   </c:forEach>

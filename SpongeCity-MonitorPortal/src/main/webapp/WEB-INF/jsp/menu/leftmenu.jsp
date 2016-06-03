@@ -17,10 +17,6 @@
     $("#datestr").html(d.toLocaleString());
   })
 </script>
-
-<div class="l_con1">
-  <h1>海绵城市监控平台</h1>
-</div>
 <div class="l_con_img">
   <p id="datestr"></p>
 </div>

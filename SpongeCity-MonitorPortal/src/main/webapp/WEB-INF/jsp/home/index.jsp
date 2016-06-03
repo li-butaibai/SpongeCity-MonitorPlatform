@@ -23,36 +23,37 @@
   <script src="${pageContext.request.contextPath}/js/tree.jquery.js"></script>
   <script src="${pageContext.request.contextPath}/js/echarts.min-2.js"></script>
   <script src="http://api.map.baidu.com/api?v=2.0&ak=Fp5YoAmGiStTkpbGVKI8dQkA"></script>
-  <script type="text/javascript">
-    function onresize(){
-      $('.conright').css("height",($(window).innerHeight())+"px");
-      $('.r_con3').css("height",($(window).innerHeight()-150)+"px");
-      $('.conright').css("width",($(window).innerWidth()-$('.conleft').innerWidth())+"px");
-      $('.conright').css("margin-left",$('.conleft').innerWidth()+"px");
-    }
 
-  </script>
 </head>
-
+<script type="text/javascript">
+  function onresize(){
+    //$('.conright').css("height",($(window).innerHeight())+"px");
+    //$('.r_con3').css("height",($(window).innerHeight()-150)+"px");
+    $('.conright').css("width",($(window).innerWidth()-$('.conleft').innerWidth())+"px");
+    $('.conright').css("margin-left",$('.conleft').innerWidth()+"px");
+  }
+  </script>
 <body onload="onresize()" onresize="onresize()">
+<%--<body>--%>
 <div class="con">
-
+  <div class="l_con1" style="z-index: 1000; width: 100%; position: fixed;">
+    <h1 style="padding-left: 20px; text-align: left">陕西省西咸新区海绵城市监测平台</h1>
+  </div>
   <div class="conleft">
 
   </div>
-  <div class="conright">
-    <div class="r_con1">
+  <div class="conright" style="min-height: 530px; height: auto; margin-top: 50px;">
 
-    </div>
     <div class="r_con2">
       <ul class="r_nav">
         <li class="nav_btn nav_btn1 active">首页</li>
         <li class="nav_btn nav_btn2">设备</li>
         <li class="nav_btn nav_btn3">告警</li>
         <li class="nav_btn nav_btn4">数据</li>
+        <%--<li class="nav_btn nav_btn5">下载</li>--%>
       </ul>
     </div>
-    <div class="r_con3">
+    <div class="r_con3"  style="min-height: 530px; height: auto">
 
     </div>
   </div>
@@ -110,6 +111,12 @@
         }
         $(".r_con3").load( "data/index?areaId=" + hashObject.areaId);
       }
+//      else if( hashObject["topmenu"] == 4 ){
+//        if( !hashObject.hasOwnProperty('dataTypeIds') ){
+//          $(".r_con3").load( "data/datadownload?areaId=" + hashObject.areaId +"&dataTypeIds="+hashObject.dataTypeIds);
+//        }
+//        $(".r_con3").load( "data/datadownload?areaId=" + hashObject.areaId);
+//      }
     };
     //hash tools
     //sethash
