@@ -32,7 +32,7 @@
       success: function (data) {
         //$("#waiting").hide();
         $('#dialogDiv').html(data);
-        $('#dialogDiv').dialog({ autoOpen: true, modal: true, width: "auto", show: "drop", hide: "drop", position: [295, 40] });
+        //$('#dialogDiv').dialog({ autoOpen: true, modal: true, width: "auto", show: "drop", hide: "drop", position: [295, 40] });
       },
       error: function (data) {
         //$("#waiting").hide();
