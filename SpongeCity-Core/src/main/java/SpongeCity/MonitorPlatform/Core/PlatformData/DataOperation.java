@@ -103,7 +103,9 @@ public class DataOperation {
         List<DB_AreaModel> areas = new ArrayList<DB_AreaModel>();
         AreaDA areaData = new AreaDA();
         areas = areaData.getAreaAllChildren(areaId);
-        areas.add(areaData.getAreaById(areaId));
+        if(areaId!=16){
+            areas.add(areaData.getAreaById(areaId));
+        }
         return areas;
     }
 

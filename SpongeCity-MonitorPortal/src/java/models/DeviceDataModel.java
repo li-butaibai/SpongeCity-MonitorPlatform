@@ -10,6 +10,7 @@ public class DeviceDataModel {
     private int deviceId;
     private String deviceCode;
     private String deviceTypeName;
+    private String modelName;
     private int dataTypeId;
     private String dataTypeName;
     private String unit;
@@ -78,5 +79,13 @@ public class DeviceDataModel {
 
     public void setDates(List<Date> dates) {
         this.dates = dates;
+    }
+
+    public String getModelName() {
+        return modelName;
+    }
+
+    public void setModelName(String modelName) {
+        this.modelName = modelName;
     }
 }

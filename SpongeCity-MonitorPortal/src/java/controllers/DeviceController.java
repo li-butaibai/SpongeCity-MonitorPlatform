@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -117,6 +118,7 @@ public class DeviceController {
         AlertDataOperation alertDataOperation = new AlertDataOperation();
         DataOperation dataOperation = new DataOperation();
         List<DB_DeviceTypeModel> deviceTypeModels = deviceDataOperation.getAllDeviceType();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         for (Integer aId : allAreaIds) {
             for (DB_DeviceModel db_deviceModel : deviceModelListByTypes) {
                 if (db_deviceModel.getArea().getId() == aId) {

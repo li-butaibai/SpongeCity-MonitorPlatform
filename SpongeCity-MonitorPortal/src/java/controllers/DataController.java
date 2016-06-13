@@ -200,7 +200,7 @@ public class DataController {
         Calendar c = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date endTime = new Date();
-        Date startTime = new Date(endTime.getTime() - 5 * 3600 * 1000);
+        Date startTime = new Date(endTime.getTime() - 1 * 3600 * 1000);
 
         try {
             DeviceDataOperation deviceDataOperation = new DeviceDataOperation();
@@ -222,6 +222,7 @@ public class DataController {
                         List<Date> dates = new ArrayList<Date>();
                         ddm.setDatas(values);
                         ddm.setDates(dates);
+                        ddm.setModelName(item.getDevice().getModel());
                         ddm.setDeviceId(item.getDevice().getId());
                         ddm.setDeviceCode(item.getDevice().getDeviceid());
                         int devicetypeid = item.getDevice().getDevicetype_id();
@@ -236,6 +237,7 @@ public class DataController {
                     DeviceDataModel ddm = map.get(item.getDevice().getId());
                     ddm.getDatas().add(item.getDatavalue());
                     ddm.getDates().add(item.getDatetime());
+                    ddm.setModelName(item.getDevice().getModel());
                 }
                 List<DeviceDataModel> deviceDataList = new ArrayList<DeviceDataModel>();
                 deviceDataList.addAll(map.values());
@@ -271,6 +273,27 @@ public class DataController {
         List<DB_DataModel> dbDataModelList = dataOperation.getLastestDeviceData(deviceId);
         deviceDetailModel = generateDeviceDetail(dbDataModelList, deviceId);
         modelAndView.addObject("device", deviceDetailModel);
+        return modelAndView;
+    }
+    @RequestMapping(value = "/getSoilTemp", method = RequestMethod.GET)
+    public ModelAndView getSoilTemp(String deviceIds) {
+        ModelAndView modelAndView = new ModelAndView("/bvdevice/soilTemp");
+//        DeviceDetailModel deviceDetailModel = new DeviceDetailModel();
+//        DataOperation dataOperation = new DataOperation();
+//        List<DB_DataModel> dbDataModelList = dataOperation.getLastestDeviceData(deviceId);
+//        deviceDetailModel = generateDeviceDetail(dbDataModelList, deviceId);
+//        modelAndView.addObject("device", deviceDetailModel);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/getFulidLevel", method = RequestMethod.GET)
+    public ModelAndView getFulidLevel(String deviceIds) {
+        ModelAndView modelAndView = new ModelAndView("/bvdevice/fulidLevel");
+//        DeviceDetailModel deviceDetailModel = new DeviceDetailModel();
+//        DataOperation dataOperation = new DataOperation();
+//        List<DB_DataModel> dbDataModelList = dataOperation.getLastestDeviceData(deviceId);
+//        deviceDetailModel = generateDeviceDetail(dbDataModelList, deviceId);
+//        modelAndView.addObject("device", deviceDetailModel);
         return modelAndView;
     }
 
