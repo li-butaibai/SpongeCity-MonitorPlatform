@@ -22,7 +22,7 @@
   }
   function openDeviceDetail(deviceId){
     $.ajax({
-      url:"/devices/detail?deviceId="+deviceId,
+      url:"/devices/detail?deviceId="+deviceId+"&rnd="+Math.random(),
       type:"get",
       async:true,
       dataType:"text",
@@ -68,32 +68,32 @@
   </table>
   <nav>
     <ul class="pagination">
-      <c:if test="${alerts.pageCount>0}">
-        <c:if test="${alerts.currentPageIndex==0}">
-          <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+      <c:if test="${devices.pageCount>0}">
+        <c:if test="${devices.currentPageIndex==0}">
+          <li class="disabled"><a href="#" aria-label="Previous" style="position: static"><span aria-hidden="true">&laquo;</span></a></li>
         </c:if>
-        <c:if test="${alerts.currentPageIndex>0}">
-          <li ><a href="javascript:void(0);" onclick="onpageclick('0')" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+        <c:if test="${devices.currentPageIndex>0}">
+          <li ><a href="javascript:void(0);" onclick="onpageclick('0')" aria-label="Previous"  style="position: static"><span aria-hidden="true">&laquo;</span></a></li>
         </c:if>
-        <c:forEach var="i" begin="0" end="${alerts.pageCount-1}">
-          <c:if test="${alerts.currentPageIndex==i}">
-            <li class="active"><a href="javascript:void(0);" onclick="onpageclick('${i}')">${i+1} <span class="sr-only">(current)</span></a></li>
+        <c:forEach var="i" begin="0" end="${devices.pageCount-1}">
+          <c:if test="${devices.currentPageIndex==i}">
+            <li class="active"><a href="javascript:void(0);"  style="position: static" onclick="onpageclick('${i}')">${i+1} <span class="sr-only">(current)</span></a></li>
           </c:if>
-          <c:if test="${alerts.currentPageIndex!=i}">
-            <li><a href="javascript:void(0);" onclick="onpageclick('${i}')">${i+1}</a></li>
+          <c:if test="${devices.currentPageIndex!=i}">
+            <li><a href="javascript:void(0);"  style="position: static" onclick="onpageclick('${i}')">${i+1}</a></li>
           </c:if>
 
         </c:forEach>
-        <c:if test="${alerts.currentPageIndex==alerts.pageCount-1}">
+        <c:if test="${devices.currentPageIndex==devices.pageCount-1}">
           <li class="disabled">
-            <a href="#" aria-label="Next">
+            <a href="#" aria-label="Next"  style="position: static">
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>
         </c:if>
-        <c:if test="${alerts.currentPageIndex<alerts.pageCount-1}">
+        <c:if test="${devices.currentPageIndex<devices.pageCount-1}">
           <li>
-            <a href="javascript:void(0);" onclick="onpageclick('${alerts.pageCount-1}')" aria-label="Next">
+            <a href="javascript:void(0);"  style="position: static" onclick="onpageclick('${devices.pageCount-1}')" aria-label="Next">
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>

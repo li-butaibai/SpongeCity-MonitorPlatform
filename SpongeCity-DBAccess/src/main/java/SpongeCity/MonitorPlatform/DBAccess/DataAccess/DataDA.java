@@ -39,7 +39,7 @@ public class DataDA {
     public List<DB_DataModel> getDataByDataTypeAreaAndTime(int dataTypeid, List<DB_AreaModel> areas, Date startTime, Date endTime) {
         SqlSession session = BatisConnection.getSession();
         try {
-            SimpleDateFormat ft = new SimpleDateFormat("yyyy/MM/dd");
+            SimpleDateFormat ft = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
             Map<String, Object> params = new HashMap<String, Object>();
             String strAreaIds = "";
             for (DB_AreaModel area : areas) {

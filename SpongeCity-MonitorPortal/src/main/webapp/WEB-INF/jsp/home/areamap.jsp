@@ -56,13 +56,15 @@
   }
   // 百度地图API功能
   var map = new BMap.Map("allmap",{mapType:BMAP_HYBRID_MAP});
+  var map = new BMap.Map("allmap");
   var point = new BMap.Point(<c:out value="${areaInfo.centerPoint.longitude}" />, <c:out value="${areaInfo.centerPoint.latitude}" />);
   var points = [
     <c:forEach items="${areaInfo.coordinates}" var="sa">
     new BMap.Point(${sa.longitude}, ${sa.latitude}),
     </c:forEach>
   ];
-  map.setViewport(points);//map.centerAndZoom(point, 15);
+  map.setViewport(points);
+  //map.centerAndZoom(point, 15);
   map.addControl(new BMap.MapTypeControl());
   map.enableScrollWheelZoom(true);
   var polygon = new BMap.Polygon(points, {strokeColor:"#91b4ad", strokeWeight:2, strokeOpacity:0.9, fillOpacity:0.2});  //创建多边形

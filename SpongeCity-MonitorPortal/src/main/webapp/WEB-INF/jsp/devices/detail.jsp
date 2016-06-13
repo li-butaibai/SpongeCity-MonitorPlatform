@@ -6,8 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page isELIgnored="false" %>
 <script>
   function closeDialog(){
     $('#dialogDiv').html("")
@@ -15,9 +15,9 @@
 </script>
 <div class="dialogbg"></div>
 <div id="windows-overlay" class="window-overlay">
-  <div class="d_up">
-    <div class="d_img">
-      <img src="/img/device1.jpg">
+  <div class="d_up" style="height: 166px;">
+    <div class="d_img" style="height: 166px;">
+      <img style="height: 166px;" src="/picture/d${device.deviceType.id}.jpg" >
     </div>
     <div class="d_list">
       <h4 style="font-weight: bold; margin-bottom: 15px; font-size: 16px">设备详情</h4>
@@ -53,7 +53,8 @@
       </tr>
       <c:forEach items="${device.dataList}" var="log">
         <tr>
-          <td><fmt:formatDate value="${log.datatime}" pattern="MM月dd日HH点mm分ss秒" /></td>
+          <%--<td><fmt:formatDate value="${log.datatime}" pattern="MM月dd日HH点mm分ss秒" /></td>--%>
+          <td>${log.datatime}</td>
           <td>${log.datatype}</td>
           <td>${log.datavalue}</td>
           <td>${log.unit}</td>

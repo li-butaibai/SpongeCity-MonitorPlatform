@@ -92,7 +92,7 @@
   var optionC_${dt.id} = {
     //设置标题
     title: {
-      text: '${dt.datatype}'
+      text: '${dt.datatype}(${dt.unit})'
     },
     //设置提示
     tooltip: {
@@ -106,7 +106,7 @@
           param = params[i];
           var date = new Date(param.value[0]);
           content += param.name + ' : '
-                  + param.value[1] + '</br>';
+                  + param.value[1] +${dt.unit}+'</br>';
         }
         return content;
       },
@@ -158,7 +158,7 @@
             for(var k=0; k<data[i].dataList[j].datas.length;k++)
             {
             dds_${dt.id}.push(
-                    {name: data[i].dataList[j].deviceTypeName,
+                    {name: data[i].dataList[j].modelName,
                     value: [
             data[i].dataList[j].dates[k].toString(),
             data[i].dataList[j].datas[k]]});
@@ -166,13 +166,13 @@
             optionC_${dt.id}.series.push({
               type: 'line',
               smooth: true,
+              showSymbol: false,
               data: dds_${dt.id}
             });
           }
         }
       },
       error: function (data) {
-        alert(data.responseText);
         rtn = false;
       }
     });

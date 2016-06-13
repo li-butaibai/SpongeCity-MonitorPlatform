@@ -57,23 +57,48 @@
     });
   }
 
-  //while(true) {
-    getAllDevices();
-  var indx = 0;
-function upatediv() {
-  for(indx; indx<devices.length; indx++)
+  function getDeviceInfo2(urlPath)
   {
-    if(devices[indx].state=="online" || devices[indx].state=="Online")
-    {
+    $.ajax({
+      url: urlPath,
+      type: "get",
+      async: false,
+      dataType: "text",
+      data: { "rnd": Math.random() },
+      success: function (data) {
+        $('#mainBody').html(data);
+      },
+      error: function (data) {
+        rtn = false;
+      }
+    });
+  }
+
+  //while(true) {
+    //getAllDevices();
+  var indx = 0;
+var detaliUrl = ["/data/getdevicebv?deviceId=1008",
+                    "/data/getdevicebv?deviceId=1009",
+                    "/data/getdevicebv?deviceId=1010",
+                    "/data/getSoilTemp?deviceId=46,47,1007",
+                    "/data/getFulidLevel?deviceId=43,44,45"];
+function upatediv() {
+  for (indx; indx < devices.length; indx++) {
+    if (devices[indx].state == "online" || devices[indx].state == "Online") {
       getDeviceInfo(devices[indx].id);
       break;
     }
   }
-  indx++;
-  if(indx > devices.length) indx=0;
 }
-  upatediv();
-  var devicesTimeticket =  setInterval(upatediv, 3000)
+  console.log(detaliUrl);
+function upatediv2() {
+  getDeviceInfo2(detaliUrl[indx]);
+  console.log(indx);
+  indx+=1;
+  if (indx > detaliUrl.length) indx = 0;
+}
+  upatediv2();
+  var devicesTimeticket =  setInterval(upatediv2, 5000)
   //}
 </script>
 </body>

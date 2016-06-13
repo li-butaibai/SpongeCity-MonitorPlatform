@@ -50,7 +50,7 @@ public class ModelConverter {
             alert.setCreatetime(db_alert.getCreatetime());
             alert.setTitle(db_alert.getTitle());
             //alert.setDevice(convertDBDeviceModel2PortalDeviceModel(db_alert.getDevice()));
-            alert.setDevicename(db_alert.getDevice().getDeviceid());
+            alert.setDevicename(db_alert.getDevice().getModel());
             alert.setEndtime(db_alert.getEndtime());
             alert.setId(db_alert.getId());
             alert.setLevel(AlertLevel.values()[db_alert.getLevel()]);

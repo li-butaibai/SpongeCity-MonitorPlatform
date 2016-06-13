@@ -43,7 +43,7 @@
     <orderEntry type="library" name="Maven: org.mybatis:mybatis:3.3.0" level="project" />
     <orderEntry type="library" name="Maven: com.microsoft.sqlserver:sqljdbc4:4.0" level="project" />
     <orderEntry type="module" module-name="SpongeCity-Core" />
-    <orderEntry type="module" module-name="SpongeCity.MonitorPlatform" />
+    <orderEntry type="module" module-name="SpongeCity-ScheduleTask" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.5.2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.4" level="project" />
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.9" level="project" />

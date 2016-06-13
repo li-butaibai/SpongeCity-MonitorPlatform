@@ -126,7 +126,7 @@ a:focus {
 
 .table_wrap{ font-size:12px;}
 
-.r_con3 .window-overlay{width: 700px; height: 540px; margin-left: 140px; margin-top: -50px; border-radius:10px;  background: #fff; position: absolute; top: 0; left: 0;}
+.r_con3 .window-overlay{width: 700px; height: 540px; margin-left: 140px; margin-top: -80px; border-radius:10px;  background: #fff; position: absolute; top: 0; left: 0;}
 .maptable{ height: 230px; width:auto; display: block; float: left; margin-left: 20px}
 .imgdiv{height: 200px; width: 200px; border-radius:100px; border: 1px solid #ccc; display: block; float: left; position: relative; margin-left: 0px; overflow: hidden}
 .imgdiv img{ display: block; width: 200px; height: 200px;}
@@ -142,4 +142,4 @@ a:focus {
 .d_list table tr td:first-child{ width: 70px; font-weight: bold; font-size: 14px}
 .devicelist td{ vertical-align:middle!important}
 .devicelist tr td:nth-child(2){ width: 10%}
-.devicelist tr td:nth-child(3){ width: 8%}
+.devicelist tr td:nth-child(3){ }

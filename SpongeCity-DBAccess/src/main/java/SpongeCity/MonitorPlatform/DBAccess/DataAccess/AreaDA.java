@@ -40,6 +40,10 @@ public class AreaDA {
             IAreaOperation areaOperation = session.getMapper(IAreaOperation.class);
             List<DB_AreaModel> areas = new ArrayList<DB_AreaModel>();
             List<DB_AreaModel> areaList = getAllArea();
+            if(areaId==16)
+            {
+                return areaList;
+            }
             areas = getChildren(areaList, areaId);
             return areas;
         } finally {
