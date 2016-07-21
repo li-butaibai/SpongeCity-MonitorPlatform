@@ -98,15 +98,15 @@
     tooltip: {
       trigger: 'axis',
       formatter: function (params) {
-        console.log(params);
         date = new Date();
         date.setTime(params[0].value[0]);
         var content = date.toISOString()+'</br>';
         for(i=0;i<params.length;i++) {
           param = params[i];
+          console.log(param);
           var date = new Date(param.value[0]);
           content += param.name + ' : '
-                  + param.value[1] +${dt.unit}+'</br>';
+                  + param.value[1] +'${dt.unit}</br>';
         }
         return content;
       },
