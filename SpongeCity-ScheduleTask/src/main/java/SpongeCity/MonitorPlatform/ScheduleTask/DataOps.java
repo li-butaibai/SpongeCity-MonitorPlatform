@@ -49,7 +49,8 @@ public class DataOps {
                             dd.setAttributeData(Float.parseFloat(item.get("attributeData").toString()));
                             dd.setAttributeIndex(Integer.parseInt(item.get("attributeIndex").toString()));
                             Long timestamp = Long.parseLong(item.get("deviceTimestamp").toString());
-                            dd.setCreatetime(new Date(timestamp + 8 * 60 * 60 * 1000));
+                            //dd.setCreatetime(new Date(timestamp + 8 * 60 * 60 * 1000));
+                            dd.setCreatetime(new Date(timestamp));
                             datas.add(dd);
                         }
                     }
