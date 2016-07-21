@@ -103,7 +103,6 @@
         var content = date.toISOString()+'</br>';
         for(i=0;i<params.length;i++) {
           param = params[i];
-          console.log(param);
           var date = new Date(param.value[0]);
           content += param.name + ' : '
                   + param.value[1] +'${dt.unit}</br>';
