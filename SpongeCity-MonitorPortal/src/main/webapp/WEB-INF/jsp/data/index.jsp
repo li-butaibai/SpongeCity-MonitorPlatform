@@ -143,14 +143,11 @@
     $.ajax({
       url: "/data/getdata?areaId="+hashObject.areaId+"&dataTypeIdList=${dt.id}",
       type: "get",
-      async: false,
+      async: true,
       dataType: "json",
       data: { "rnd": Math.random() },
       success: function (data) {
-
         for(var i = 0; i < data.length; i++ ) {
-
-
           for(var j=0; j<data[i].dataList.length;j++)
           {
             var dds_${dt.id} = new Array();
@@ -168,6 +165,7 @@
               showSymbol: false,
               data: dds_${dt.id}
             });
+            myChartC_${dt.id}.setOption(optionC_${dt.id});
           }
         }
       },
