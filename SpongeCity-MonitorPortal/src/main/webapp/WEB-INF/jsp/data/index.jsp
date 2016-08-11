@@ -8,44 +8,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page isELIgnored="false" %>
-<div id="allmap" style="min-height: 530px; width:96%; background-color: white;margin-left:20px">
+<div id="allmap" style="min-height: 530px; width:96%; background-color: white;margin-left:20px;padding-left: 20px;padding-top:20px;">
 <c:forEach items="${dataTypes}" var="dt" >
   <div id="dataDiv_${dt.id}" style="height: 200px; width: 100%; "></div>
   </c:forEach>
 </div>
-<%--<div id="checkwin">--%>
-  <%--<p class="devicetitle">数据类型</p>--%>
-  <%--<script type="text/javascript">--%>
-    <%--function onDTChange(){--%>
-      <%--var dataTypes="";--%>
-      <%--$("input[type=checkbox]").each(function(){--%>
-        <%--if(this.checked){--%>
-          <%--dataTypes+=","+$(this).val();--%>
-        <%--}--%>
-      <%--});--%>
-      <%--if(dataTypes.length>0) dataTypes=dataTypes.substring(1,dataTypes.length);--%>
-      <%--var hashObject = GetHash();--%>
-
-      <%--hashObject["dataTypeIds"] = dataTypes;--%>
-      <%--var hashurl = "";--%>
-      <%--for( var key in hashObject ){--%>
-        <%--hashurl += key + "=" + hashObject[key]+"&";--%>
-      <%--}--%>
-      <%--location.hash = hashurl.slice(0,-1);--%>
-    <%--}--%>
-  <%--</script>--%>
-  <%--&lt;%&ndash;<p class="devicetype"><input type="checkbox" id="dt_1" name="dataType" value="1" onclick="onDTChange()">降雨量</p>&ndash;%&gt;--%>
-  <%--&lt;%&ndash;<p class="devicetype"><input type="checkbox" id="dt_2" name="dataType" value="2" onclick="onDTChange()">流量</p>&ndash;%&gt;--%>
-  <%--&lt;%&ndash;<p class="devicetype"><input type="checkbox" id="dt_3" name="dataType" value="3" onclick="onDTChange()">风速</p>&ndash;%&gt;--%>
-  <%--&lt;%&ndash;<p class="devicetype"><input type="checkbox" id="dt_4" name="dataType" value="4" onclick="onDTChange()">气温</p>&ndash;%&gt;--%>
-  <%--&lt;%&ndash;<p class="devicetype"><input type="checkbox" id="dt_5" name="dataType" value="5" onclick="onDTChange()">水位</p>&ndash;%&gt;--%>
-  <%--&lt;%&ndash;<p class="devicetype"><input type="checkbox" id="dt_6" name="dataType" value="6" onclick="onDTChange()">湿度</p>&ndash;%&gt;--%>
-  <%--<c:forEach items="${dataTypes}" var="dt">--%>
-    <%--<p class="devicetype"><input type="checkbox" id="dt_${dt.id}" name="deviceType" value="${dt.id}" onclick="onDTChange()">${dt.unit}</p>--%>
-  <%--</c:forEach>--%>
-<%--</div>--%>
-
-<%--</div>--%>
 <c:forEach items="${dataTypes}" var="dt">
 <script type="text/javascript">
   var hashObject = GetHash();
@@ -100,7 +67,12 @@
       formatter: function (params) {
         date = new Date();
         date.setTime(params[0].value[0]);
-        var content = date.toISOString()+'</br>';
+        var content = date.getFullYear()+"/"
+                +(date.getMonth()+1)+"/"
+                +date.getDate()+" "
+                +date.getHours()+":"
+                +date.getMinutes()+":"
+                +date.getSeconds()+'</br>';//date.toISOString()+'</br>';
         for(i=0;i<params.length;i++) {
           param = params[i];
           var date = new Date(param.value[0]);
@@ -115,7 +87,7 @@
     },
     //设置图例//"Percentage CPU", "Disk Read Bytes/sec", "Disk Write Bytes/sec", "Network Out", "Network In"
     legend: {
-      data: ['模拟数据']
+      data:["Percentage CPU", "Disk Read Bytes/sec", "Disk Write Bytes/sec", "Network Out", "Network In"]
     },
     //设置坐标轴
     xAxis: {
@@ -148,6 +120,8 @@
       data: { "rnd": Math.random() },
       success: function (data) {
         for(var i = 0; i < data.length; i++ ) {
+          optionC_${dt.id}.series=[];
+          //optionC_${dt.id}.legend.data=[];
           for(var j=0; j<data[i].dataList.length;j++)
           {
             var dds_${dt.id} = new Array();
@@ -159,13 +133,17 @@
             data[i].dataList[j].dates[k].toString(),
             data[i].dataList[j].datas[k]]});
             }
+
             optionC_${dt.id}.series.push({
               type: 'line',
               smooth: true,
               showSymbol: false,
               data: dds_${dt.id}
             });
+            optionC_${dt.id}.legend.data.push(data[i].dataList[j].modelName);
+
             myChartC_${dt.id}.setOption(optionC_${dt.id});
+            //myChartC_${dt.id}.setOption(optionC_${dt.id});
           }
         }
       },
@@ -173,7 +151,7 @@
         rtn = false;
       }
     });
-    myChartC_${dt.id}.setOption(optionC_${dt.id});
+    //myChartC_${dt.id}.setOption(optionC_${dt.id});
   //}, 2000);
       //
 </script>

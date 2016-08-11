@@ -99,7 +99,6 @@
         if( !hashObject.hasOwnProperty('pageIndex') ){
           hashObject["pageIndex"] = 0;}
           $(".r_con3").load( "devices/index?areaId=" + hashObject.areaId  + "&pageIndex="+hashObject.pageIndex );
-        console.log("topmenu1");
       }else if( hashObject["topmenu"] == 2 ){
         if( !hashObject.hasOwnProperty('pageIndex') ){
           hashObject["pageIndex"] = 0;
@@ -121,7 +120,6 @@
     //hash tools
     //sethash
     function SetHash(val) {
-      console.log("sethash");
       var hashObject = GetHash();
       if( val.hasOwnProperty('areaId')){
         hashObject["areaId"] = val["areaId"];
@@ -141,7 +139,6 @@
 
     //gethash
     function GetHash() {
-      console.log("gethash");
       var url = location.hash; //获取url中"?"符后的字串
       var theRequest = new Object();
       if (url.indexOf("#") != -1) {
