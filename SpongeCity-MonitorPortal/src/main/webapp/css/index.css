@@ -39,7 +39,7 @@ a:focus {
     color: #1fbea4;
 }
 #allmap {width: 80%; height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
-#checkwin { width: 200px; height:100%; overflow:hidden; position:absolute; right:0; top:0; background:#fff; border:1px solid #f0f0f0}
+#checkwin { width: 300px; height:100%; overflow:hidden; position:absolute; right:0; top:0; background:#fff; border:1px solid #f0f0f0}
 #checkwin .devicetype{ line-height:200%; width: 100%; margin-top: 10px; margin-bottom: 10px; margin-left: 0px; font-family:"微软雅黑"; font-size:14px; color:#333}
 #checkwin .devicetype:hover{background:#1fbba6;color:#fff}
 #checkwin .devicetype img{ float: right; margin-right: 30px;margin-top: 3px;}

@@ -199,7 +199,8 @@ public class DataController {
         Calendar c = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date endTime = new Date();
-        Date startTime = new Date(endTime.getTime() - 1 * 3600 * 1000);
+        Date startTime = new Date(endTime.getTime() - 3*24 * 3600 * 1000);
+        endTime = new Date(endTime.getTime());
 
         try {
             DeviceDataOperation deviceDataOperation = new DeviceDataOperation();
@@ -235,7 +236,10 @@ public class DataController {
                     }
                     DeviceDataModel ddm = map.get(item.getDevice().getId());
                     ddm.getDatas().add(item.getDatavalue());
-                    ddm.getDates().add(item.getDatetime());
+                    Calendar ca=Calendar.getInstance();ca.setTime(item.getDatetime());
+                    ca.add(Calendar.HOUR_OF_DAY, 0);
+                    //ddm.getDates().add(item.getDatetime());
+                    ddm.getDates().add(ca.getTime());
                     ddm.setModelName(item.getDevice().getModel());
                 }
                 List<DeviceDataModel> deviceDataList = new ArrayList<DeviceDataModel>();

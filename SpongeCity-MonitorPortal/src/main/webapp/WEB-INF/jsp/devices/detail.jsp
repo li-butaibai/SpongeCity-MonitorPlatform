@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page isELIgnored="false" %>
 <script>
   function closeDialog(){
@@ -53,8 +54,7 @@
       </tr>
       <c:forEach items="${device.dataList}" var="log">
         <tr>
-          <%--<td><fmt:formatDate value="${log.datatime}" pattern="MM月dd日HH点mm分ss秒" /></td>--%>
-          <td>${log.datatime}</td>
+          <td><fmt:formatDate value="${log.datatime}" pattern="yyyy/MM/dd HH:mm:ss" /></td>
           <td>${log.datatype}</td>
           <td>${log.datavalue}</td>
           <td>${log.unit}</td>
