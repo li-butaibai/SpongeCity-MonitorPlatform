@@ -9,7 +9,6 @@ import Util.ModelConverter;
 import models.*;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -333,5 +332,24 @@ public class DataController {
         deviceDetailModel.setDeviceState(dbDeviceModel.getState());
         deviceDetailModel.setDeviceTypeId(dbDeviceModel.getDevicetype().getId());
         return deviceDetailModel;
+    }
+
+    //h:液位高度，单位mm
+    //r:管道半径，单位mm
+    //v:流速，单位m/s
+    //interval:数据频率，单位s
+    public float getPipeFlow(float h, float r, float v, float interval)
+    {
+        //计算面积
+        double area = 0.0d;
+        if(h > r) {
+            area = Math.PI * Math.pow(r, 2) - Math.pow(r, 2) * Math.acos((h - r) / r) + (h - r) * Math.sqrt(Math.pow(r, 2) - Math.pow(h - r, 2));
+        }
+        else {
+            area = Math.pow(r, 2) * Math.acos((h - r) / r) - (h - r) * Math.sqrt(Math.pow(r, 2) - Math.pow(h - r, 2));
+        }
+        //计算流量：mm^2/1000000=m^2
+        double flow = (area/1000000)*(v*interval);
+        return (float)flow;
     }
 }
