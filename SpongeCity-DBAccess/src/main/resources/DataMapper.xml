@@ -55,7 +55,7 @@ where db.area_id in (${_parameter}) ]]>
     <select id="getDataByDataTypeAndDeviceId" resultMap="dataMap">
         <![CDATA[ SELECT id,datatime,device_id,datatype_id,datavalue FROM data
   where device_id = ${deviceId} and datatype_id = ${dataTypeId} and datatime > ${startTime} and datatime < ${endTime}
-order by datatime desc ]]>
+order by datatime ASC ]]>
     </select>
     <select id="getDataByDeviceId" resultMap="dataMap">
         <![CDATA[ SELECT top 100 da.id,da.datatime,da.device_id,da.datatype_id,da.datavalue, t.id as datatypeid, t.datatype, t.unit FROM data da join datatypes t on da.datatype_id=t.id
@@ -81,5 +81,13 @@ db.device_id,db.devicetype_id,db.model,db.comments as devicecomments,db.longitud
 db.firstuptime,db.updatetime,db.state as devicestate,db.datastatus as devicedatestatus
 from data da right join datatypes t on da.datatype_id = t.id join devices db on da.device_id = db.id
  where da.id = (select top 1 id from data where datatype_id = da.datatype_id and device_id = #{deviceId} order by datatime desc)   ]]>
+    </select>
+
+    <select id="getTotalCount" resultType="java.lang.Integer">
+      select COUNT(1) from  data
+    </select>
+
+    <select id="getCountByDataType" parameterType="int" resultType="java.lang.Integer">
+      select COUNT(1) from  data where datatype_id = #{dataTypeId}
     </select>
 </mapper>

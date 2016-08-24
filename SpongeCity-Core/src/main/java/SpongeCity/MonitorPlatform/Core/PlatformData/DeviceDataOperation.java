@@ -65,4 +65,24 @@ public class DeviceDataOperation {
         }
         return deviceList;
     }
+
+    public List<DB_DeviceModel> getDeviceListByDeviceType(int devicetype_id) {
+        List<DB_DeviceModel> deviceList = new ArrayList<DB_DeviceModel>();
+        try {
+            deviceList = dd.getDeviceListByDeviceType(devicetype_id);
+        } catch (Exception ex) {
+            //log
+        }
+        return deviceList;
+    }
+
+    public List<DB_DeviceModel> getDeviceListByDeviceTypeAndAreaId(int areaId, int devicetypeId) {
+        List<DB_DeviceModel> deviceList = new ArrayList<DB_DeviceModel>();
+        try {
+            deviceList = dd.getDeviceListByDeviceTypeAndAreaId(areaId,devicetypeId);
+        } catch (Exception ex) {
+            //log
+        }
+        return deviceList;
+    }
 }

@@ -347,10 +347,13 @@ public class DataController {
         //计算面积
         double area = 0.0d;
         if(h > r) {
-            area = Math.PI * Math.pow(r, 2) - Math.pow(r, 2) * Math.acos((h - r) / r) + (h - r) * Math.sqrt(Math.pow(r, 2) - Math.pow(h - r, 2));
+            area = Math.PI * Math.pow(r, 2)
+                    - Math.pow(r, 2) * Math.acos((h - r) / r)
+                    + (h - r) * Math.sqrt(Math.pow(r, 2) - Math.pow(h - r, 2));
         }
         else {
-            area = Math.pow(r, 2) * Math.acos((h - r) / r) - (h - r) * Math.sqrt(Math.pow(r, 2) - Math.pow(h - r, 2));
+            area = Math.pow(r, 2) * Math.acos((h - r) / r)
+                    - (h - r) * Math.sqrt(Math.pow(r, 2) - Math.pow(h - r, 2));
         }
         //计算流量：mm^2/1000000=m^2
         double flow = (area/1000000)*(v*interval);

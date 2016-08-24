@@ -30,4 +30,14 @@ public class AreaDataOperation {
         }
         return area;
     }
+
+    public List<DB_AreaModel> getAreaByParentID(int parentID) {
+        List<DB_AreaModel> areaList = new ArrayList<DB_AreaModel>();
+        try {
+            areaList = ad.getAreaByParentID(parentID);
+        }catch (Exception ex){
+            //log
+        }
+        return areaList;
+    }
 }
