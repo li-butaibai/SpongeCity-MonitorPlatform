@@ -22,4 +22,8 @@
     <!--<select id="getAreaChildren" parameterType="int" resultType="DB_AreaModel">
         SELECT * FROM areas WHERE parentarea_id = #{areaId}
     </select>-->
+
+    <select id="getAreaByParentID" parameterType="int" resultType="DB_AreaModel">
+        SELECT * FROM areas WHERE parentarea_id = #{parentID}
+    </select>
 </mapper>

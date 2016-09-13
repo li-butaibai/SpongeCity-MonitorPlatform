@@ -10,7 +10,7 @@
 <%@ page isELIgnored="false" %>
 <style>
     h3.title {
-        font-size: 4em;
+        font-size: 5em;
         text-align: center;
 
         font-weight: 200;
@@ -49,16 +49,6 @@
     }
     .col-md-6{
         width:50%;
-        float:left;
-        margin-bottom: 20px;
-    }
-    .col-md-4{
-        width:33.33%;
-        float:left;
-        margin-bottom: 20px;
-    }
-    .col-md-3{
-        width:25%;
         float:left;
         margin-bottom: 20px;
     }
@@ -130,7 +120,7 @@
         content: "\e022";
     }
     .glyphicon-time:before {
-        content:url() no-repeat;
+        content:url(%E6%B0%94%E8%B1%A1%E7%AB%99/images/%E6%9C%AA%E6%A0%87%E9%A2%98-2.jpg) no-repeat;
         visibility: hidden;
         display: block;
 
@@ -162,9 +152,9 @@
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         font-size: 14px;
         line-height: 1.42857143;
-        color: #333;
-        width: 800px;
-        background: #f3f3f3;
+        color: #fff;
+        width: 100%;
+        background: black;
     }
 
     span.glyphicon {
@@ -174,7 +164,7 @@
     .services-right {
         float: right;
         width: 70%;
-        border: 1px solid #988AEE;
+        border: 1px solid #062f49;
         padding: 1.5em;
     }
     .services-right h4 {
@@ -220,21 +210,21 @@
 
     span.glyphicon {
         font-size: 3em;
-        color: #fff;
+        color: #181721;
     }
     .services-right {
         float: right;
         width: 70%;
-        border: 1px solid #dedede;
+        /*border: 1px solid #dedede;*/
         padding: 1.5em;
-        background:#fff;
+        background:#062f49;
     }
     .services-right h4 {
-        font-size: 3em;
-        color: #828282;
+        font-size: 5em;
+        color: #fff;
         margin-bottom: 0.74em;
         text-align: center;
-        margin-top: 35px;
+        margin-top: 45px;
     }
     .services-grids:hover .services-left {
         background: none;
@@ -248,23 +238,24 @@
     /*--//services--*/
     .container {
         padding-right: 15px;
-        padding-left: 15px;
+        padding-left: 5px;
         margin-right: auto;
         margin-left: auto;
     }
     @media (min-width: 768px) {
         .container {
-            width: 750px;
+            width:  90%;
         }
     }
     @media (min-width: 992px) {
         .container {
-            width: 970px;
+            width: 90%;
         }
     }
     @media (min-width: 1200px) {
         .container {
-            width: 800px;
+            /*width: 800px;*/
+            /*height:401px;*/
         }
     }
     .container-fluid {
@@ -294,6 +285,7 @@
         float: left;
         width: 50%;
     }
+
     .services-grids {
         float: left;
         width: 50%;
@@ -331,13 +323,13 @@
         -ms-transition: .5s all;
     }
     .services-left1{
-        height: 127px;
         float: left;
         width: 40%;
-        background:#007aff;
+        height:197px;
+        background:#1994b6;
         text-align: center;
-        padding: 1.93em 0;
-        border: 1px solid #dedede;
+        /*padding: 1.93em 0;*/
+        border: 1px solid #1994b6;
         -webkit-transition: .5s all;
         -moz-transition: .5s all;
         transition: .5s all;
@@ -345,10 +337,9 @@
         -ms-transition: .5s all;
     }
     .services-left2{
-        height: 127px;
         float: left;
         width: 40%;
-        background:#f6525c;
+        background:#cecece;
         text-align: center;
         padding: 1.93em 0;
         border: 1px solid #dedede;
@@ -359,11 +350,10 @@
         -ms-transition: .5s all;
     }
     .services-left3{
-        height: 127px;
         float: left;
         width: 40%;
         text-align: center;
-        background:#13bd83;
+        background:#cecece;
         padding: 1.93em 0;
         border: 1px solid #dedede;
         -webkit-transition: .5s all;
@@ -373,10 +363,9 @@
         -ms-transition: .5s all;
     }
     .services-left4{
-        height: 127px;
         float: left;
         width: 40%;
-        background:#ffb600;
+        background:#cecece;
         text-align: center;
         padding: 1.93em 0;
         border: 1px solid #dedede;
@@ -413,28 +402,36 @@
         margin-top: 2.2em;
     }
     #services{
-        background:#f3f3f3;
+        background:transparent;
+    }
+    strong{
+        font-size: 79px;
     }
 </style>
+
 <div id="services" class="services">
     <div class="container">
         <h3 class="title"><strong>中心绿廊—土壤温湿计</strong></h3>
         <div class="about-text">
             <%--<c:forEach items="${device.dataList}" var="dt">--%>
             <div class="col-md-6">
-                <div  class="services-left1">
-                    <span class="glyphicon glyphicon-time"><p style="font-size:24px"><strong>土壤含水率</strong> </p></span>
+                <div  class="services-left1" style="display: table">
+                    <div style="display: table-cell; vertical-align: middle; ">
+                        <strong style="font-size: 79px; line-height: 79px;">土壤含水率</strong>
+                    </div>
                 </div>
                 <div  class="services-right">
-                    <h4>15.70%</h4>
+                    <h4>28.20%</h4>
                 </div>
             </div>
             <div class="col-md-6">
-                <div  class="services-left1">
-                    <span class="glyphicon glyphicon-time"><p style="font-size:24px"><strong>土壤温度</strong> </p></span>
+                <div  class="services-left1" style="display: table">
+                    <div style="display: table-cell; vertical-align: middle;">
+                        <strong style="font-size: 79px; line-height: 79px;">土壤温度</strong>
+                    </div>
                 </div>
                 <div  class="services-right">
-                    <h4>15.1℃</h4>
+                    <h4>25.4℃</h4>
                 </div>
             </div>
             <%--</c:forEach>--%>
@@ -443,19 +440,23 @@
         <div class="about-text">
             <%--<c:forEach items="${device.dataList}" var="dt">--%>
             <div class="col-md-6">
-                <div  class="services-left1">
-                    <span class="glyphicon glyphicon-time"><p style="font-size:24px"><strong>土壤含水率</strong> </p></span>
+                <div  class="services-left1" style="display: table">
+                    <div style="display: table-cell; vertical-align: middle;">
+                        <strong style="font-size: 79px; line-height: 79px;">土壤含水率</strong>
+                    </div>
                 </div>
                 <div  class="services-right">
-                    <h4>15.70%</h4>
+                    <h4>28.1%</h4>
                 </div>
             </div>
             <div class="col-md-6">
-                <div  class="services-left1">
-                    <span class="glyphicon glyphicon-time"><p style="font-size:24px"><strong>土壤温度</strong> </p></span>
+                <div  class="services-left1" style="display: table">
+                    <div style="display: table-cell; vertical-align: middle; ">
+                        <strong style="font-size: 79px; line-height: 79px;">土壤温度</strong>
+                    </div>
                 </div>
                 <div  class="services-right">
-                    <h4>15.1℃</h4>
+                    <h4>25.9℃</h4>
                 </div>
             </div>
             <%--</c:forEach>--%>
@@ -464,19 +465,23 @@
         <div class="about-text">
             <%--<c:forEach items="${device.dataList}" var="dt">--%>
             <div class="col-md-6">
-                <div  class="services-left1">
-                    <span class="glyphicon glyphicon-time"><p style="font-size:24px"><strong>土壤含水率</strong> </p></span>
+                <div  class="services-left1" style="display: table">
+                    <div style="display: table-cell; vertical-align: middle;">
+                        <strong style="font-size: 79px; line-height: 79px;">土壤含水率</strong>
+                    </div>
                 </div>
                 <div  class="services-right">
-                    <h4>15.70%</h4>
+                    <h4>28.3%</h4>
                 </div>
             </div>
             <div class="col-md-6">
-                <div  class="services-left1">
-                    <span class="glyphicon glyphicon-time"><p style="font-size:24px"><strong>土壤温度</strong> </p></span>
+                <div  class="services-left1" style="display: table">
+                    <div style="display: table-cell; vertical-align: middle;">
+                        <strong style="font-size: 79px; line-height: 79px;">土壤温度</strong>
+                    </div>
                 </div>
                 <div  class="services-right">
-                    <h4>15.1℃</h4>
+                    <h4>27.1℃</h4>
                 </div>
             </div>
             <%--</c:forEach>--%>

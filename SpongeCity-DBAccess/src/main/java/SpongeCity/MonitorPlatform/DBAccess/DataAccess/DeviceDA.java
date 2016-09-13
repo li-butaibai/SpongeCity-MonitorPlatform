@@ -99,6 +99,32 @@ public class DeviceDA {
         }
     }
 
+    public List<DB_DeviceModel> getDeviceListByDeviceType(int devicetype_id) {
+        SqlSession session = BatisConnection.getSession();
+        try {
+            List<DB_DeviceModel> devices = new ArrayList<DB_DeviceModel>();
+            IDeviceOperation deviceOperation = session.getMapper(IDeviceOperation.class);
+            devices = deviceOperation.getDeviceListByDeviceType(devicetype_id);
+            return devices;
+        } finally {
+            session.close();
+        }
+    }
+
+    public List<DB_DeviceModel> getDeviceListByDeviceTypeAndAreaId(int areaId, int devicetypeId) {
+        SqlSession session = BatisConnection.getSession();
+        List<DB_DeviceModel> devices = null;
+        try {
+            IDeviceOperation deviceOperation = session.getMapper(IDeviceOperation.class);
+            devices = deviceOperation.getDeviceListByDeviceTypeAndAreaId(areaId, devicetypeId);
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return devices;
+    }
+
     /*public List<DB_DeviceModel> getDevicesWithData(int dataTypeId){
     }*/
 }

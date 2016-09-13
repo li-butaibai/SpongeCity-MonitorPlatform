@@ -168,4 +168,24 @@ public class DataDA {
             session.close();
         }
     }
+
+    public int getTotalCount(){
+        SqlSession session = BatisConnection.getSession();
+        try {
+            IDataOperation dataOperation = session.getMapper(IDataOperation.class);
+            return dataOperation.getTotalCount();
+        } finally {
+            session.close();
+        }
+    }
+
+    public int getCountByDataType(int dataTypeId){
+        SqlSession session = BatisConnection.getSession();
+        try {
+            IDataOperation dataOperation = session.getMapper(IDataOperation.class);
+            return dataOperation.getCountByDataType(dataTypeId);
+        } finally {
+            session.close();
+        }
+    }
 }

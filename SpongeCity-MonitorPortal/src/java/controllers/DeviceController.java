@@ -82,7 +82,9 @@ public class DeviceController {
             {
                 DataModel dataModel = new DataModel();
                 dataModel.setId(dm.getId());
-                dataModel.setDatatime(dm.getDatetime());
+                Calendar ca=Calendar.getInstance();ca.setTime(dm.getDatetime());
+                ca.add(Calendar.HOUR_OF_DAY,0);
+                dataModel.setDatatime(ca.getTime());
                 dataModel.setDatatype(dm.getDatatype().getDatatype());
                 dataModel.setDatavalue(dm.getDatavalue());
                 dataModel.setUnit(dm.getDatatype().getUnit());

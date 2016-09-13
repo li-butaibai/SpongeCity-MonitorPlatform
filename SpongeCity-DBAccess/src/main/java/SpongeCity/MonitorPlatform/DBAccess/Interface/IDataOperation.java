@@ -24,4 +24,9 @@ public interface IDataOperation {
     List<DB_DataModel> getDataByDeviceIdAndTime(Map params);
 
     List<DB_DataModel> getLastestDeviceData(int deviceId);
+
+    int getTotalCount();
+
+    int getCountByDataType(int dataTypeId);
+
 }

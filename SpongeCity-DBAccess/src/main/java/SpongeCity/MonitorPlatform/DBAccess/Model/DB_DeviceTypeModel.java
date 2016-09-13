@@ -8,6 +8,7 @@ public class DB_DeviceTypeModel {
     private String name;
     private String comments;
 
+
     public int getId() {
         return id;
     }

@@ -13,4 +13,6 @@ public interface IAreaOperation {
     DB_AreaModel getAreaById(int areaId);
 
     List<DB_AreaModel> getAreaChildren(int areaId);
+
+    List<DB_AreaModel> getAreaByParentID(int parentID);
 }

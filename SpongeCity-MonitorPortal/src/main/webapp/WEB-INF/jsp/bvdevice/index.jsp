@@ -23,39 +23,39 @@
 </div>
 <script type="text/javascript">
   var devices=[];
-
-  function getAllDevices()
-  {
-    $.ajax({
-      url: "/devices/devices?areaId=16",
-      type: "get",
-      async: false,
-      dataType: "json",
-      data: { "rnd": Math.random() },
-      success: function (data) {
-        devices = data;
-      },
-      error: function (data) {
-        rtn = false;
-      }
-    });
-  }
-  function getDeviceInfo(deviceId)
-  {
-    $.ajax({
-      url: "/data/getdevicebv?deviceId="+deviceId,
-      type: "get",
-      async: false,
-      dataType: "text",
-      data: { "rnd": Math.random() },
-      success: function (data) {
-        $('#mainBody').html(data);
-      },
-      error: function (data) {
-        rtn = false;
-      }
-    });
-  }
+//
+//  function getAllDevices()
+//  {
+//    $.ajax({
+//      url: "/devices/devices?areaId=16",
+//      type: "get",
+//      async: false,
+//      dataType: "json",
+//      data: { "rnd": Math.random() },
+//      success: function (data) {
+//        devices = data;
+//      },
+//      error: function (data) {
+//        rtn = false;
+//      }
+//    });
+//  }
+//  function getDeviceInfo(deviceId)
+//  {
+//    $.ajax({
+//      url: "/data/getdevicebv?deviceId="+deviceId,
+//      type: "get",
+//      async: false,
+//      dataType: "text",
+//      data: { "rnd": Math.random() },
+//      success: function (data) {
+//        $('#mainBody').html(data);
+//      },
+//      error: function (data) {
+//        rtn = false;
+//      }
+//    });
+//  }
 
   function getDeviceInfo2(urlPath)
   {
@@ -82,20 +82,21 @@ var detaliUrl = ["/data/getdevicebv?deviceId=1008",
                     "/data/getdevicebv?deviceId=1010",
                     "/data/getSoilTemp?deviceId=46,47,1007",
                     "/data/getFulidLevel?deviceId=43,44,45"];
-function upatediv() {
-  for (indx; indx < devices.length; indx++) {
-    if (devices[indx].state == "online" || devices[indx].state == "Online") {
-      getDeviceInfo(devices[indx].id);
-      break;
-    }
-  }
-}
-  console.log(detaliUrl);
+ //var detaliUrl = ["/data/getSoilTemp?deviceId=46,47,1007"];
+//function upatediv() {
+//  for (indx; indx < devices.length; indx++) {
+//    if (devices[indx].state == "online" || devices[indx].state == "Online") {
+//      getDeviceInfo(devices[indx].id);
+//      break;
+//    }
+//  }
+//}
+//  console.log(detaliUrl);
 function upatediv2() {
   getDeviceInfo2(detaliUrl[indx]);
   console.log(indx);
   indx+=1;
-  if (indx > detaliUrl.length) indx = 0;
+  if (indx == detaliUrl.length) indx = 0;
 }
   upatediv2();
   var devicesTimeticket =  setInterval(upatediv2, 5000)

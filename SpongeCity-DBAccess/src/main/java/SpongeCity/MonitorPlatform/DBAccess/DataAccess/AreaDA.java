@@ -73,4 +73,16 @@ public class AreaDA {
         }
         return areas;
     }
+
+    public List<DB_AreaModel> getAreaByParentID(int parentID) {
+        SqlSession session = BatisConnection.getSession();
+        try {
+            IAreaOperation areaOperation = session.getMapper(IAreaOperation.class);
+            List<DB_AreaModel> areas = areaOperation.getAreaByParentID(parentID);
+            return areas;
+        } finally {
+            session.close();
+        }
+    }
+
 }
